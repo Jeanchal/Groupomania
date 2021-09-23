@@ -1,0 +1,155 @@
+@import "./settings";
+
+.page {
+  header {
+    border-bottom: 3px ridge rgb(209, 208, 208);
+    padding-top: 5px;
+    background-color: white;
+    margin-bottom: 50px;
+    @include flexCenter;
+    @media (min-width: 785px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .navigation {
+        margin: 10px 30px 0 0;
+      }
+      .logo {
+        margin: 0 0 0 20px;
+      }
+    }
+    .logo {
+      img {
+        margin-right: 10px;
+        cursor: pointer;
+        height: 50px;
+      }
+    }
+    .navigation {
+      a {
+        margin: 0 10px 0 10px;
+        padding: 10px;
+        border-radius: 5px;
+        width: 2px;
+      }
+      i {
+        padding: 10px;
+        font-size: 160%;
+        color: grey;
+        &:hover {
+          background-color: $color-4;
+          opacity: 0.6;
+          @include transition;
+          border-radius: 30%;
+        }
+      }
+      .nav-active {
+        border-bottom: 7px solid $color-2;
+        i {
+          color: black;
+        }
+      }
+    }
+  }
+  main {
+    margin-bottom: 30px;
+    @include flexCenter;
+    .login-container {
+      @include flexCenter;
+      @include box;
+      padding: 10px 20px 40px 20px;
+      .selectLog {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        button {
+          background-color: $color-1;
+          padding: 10px;
+          cursor: pointer;
+          width: 45%;
+          margin: 5px;
+          @include btn;
+          @include boxShadow;
+        }
+      }
+      .activ-btn {
+        background-color: $color-2 !important;
+      }
+      .form {
+        display: grid;
+        width: $minWidth;
+        @media (min-width: $minwidth3) {
+          @include transition;
+          min-width: $minWidth2;
+        }
+        label {
+          margin: 10px 0 5px 0;
+        }
+        .input {
+          border-radius: 10px;
+          background-color: rgb(233, 227, 227) !important;
+          padding: 15px;
+          @include input;
+          &:focus {
+            outline: none;
+          }
+        }
+        #submit {
+          padding: 15px;
+          margin-top: 20px;
+          cursor: pointer;
+          background-color: $color-2;
+          @include btn;
+          @include boxShadow;
+        }
+      }
+    }
+    .profil-container {
+      @include box;
+      @include flexCenter;
+      padding: 0 0 40px 15px;
+      width: 90%;
+      @media (min-width: 850px) {
+        width: 70%;
+        @include transition;
+      }
+      #imgProfil {
+        @include transition;
+        height: 130px;
+        border: 3px solid grey;
+        border-radius: 50%;
+        margin-bottom: 10px;
+      }
+      .infosPublic,
+      .infosPerso {
+        width: 95%;
+        .profilGrid {
+          display: grid;
+          grid-template-columns: 3fr 5fr 1fr;
+          div {
+            padding: 10px;
+            border-bottom: 3px solid rgb(211, 210, 210);
+            margin: 5px 0 15px 0;
+          }
+          .lienModif {
+            margin-right: 15px;
+            cursor: pointer;
+            color: rgb(51, 51, 233);
+          }
+        }
+      }
+      button {
+        margin: 5px;
+      }
+    }
+    .acceuil-container {
+      @include box;
+      @include flexCenter;
+      padding: 0 20px 40px 20px;
+      width: 85%;
+      @media (min-width: 850px) {
+        width: 70%;
+      }
+    }
+  }
+}
