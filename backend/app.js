@@ -1,6 +1,7 @@
 const express = require("express");
 const userRoutes = require("./routes/userRoutes");
 const profilRoutes = require("./routes/profilRoutes");
+const path = require("path");
 
 class App {
   app;
@@ -26,6 +27,7 @@ class App {
     });
     this.app.use(express.json());
     this.app.set("port", this.port);
+    this.app.use("/images", express.static(path.join(__dirname, "images")));
     this.app.use("/api/user", userRoutes);
     this.app.use("/api/profil", profilRoutes);
   }

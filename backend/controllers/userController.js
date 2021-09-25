@@ -76,7 +76,7 @@ exports.modifyUser = (req, res) => {
           password: hash,
           userId: req.body.userId,
         },
-        { where: { userId: req.body.userId } }
+        { where: { userId: req.params.userId } }
       )
         .then(() => res.status(201).json({ message: "Utilisateur modifié !" }))
         .catch((error) => res.status(400).json({ error }));
@@ -85,7 +85,7 @@ exports.modifyUser = (req, res) => {
 };
 
 exports.deleteUser = (req, res) => {
-  User.destroy({ where: { userId: req.body.userId } })
+  User.destroy({ where: { userId: req.params.userId } })
     .then((user) => {
       if (user) {
         res.status(201).json({ message: "Utilisateur supprimé !" });
@@ -103,7 +103,7 @@ exports.getAllUsers = (req, res) => {
 };
 
 exports.getOneUser = (req, res) => {
-  User.findAll({ where: { userId: req.body.userId } })
+  User.findAll({ where: { userId: req.params.userId } })
     .then((user) => res.status(201).json({ user }))
     .catch((error) => res.status(400).json({ error }));
 };

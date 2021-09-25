@@ -21,7 +21,7 @@ exports.modifyProfil = (req, res) => {
       photoProfil: req.body.photoProfil,
       photoBackground: req.body.photoBackground,
     },
-    { where: { userId: req.body.userId } }
+    { where: { userId: req.params.userId } }
   )
     .then(() => res.status(201).json({ message: "Profil modifié !" }))
     .catch((error) => res.status(400).json({ error }));
@@ -34,13 +34,13 @@ exports.getAllProfils = (req, res) => {
 };
 
 exports.getOneProfil = (req, res) => {
-  Profil.findAll({ where: { userId: req.body.userId } })
+  Profil.findAll({ where: { userId: req.params.userId } })
     .then((profil) => res.status(201).json({ profil }))
     .catch((error) => res.status(400).json({ error }));
 };
 
 exports.deleteProfil = (req, res) => {
-  Profil.destroy({ where: { userId: req.body.userId } })
+  Profil.destroy({ where: { userId: req.params.userId } })
     .then(() => res.status(201).json({ message: "Profil supprimé !" }))
     .catch((error) => res.status(400).json({ error }));
 };

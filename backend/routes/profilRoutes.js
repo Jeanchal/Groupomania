@@ -4,10 +4,10 @@ const profilController = require("../controllers/profilController");
 const auth = require("../middlewares/auth");
 const multer = require("../middlewares/multer-config");
 
-router.post("/", auth, multer, profilController.postProfil);
-router.put("/modify", auth, profilController.modifyProfil);
-router.get("/", auth, profilController.getAllProfils);
-router.get("/selectOne", auth, profilController.getOneProfil);
-router.delete("/", auth, profilController.deleteProfil);
+router.post("/", profilController.postProfil);
+router.put("/:userId", profilController.modifyProfil);
+router.get("/", profilController.getAllProfils);
+router.get("/:userId", profilController.getOneProfil);
+router.delete("/:userId", profilController.deleteProfil);
 
 module.exports = router;
