@@ -1,18 +1,18 @@
 const express = require("express");
 const userRoutes = require("./routes/userRoutes");
-const path = require("path");
+const profilRoutes = require("./routes/profilRoutes");
 
 class App {
-  appExpress;
+  app;
   database;
   constructor(port) {
-    this.appExpress = express();
+    this.app = express();
     this.init();
     this.port = port;
     this.setDatabase;
   }
   init() {
-    this.appExpress.use((req, res, next) => {
+    this.app.use((req, res, next) => {
       res.setHeader("Access-Control-Allow-Origin", "*");
       res.setHeader(
         "Access-Control-Allow-Headers",
@@ -24,14 +24,10 @@ class App {
       );
       next();
     });
-
-    this.appExpress.use(express.json());
-    this.appExpress.use(
-      "/images",
-      express.static(path.join(__dirname, "images"))
-    );
-    this.appExpress.use("/api/user", userRoutes);
-    this.appExpress.set("port", this.port);
+    this.app.use(express.json());
+    this.app.set("port", this.port);
+    this.app.use("/api/user", userRoutes);
+    this.app.use("/api/profil", profilRoutes);
   }
   setDatabase(connect) {
     this.database = connect;

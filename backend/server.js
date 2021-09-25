@@ -1,10 +1,18 @@
-require("dotenv").config({ path: "./config/.env" });
 const http = require("http");
 const App = require("./app");
 const db = require("./config/db");
-const app = new App(process.env.PORT, db).appExpress;
-const server = http.createServer(app);
+const port = 4000;
+const appExpress = new App(port, db).app;
+const server = http.createServer(appExpress);
 
-server.listen(process.env.PORT, () => {
-  console.log("Listenning on port " + process.env.PORT);
+// const model = require("./models");
+
+// model.sequelize.sync().then((req) => {
+//   server.listen(port, () => {
+//     console.log("Listening on port " + port);
+//   });
+// });
+
+server.listen(port, () => {
+  console.log("Listening on port " + port);
 });
