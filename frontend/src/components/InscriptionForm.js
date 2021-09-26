@@ -23,12 +23,13 @@ const InscriptionForm = () => {
       })
         .then((res) => {
           alert("Bienvenue " + pseudo);
-          window.location = "/forum";
-          // console.log("Status: " + res.status + ", Utilisateur Créé !");
+          sessionStorage.setItem("pseudo", res.data.pseudo);
+          sessionStorage.setItem("userId", res.data.userId);
+          sessionStorage.setItem("token", res.data.token);
+          window.location = "/acceuil";
         })
         .catch((error) => {
           console.log(error);
-          console.log("Erreur ! saisie incorrecte");
           msgError.innerText = "Erreur ! saisie incorrecte";
         });
     } else {

@@ -17,9 +17,12 @@ const ConnexionForm = () => {
       },
     })
       .then((res) => {
-        // alert("Bonjour " + pseudo + ", content de vous revoir...");
-        // console.log("Status: " + res.status + ", Utilisateur connecté !");
-        window.location = "/forum";
+        alert("Bonjour " + res.data.pseudo + ", content de vous revoir...");
+        console.log("Status: " + res.status + ", Utilisateur connecté !");
+        sessionStorage.setItem("pseudo", res.data.pseudo);
+        sessionStorage.setItem("userId", res.data.userId);
+        sessionStorage.setItem("token", res.data.token);
+        window.location = "/acceuil";
       })
       .catch((error) => {
         console.log(error);

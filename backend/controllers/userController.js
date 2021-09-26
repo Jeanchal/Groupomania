@@ -16,8 +16,19 @@ exports.signup = (req, res) => {
                 email: req.body.email,
                 password: hash,
               })
-                .then(() =>
-                  res.status(201).json({ message: "Utilisateur créé !" })
+                .then((user) =>
+                  res.status(201).json({
+                    pseudo: user.pseudo,
+                    userId: user.userId,
+                    token: jsonWebToken.sign(
+                      { userId: user.userId },
+                      process.env.SECURITY_TOKEN,
+                      {
+                        expiresIn: "24h",
+                      }
+                    ),
+                    message: "Utilisateur connecté !",
+                  })
                 )
                 .catch((error) => res.status(400).json({ error }));
             } else {
@@ -49,6 +60,7 @@ exports.login = (req, res) => {
             return res.status(401).json({ error: "Mot de passe incorrect !" });
           }
           res.status(200).json({
+            pseudo: user.pseudo,
             userId: user.userId,
             token: jsonWebToken.sign(
               { userId: user.userId },
