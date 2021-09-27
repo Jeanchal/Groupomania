@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Profil = sequelize.define("Profil", {
     userId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     bio: {

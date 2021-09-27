@@ -1,6 +1,7 @@
 const express = require("express");
 const userRoutes = require("./routes/userRoutes");
 const profilRoutes = require("./routes/profilRoutes");
+const postRoutes = require("./routes/postRoutes");
 const path = require("path");
 
 class App {
@@ -30,6 +31,7 @@ class App {
     this.app.use("/images", express.static(path.join(__dirname, "images")));
     this.app.use("/api/user", userRoutes);
     this.app.use("/api/profil", profilRoutes);
+    this.app.use("/api/post", postRoutes);
   }
   setDatabase(connect) {
     this.database = connect;
