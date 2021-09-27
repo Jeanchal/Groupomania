@@ -13,6 +13,7 @@
   @include input;
   color: white;
   font-weight: bold;
+  cursor: pointer;
 }
 @mixin boxShadow {
   box-shadow: 0 2px 4px rgb(107, 103, 103);
