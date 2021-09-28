@@ -4,6 +4,7 @@ const { Post } = require("../models");
 exports.createPost = (req, res) => {
   Post.create({
     userId: req.body.userId,
+    pseudo: req.body.pseudo,
     publication: req.body.publication,
     imageUrl: req.body.imageUrl,
   })

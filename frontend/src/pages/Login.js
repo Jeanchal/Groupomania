@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Logo from "../components/Logo";
-import InscriptionForm from "../components/InscriptionForm";
-import ConnexionForm from "../components/ConnexionForm";
+import InscriptionForm from "../components/Login/InscriptionForm";
+import ConnexionForm from "../components/Login/ConnexionForm";
 
 const Login = () => {
   const [inscriptionModel, setInscriptionModel] = useState(false);

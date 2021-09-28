@@ -18,30 +18,31 @@ const UpdateProfil = () => {
       <h1>Mon profil</h1>
       <img src="./img/profil.jpg" id="imgProfil" alt="img-profil" />
       <div className="infosPublic">
-        <h3>À propos de moi</h3>
+        <div className="entete">
+          <h3>À propos de moi</h3>
+          <p className="lienModif">Modifier</p>
+        </div>
         <div className="profilGrid">
           <div>Poste actuel</div>
           <div>...</div>
-          <div className="lienModif">Ajouter</div>
           <div>Bio</div>
           <div>...</div>
-          <div className="lienModif">Ajouter</div>
         </div>
       </div>
       <br />
       <br />
       <div className="infosPerso">
-        <h3>Mes infos personelles</h3>
+        <div className="entete">
+          <h3>Mes infos personelles</h3>
+          <p className="lienModif">Modifier</p>
+        </div>
         <div className="profilGrid">
           <div>Pseudo</div>
           <div>Jano78</div>
-          <div className="lienModif">Modifier</div>
           <div>Mot de passe</div>
           <div>**********</div>
-          <div className="lienModif">Modifier</div>
           <div>Email</div>
           <div>jean@gmail.com</div>
-          <div className="lienModif">Modifier</div>
         </div>
       </div>
     </div>

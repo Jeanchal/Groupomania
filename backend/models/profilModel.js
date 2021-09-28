@@ -16,10 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       defaultValue: "",
     },
-    photoBackground: {
-      type: DataTypes.STRING,
-      defaultValue: "",
-    },
   });
   return Profil;
 };

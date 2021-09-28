@@ -1,8 +1,11 @@
 {
-  "name": "essai",
+  "name": "backend",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "directories": {
+    "test": "tests"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server"
@@ -17,7 +20,6 @@
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.3",
     "mysql2": "^2.3.0",
-    "node-ejs": "^1.2.3",
     "nodemon": "^2.0.13",
     "path": "^0.12.7",
     "sequelize": "^6.6.5",

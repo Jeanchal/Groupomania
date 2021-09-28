@@ -4,6 +4,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    pseudo: {
+      type: DataTypes.STRING,
+      defaultValue: "",
+    },
     publication: {
       type: DataTypes.TEXT,
       defaultValue: "",

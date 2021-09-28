@@ -16,7 +16,7 @@
   cursor: pointer;
 }
 @mixin boxShadow {
-  box-shadow: 0 2px 4px rgb(107, 103, 103);
+  box-shadow: 0 1px 2px rgb(107, 103, 103);
 }
 @mixin box {
   background-color: white;
@@ -29,9 +29,9 @@
 
 $color-1: rgb(72, 72, 83);
 $color-2: rgb(228, 92, 74);
-$color-3: rgb(226, 218, 218);
+$color-3: rgb(229, 230, 232);
 $color-4: rgb(245, 204, 204);
-$color-5: rgb(231, 238, 248);
+$color-5: rgb(237, 240, 245);
 $color-6: rgb(82, 204, 44);
 $minWidth: 250px;
 $minWidth2: 350px;
