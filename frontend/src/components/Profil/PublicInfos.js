@@ -10,6 +10,7 @@ const PublicInfos = () => {
       .get("http://localhost:4000/api/profil/" + userId)
       .then((res) => {
         setData(res.data.profil[0]);
+        console.log(res.data.profil[0].photoProfil);
       })
       .catch((error) => {
         console.log(error);

@@ -3,6 +3,7 @@ import Navigation from "../components/Navigation";
 import Logo from "../components/Logo";
 import PublicInfos from "../components/Profil/PublicInfos";
 import PersoInfos from "../components/Profil/PersoInfos";
+import UploadImg from "../components/Profil/UploadImg";
 
 const Profil = () => {
   return (
@@ -14,7 +15,7 @@ const Profil = () => {
       <main>
         <div className="profil-container">
           <h1>Mon profil</h1>
-          <img src="./img/profil.jpg" id="imgProfil" alt="img-profil" />
+          <UploadImg />
           <PublicInfos />
           <br />
           <br />

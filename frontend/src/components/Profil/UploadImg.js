@@ -1,36 +1,54 @@
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import React, { useState } from "react";
 
 const UploadImg = () => {
   const [file, setFile] = useState();
-  const pseudo = sessionStorage.getItem("pseudo");
   const userId = sessionStorage.getItem("userId");
+  const [data, setData] = useState([]);
 
-  const gestionImage = () => {
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/api/profil/" + userId)
+      .then((res) => {
+        setData(res.data.profil[0]);
+        console.log(res.data.profil[0].photoProfil);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const gestionImage = (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("pseudo", pseudo);
-    data.append("userId", userId);
-    data.append("file", file);
+    data.append("image", file);
 
-    axios.post("http://localhost:4000/api/profil", data).then((res) => {
-      console.log(res.data);
-    });
+    axios
+      .post("http://localhost:4000/upload", data)
+      .then((res) => {
+        console.log("image postée");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
-    <form action="" onSubmit={gestionImage} className="uploadImg">
-      <label htmlFor="file">Modifier image</label>
-      <input
-        type="file"
-        id="file"
-        name="file"
-        accept=".jpg, .jpeg, .png"
-        onChange={(e) => setFile(e.target.files[0])}
-      />
-      <br />
-      <input type="submit" value="Envoyer" />
-    </form>
+    <div id="img-container">
+      <figure>
+        <img src={data.photoProfil} id="imgProfil" alt="img-profil" />
+      </figure>
+      <form action="" onSubmit={gestionImage} className="uploadImg">
+        <input
+          type="file"
+          id="file"
+          name="image"
+          accept=".jpg, .jpeg, .png"
+          onChange={(e) => setFile(e.target.files[0])}
+        />
+        <input type="submit" value="Envoyer" />
+      </form>
+    </div>
   );
 };
 
