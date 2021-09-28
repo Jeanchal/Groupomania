@@ -2,8 +2,8 @@ const express = require("express");
 const userRoutes = require("./routes/userRoutes");
 const profilRoutes = require("./routes/profilRoutes");
 const postRoutes = require("./routes/postRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
 const path = require("path");
-const multer = require("./middlewares/multer-config");
 
 class App {
   app;
@@ -33,12 +33,7 @@ class App {
     this.app.use("/api/user", userRoutes);
     this.app.use("/api/profil", profilRoutes);
     this.app.use("/api/post", postRoutes);
-    this.app.post("/upload", multer, (req, res) => {
-      console.log(
-        `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
-      );
-      console.log(res);
-    });
+    this.app.post("/upload", uploadRoutes);
   }
   setDatabase(connect) {
     this.database = connect;
