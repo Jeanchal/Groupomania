@@ -6,11 +6,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     bio: {
       type: DataTypes.TEXT,
-      defaultValue: "",
+      defaultValue: "...",
     },
     fonction: {
       type: DataTypes.STRING,
-      defaultValue: "",
+      defaultValue: "...",
     },
     photoProfil: {
       type: DataTypes.STRING,

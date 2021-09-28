@@ -1,7 +1,8 @@
 import React from "react";
 import Navigation from "../components/Navigation";
 import Logo from "../components/Logo";
-import UpdateProfil from "../components/Profil/UpdateProfil";
+import PublicInfos from "../components/Profil/PublicInfos";
+import PersoInfos from "../components/Profil/PersoInfos";
 
 const Profil = () => {
   return (
@@ -11,7 +12,14 @@ const Profil = () => {
         <Navigation />
       </header>
       <main>
-        <UpdateProfil />
+        <div className="profil-container">
+          <h1>Mon profil</h1>
+          <img src="./img/profil.jpg" id="imgProfil" alt="img-profil" />
+          <PublicInfos />
+          <br />
+          <br />
+          <PersoInfos />
+        </div>
       </main>
     </div>
   );

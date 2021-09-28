@@ -87,7 +87,7 @@
         }
         .input {
           border-radius: 10px;
-          background-color: rgb(233, 227, 227) !important;
+          background-color: $color-3;
           padding: 15px;
           @include input;
           &:focus {
@@ -144,7 +144,7 @@
           background-color: $color-3;
           border-radius: 15px;
           display: grid;
-          grid-template-columns: 3fr 5fr;
+          grid-template-columns: 2fr 5fr;
           div {
             padding: 15px;
             margin: 5px 0 5px 0;
@@ -167,7 +167,7 @@
         form {
           .post {
             @include input;
-            background-color: rgb(233, 227, 227) !important;
+            background-color: $color-3;
             height: 100px;
             width: 100%;
             box-sizing: border-box;
