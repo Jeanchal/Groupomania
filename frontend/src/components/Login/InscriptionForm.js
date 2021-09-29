@@ -27,6 +27,26 @@ const InscriptionForm = () => {
           sessionStorage.setItem("userId", res.data.userId);
           sessionStorage.setItem("token", res.data.token);
           window.location = "/acceuil";
+          axios({
+            method: "post",
+            url: `http://localhost:4000/api/user/signup`,
+            data: {
+              pseudo: pseudo,
+              email: email,
+              password: password,
+            },
+          })
+            .then((res) => {
+              alert("Bienvenue " + pseudo);
+              sessionStorage.setItem("pseudo", res.data.pseudo);
+              sessionStorage.setItem("userId", res.data.userId);
+              sessionStorage.setItem("token", res.data.token);
+              window.location = "/acceuil";
+            })
+            .catch((error) => {
+              console.log(error);
+              msgError.innerText = "Erreur ! saisie incorrecte";
+            });
         })
         .catch((error) => {
           console.log(error);

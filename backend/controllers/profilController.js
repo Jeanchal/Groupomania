@@ -7,7 +7,6 @@ exports.postProfil = (req, res) => {
     bio: req.body.bio,
     fonction: req.body.fonction,
     photoProfil: req.body.photoProfil,
-    photoBackground: req.body.photoBackground,
   })
     .then(() => res.status(201).json({ message: "Profil créé !" }))
     .catch((error) => res.status(400).json({ error }));

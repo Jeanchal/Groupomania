@@ -1,7 +1,7 @@
 require("dotenv").config({ path: "./config/.env" });
 const jsonWebToken = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { User } = require("../models");
+const { User, Profil } = require("../models");
 
 exports.signup = (req, res) => {
   bcrypt
@@ -16,7 +16,13 @@ exports.signup = (req, res) => {
                 email: req.body.email,
                 password: hash,
               })
-                .then((user) =>
+                .then((user) => {
+                  Profil.create({
+                    userId: user.userId,
+                    bio: req.body.bio,
+                    fonction: req.body.fonction,
+                    photoProfil: req.body.photoProfil,
+                  });
                   res.status(201).json({
                     pseudo: user.pseudo,
                     userId: user.userId,
@@ -28,8 +34,8 @@ exports.signup = (req, res) => {
                       }
                     ),
                     message: "Utilisateur connecté !",
-                  })
-                )
+                  });
+                })
                 .catch((error) => res.status(400).json({ error }));
             } else {
               res

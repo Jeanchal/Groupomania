@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     photoProfil: {
       type: DataTypes.STRING,
-      defaultValue: "",
+      defaultValue: "./img/profil.jpg",
     },
   });
   return Profil;

@@ -14,7 +14,7 @@ const Profil = () => {
       </header>
       <main>
         <div className="profil-container">
-          <h1>Mon profil</h1>
+          <h1>{sessionStorage.getItem("pseudo")}</h1>
           <UploadImg />
           <PublicInfos />
           <br />
