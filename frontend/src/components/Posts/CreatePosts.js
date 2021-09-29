@@ -1,26 +1,34 @@
 import React, { useState } from "react";
 import axios from "axios";
+const userId = sessionStorage.getItem("userId");
+const pseudo = sessionStorage.getItem("pseudo");
 
 const CreatePosts = () => {
+  const name = pseudo + Date.now();
+  const urlImage = "http://localhost:4000/images/posts/" + name + ".jpg";
+  const url = "http://localhost:4000/api/post/";
+  const [file, setFile] = useState();
   const [publication, setPublication] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
 
   const createPost = (e) => {
-    const imgUrl =
-      "http://localhost:4000/images/" +
-      imageUrl.replace(/\\/g, "").replace("C:fakepath", "");
-
     e.preventDefault();
-    axios({
-      method: "post",
-      url: `http://localhost:4000/api/post`,
-      data: {
-        userId: sessionStorage.getItem("userId"),
-        pseudo: sessionStorage.getItem("pseudo"),
+    const data = new FormData();
+    data.append("name", name);
+    data.append("file", file);
+    console.log(data);
+
+    axios
+      .post(url + "upload", data)
+      .then(() => console.log(data.file.filename))
+      .catch((error) => console.log(error));
+
+    axios
+      .post(url, {
+        userId: userId,
+        pseudo: pseudo,
         publication: publication,
-        imageUrl: imgUrl,
-      },
-    })
+        imageUrl: urlImage,
+      })
       .then(() => {
         window.location = "/acceuil";
       })
@@ -45,10 +53,9 @@ const CreatePosts = () => {
           <i className="fas fa-image" title="ajouter une image"></i>
           <input
             type="file"
-            name="imageUrl"
+            name="file"
             id="imageUrl"
-            onChange={(e) => setImageUrl(e.target.value)}
-            value={imageUrl}
+            onChange={(e) => setFile(e.target.files[0])}
             className="imagePost"
             title="ajouter une image"
           />

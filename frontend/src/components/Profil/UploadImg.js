@@ -1,35 +1,39 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+const userId = sessionStorage.getItem("userId");
+const pseudo = sessionStorage.getItem("pseudo");
+const url = "http://localhost:4000/api/profil/";
+const urlImage = "http://localhost:4000/images/profil/" + pseudo + ".jpg";
 
 const UploadImg = () => {
   const [file, setFile] = useState();
-  const userId = sessionStorage.getItem("userId");
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api/profil/" + userId)
-      .then((res) => {
-        setData(res.data.profil[0]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      .get(url + userId)
+      .then((res) => setData(res.data.profil[0]))
+      .catch((error) => console.log(error));
   }, []);
 
   const gestionImage = (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("image", file);
+    data.append("name", pseudo);
+    data.append("file", file);
+    console.log(data);
 
     axios
-      .post("http://localhost:4000/upload", data)
-      .then((res) => {
-        console.log("image postée");
+      .post(url + "upload", data)
+      .then(() => console.log(data.file.filename))
+      .catch((error) => console.log(error));
+
+    axios
+      .put(url + userId, {
+        photoProfil: urlImage,
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .then(() => (window.location = "./profil"))
+      .catch((error) => console.log(error, "erreur axios"));
   };
 
   return (

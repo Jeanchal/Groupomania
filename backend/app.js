@@ -1,9 +1,9 @@
 const express = require("express");
+require("./config/db");
+const path = require("path");
 const userRoutes = require("./routes/userRoutes");
 const profilRoutes = require("./routes/profilRoutes");
 const postRoutes = require("./routes/postRoutes");
-const uploadRoutes = require("./routes/uploadRoutes");
-const path = require("path");
 
 class App {
   app;
@@ -33,7 +33,6 @@ class App {
     this.app.use("/api/user", userRoutes);
     this.app.use("/api/profil", profilRoutes);
     this.app.use("/api/post", postRoutes);
-    this.app.post("/upload", uploadRoutes);
   }
   setDatabase(connect) {
     this.database = connect;

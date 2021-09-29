@@ -4,6 +4,7 @@ import Logo from "../components/Logo";
 import PublicInfos from "../components/Profil/PublicInfos";
 import PersoInfos from "../components/Profil/PersoInfos";
 import UploadImg from "../components/Profil/UploadImg";
+const pseudo = sessionStorage.getItem("pseudo");
 
 const Profil = () => {
   return (
@@ -14,7 +15,7 @@ const Profil = () => {
       </header>
       <main>
         <div className="profil-container">
-          <h1>{sessionStorage.getItem("pseudo")}</h1>
+          <h1>{pseudo}</h1>
           <UploadImg />
           <PublicInfos />
           <br />

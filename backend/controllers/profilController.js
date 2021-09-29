@@ -18,7 +18,6 @@ exports.modifyProfil = (req, res) => {
       bio: req.body.bio,
       fonction: req.body.fonction,
       photoProfil: req.body.photoProfil,
-      photoBackground: req.body.photoBackground,
     },
     { where: { userId: req.params.userId } }
   )
