@@ -205,8 +205,6 @@
           }
         }
         .post-head-container {
-          display: flex;
-          justify-content: space-between;
           .post-pseudo {
             font-size: 130%;
             font-weight: bold;
@@ -215,6 +213,7 @@
           p {
             font-style: italic;
             color: grey;
+            font-size: 80%;
           }
         }
         #post-image {
@@ -226,11 +225,50 @@
         .activ-img {
           display: block !important;
         }
-        .post-modif-container {
+        .post-foot-container {
+          margin-top: 20px;
           display: flex;
-          justify-content: end;
-          button {
-            margin: 30px 5px 0 5px;
+          justify-content: space-between;
+          @media (max-width: 480px) {
+            display: block;
+            .post-modif {
+              margin-top: 20px;
+            }
+          }
+          .post-reactions {
+            display: flex;
+            .post-like {
+              font-size: 140%;
+            }
+            .post-comment {
+              font-size: 160%;
+              margin: 0 20px 0 20px;
+            }
+            .post-like,
+            .post-comment {
+              cursor: pointer;
+              opacity: 0.8;
+              display: flex;
+              margin-right: 30px;
+              .post-number {
+                margin: 5px 0 0 10px;
+                font-size: 70%;
+                font-weight: bold;
+              }
+            }
+          }
+          .post-modif {
+            button {
+              margin: 0 5px 5px 5px;
+              cursor: pointer;
+              border: none;
+              background-color: $color-2;
+              color: white;
+              font-weight: bold;
+              font-size: 80%;
+              border-radius: 10px;
+              padding: 10px;
+            }
           }
         }
       }

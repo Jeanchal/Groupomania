@@ -30,9 +30,23 @@ const Post = ({ post }) => {
         className={imgDisplay ? "activ-img" : null}
       />
       <div>{post.publication}</div>
-      <div className="post-modif-container">
-        <button>Modifier</button>
-        <button>Supprimer</button>
+      <div className="post-foot-container">
+        <div className="post-reactions">
+          <div className="post-comment">
+            <i className="far fa-comment-dots" title="commenter"></i>
+            <div className="post-number">1</div>
+          </div>
+          <div className="post-like">
+            <i className="fas fa-thumbs-up" title="liker"></i>
+            <div className="post-number">1</div>
+          </div>
+        </div>
+        <div>
+          <div className="post-modif">
+            <button>Modifier</button>
+            <button>Supprimer</button>
+          </div>
+        </div>
       </div>
     </div>
   );
