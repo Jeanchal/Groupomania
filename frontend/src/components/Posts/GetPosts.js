@@ -18,9 +18,11 @@ const GetPosts = () => {
 
   return (
     <div id="getPost-container">
-      {data.map((post) => (
-        <Post post={post} key={post.id} />
-      ))}
+      {data
+        .sort((a, b) => b.date - a.date)
+        .map((post) => (
+          <Post post={post} key={post.id} />
+        ))}
     </div>
   );
 };

@@ -7,6 +7,7 @@ exports.createPost = (req, res) => {
     pseudo: req.body.pseudo,
     publication: req.body.publication,
     imageUrl: req.body.imageUrl,
+    date: req.body.date,
   })
     .then(() => res.status(201).json({ message: "Post créé !" }))
     .catch((error) => res.status(400).json({ error }));

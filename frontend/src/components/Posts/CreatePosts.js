@@ -12,10 +12,11 @@ const CreatePosts = () => {
 
   const createPost = (e) => {
     e.preventDefault();
+
     const data = new FormData();
     data.append("name", name);
     data.append("file", file);
-    console.log(data);
+    console.log(data.file);
 
     axios
       .post(url + "upload", data)
@@ -28,6 +29,7 @@ const CreatePosts = () => {
         pseudo: pseudo,
         publication: publication,
         imageUrl: urlImage,
+        date: Date.now(),
       })
       .then(() => {
         window.location = "/acceuil";
