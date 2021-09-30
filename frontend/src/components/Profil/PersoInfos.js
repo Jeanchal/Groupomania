@@ -4,28 +4,42 @@ const userId = sessionStorage.getItem("userId");
 
 const PersoInfos = () => {
   const [user, setUser] = useState([]);
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
   useEffect(() => {
     axios
       .get("http://localhost:4000/api/user/" + userId)
-      .then((res) => {
-        setUser(res.data.user[0]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      .then((res) => setUser(res.data.user[0]))
+      .catch((error) => console.log(error));
   }, []);
+
+  function savePersoInfos() {
+    const reponse = window.confirm(
+      "Souhaitez-vous vraiment modifier ces informations ?"
+    );
+    if (reponse === true) {
+      axios
+        .put("http://localhost:4000/api/user/" + userId, {
+          email: email,
+          password: password,
+        })
+        .then((res) => setUser(res.data.user[0]))
+        .catch((error) => console.log(error));
+    }
+  }
 
   return (
     <div className="infos-container">
       <h3>Mes infos personelles</h3>
-      <form action="">
+      <form action="" onSubmit={savePersoInfos}>
         <div className="profilGrid">
           <label htmlFor="email-profil">Adresse email</label>
           <input
             type="email-profil"
             name="email-profil"
             id="email-profil"
+            onChange={(e) => setEmail(e.target.value)}
             placeholder={user.email}
           />
           <label htmlFor="mdp-profil">Mot de passe</label>
@@ -34,6 +48,7 @@ const PersoInfos = () => {
             name="mdp-profil"
             id="mdp-profil"
             placeholder="********"
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="submit-infos">

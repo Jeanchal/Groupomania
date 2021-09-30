@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+const userId = sessionStorage.getItem("userId");
 
 const Post = ({ post }) => {
+  const url = "http://localhost:4000/api/post/" + userId;
   const [imgDisplay, setImgDisplay] = useState(false);
+
+  useEffect(() => {
+    if (post.imageUrl === "") {
+      setImgDisplay(true);
+    }
+  }, []);
 
   const dateParser = (date) => {
     let newDate = new Date(date).toLocaleDateString("fr-FR", {
@@ -14,8 +23,28 @@ const Post = ({ post }) => {
     return newDate;
   };
 
-  console.log(post.imageUrl);
-  console.log(post.date);
+  const supprPost = () => {
+    const reponse = window.confirm("Souhaitez-vous supprimer cet article ?");
+    if (reponse === true) {
+      axios
+        .delete(url)
+        .then(() => (window.location = "/acceuil"))
+        .catch((error) => console.log(error));
+    }
+  };
+
+  const modifPost = () => {
+    const reponse = window.confirm("Souhaitez-vous modifier cet article ?");
+    if (reponse === true) {
+      // axios
+      //   .put(url, {
+      //     publication: publication,
+      //     imageUrl: urlImage,
+      //   })
+      //   .then(() => (window.location = "/acceuil"))
+      //   .catch((error) => console.log(error));
+    }
+  };
 
   return (
     <div className="post-container">
@@ -24,7 +53,11 @@ const Post = ({ post }) => {
         <p>posté le {dateParser(post.date)}</p>
       </div>
       <img
-        src={post.imageUrl}
+        src={
+          imgDisplay
+            ? "http://localhost:4000/images/posts/default.jpg"
+            : post.imageUrl
+        }
         alt="publication"
         id="post-image"
         className={imgDisplay ? "activ-img" : null}
@@ -43,8 +76,8 @@ const Post = ({ post }) => {
         </div>
         <div>
           <div className="post-modif">
-            <button>Modifier</button>
-            <button>Supprimer</button>
+            <button onClick={modifPost}>Modifier</button>
+            <button onClick={supprPost}>Supprimer</button>
           </div>
         </div>
       </div>

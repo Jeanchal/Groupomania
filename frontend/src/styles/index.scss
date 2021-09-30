@@ -201,7 +201,6 @@
           input {
             @include btn;
             margin: 10px 20px 20px 0;
-            font-size: 105%;
             padding: 10px 20px 10px 20px;
             cursor: pointer;
             background-color: $color-2;
@@ -273,7 +272,7 @@
           // display: none;
         }
         .activ-img {
-          display: block !important;
+          display: none;
         }
         .post-foot-container {
           margin-top: 20px;
@@ -287,6 +286,9 @@
           }
           .post-reactions {
             display: flex;
+            i:hover {
+              opacity: 0.8;
+            }
             .post-like {
               font-size: 140%;
             }

@@ -7,12 +7,10 @@ const CreatePosts = () => {
   const name = pseudo + Date.now();
   const urlImage = "http://localhost:4000/images/posts/" + name + ".jpg";
   const url = "http://localhost:4000/api/post/";
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(null);
   const [publication, setPublication] = useState("");
 
-  const createPost = (e) => {
-    e.preventDefault();
-
+  function postImage() {
     const data = new FormData();
     data.append("name", name);
     data.append("file", file);
@@ -22,21 +20,30 @@ const CreatePosts = () => {
       .post(url + "upload", data)
       .then(() => console.log(data.file.filename))
       .catch((error) => console.log(error));
+  }
 
+  function savePost(img) {
     axios
       .post(url, {
         userId: userId,
         pseudo: pseudo,
         publication: publication,
-        imageUrl: urlImage,
+        imageUrl: img,
         date: Date.now(),
       })
-      .then(() => {
-        window.location = "/acceuil";
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      .then(() => (window.location = "/acceuil"))
+      .catch((error) => console.log(error));
+  }
+
+  const createPost = (e) => {
+    e.preventDefault();
+
+    if (file === null) {
+      savePost("");
+    } else {
+      postImage();
+      savePost(urlImage);
+    }
   };
 
   return (
