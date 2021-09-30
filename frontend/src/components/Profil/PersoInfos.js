@@ -17,19 +17,29 @@ const PersoInfos = () => {
   }, []);
 
   return (
-    <div className="infosPerso">
-      <div className="entete">
-        <h3>Mes infos personelles</h3>
-        <p className="lienModif">Modifier</p>
-      </div>
-      <div className="profilGrid">
-        <div>Pseudo</div>
-        <div>{user.pseudo}</div>
-        <div>Mot de passe</div>
-        <div>**********</div>
-        <div>Email</div>
-        <div>{user.email}</div>
-      </div>
+    <div className="infos-container">
+      <h3>Mes infos personelles</h3>
+      <form action="">
+        <div className="profilGrid">
+          <label htmlFor="email-profil">Adresse email</label>
+          <input
+            type="email-profil"
+            name="email-profil"
+            id="email-profil"
+            placeholder={user.email}
+          />
+          <label htmlFor="mdp-profil">Mot de passe</label>
+          <input
+            type="password"
+            name="mdp-profil"
+            id="mdp-profil"
+            placeholder="********"
+          />
+        </div>
+        <div className="submit-infos">
+          <input type="submit" value="Modifier" />
+        </div>
+      </form>
     </div>
   );
 };

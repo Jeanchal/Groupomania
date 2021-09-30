@@ -58,23 +58,6 @@
       @include flexCenter;
       @include box;
       padding: 10px 20px 40px 20px;
-      .selectLog {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        button {
-          background-color: $color-1;
-          padding: 10px;
-          cursor: pointer;
-          width: 45%;
-          margin: 5px;
-          @include btn;
-          @include boxShadow;
-        }
-      }
-      .activ-btn {
-        background-color: $color-2 !important;
-      }
       .form {
         display: grid;
         width: $minWidth;
@@ -108,6 +91,23 @@
           font-style: oblique;
         }
       }
+      .selectLog {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        button {
+          background-color: $color-1;
+          padding: 10px;
+          cursor: pointer;
+          width: 45%;
+          margin: 5px;
+          @include btn;
+          @include boxShadow;
+        }
+      }
+      .activ-btn {
+        background-color: $color-2 !important;
+      }
     }
     .profil-container {
       @include box;
@@ -120,43 +120,93 @@
       }
       #img-container {
         @include flexCenter;
-        #imgProfil {
-          border: 3px solid $color-3;
+        margin-bottom: 40px;
+        figure {
           width: 250px;
-          border-radius: 50%;
-          margin-bottom: 10px;
+          height: 250px;
+          position: relative;
+          #imgProfil {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 40px;
+            // border-radius: 50%;
+            box-shadow: 1px 1px 30px grey;
+            margin-bottom: 10px;
+          }
+        }
+        form {
+          margin-top: 10px;
+          @include flexCenter;
+          input {
+            margin: 5px;
+          }
+          #btn-image-profil {
+            @include btn;
+            background-color: $color-2;
+            padding: 10px 20px 10px 20px;
+            width: 100px;
+          }
         }
       }
-      .infosPublic,
-      .infosPerso {
+      .infos-container {
+        background-color: $color-3;
+        border-radius: 15px;
         width: 95%;
-        .entete {
-          display: flex;
-          justify-content: space-between;
-          h3 {
-            margin-bottom: 20px;
-            font-size: 130%;
-          }
-          .lienModif {
-            transform: translate(0, 40%);
-            cursor: pointer;
-            color: rgb(51, 51, 233);
-            margin-right: 15px;
-          }
+        h3 {
+          padding-left: 15px;
         }
         .profilGrid {
-          background-color: $color-3;
-          border-radius: 15px;
+          padding: 15px;
           display: grid;
           grid-template-columns: 2fr 5fr;
-          div {
-            padding: 15px;
-            margin: 5px 0 5px 0;
+          @media (max-width: 515px) {
+            display: flex;
+            flex-direction: column;
+            label,
+            input,
+            textarea {
+              margin: 2px !important;
+            }
+          }
+          label,
+          input,
+          textarea {
+            margin: 10px;
+            padding: 10px;
+          }
+          input,
+          textarea {
+            cursor: default;
+            background-color: rgb(243, 241, 241);
+            border-radius: 10px;
+            border: none;
+            &:focus {
+              outline: none;
+            }
+          }
+          textarea {
+            resize: none;
+            overflow: hidden;
+            height: 60px;
           }
         }
-      }
-      button {
-        margin: 5px;
+        .submit-infos {
+          display: flex;
+          justify-content: end;
+          input {
+            @include btn;
+            margin: 10px 20px 20px 0;
+            font-size: 105%;
+            padding: 10px 20px 10px 20px;
+            cursor: pointer;
+            background-color: $color-2;
+          }
+        }
       }
     }
     .acceuil-container {

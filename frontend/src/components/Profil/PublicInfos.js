@@ -10,25 +10,38 @@ const PublicInfos = () => {
       .get("http://localhost:4000/api/profil/" + userId)
       .then((res) => {
         setData(res.data.profil[0]);
-        console.log(res.data.profil[0].photoProfil);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
+  const modifPublicInfos = () => {};
+
   return (
-    <div className="infosPublic">
-      <div className="entete">
-        <h3>À propos de moi</h3>
-        <p className="lienModif">Modifier</p>
-      </div>
-      <div className="profilGrid">
-        <div>Poste actuel</div>
-        <div>{data.fonction}</div>
-        <div>Bio</div>
-        <div>{data.bio}</div>
-      </div>
+    <div className="infos-container">
+      <h3>Informations publiques</h3>
+      <form action="">
+        <div className="profilGrid">
+          <label htmlFor="fonction">Poste Actuel</label>
+          <input
+            type="text"
+            name="fonction"
+            id="fonction"
+            placeholder={data.fonction}
+          />
+          <label htmlFor="bio">Bio</label>
+          <textarea
+            type="text"
+            name="bio"
+            id="bio"
+            placeholder={data.bio}
+          ></textarea>
+        </div>
+        <div className="submit-infos">
+          <input type="submit" value="Modifier" />
+        </div>
+      </form>
     </div>
   );
 };
