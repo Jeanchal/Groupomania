@@ -1,5 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
   const Post = sequelize.define("Post", {
+    post_id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV1,
+      allowNull: false,
+      primaryKey: true,
+      validate: {
+        notEmpty: true,
+      },
+    },
     userId: {
       type: DataTypes.STRING,
       allowNull: false,

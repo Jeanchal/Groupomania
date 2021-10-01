@@ -330,6 +330,37 @@
           }
         }
       }
+      #getComment-container {
+        margin-top: 10px;
+        background-color: $color-3;
+        border-radius: 10px;
+        padding: 5px;
+        max-height: 350px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        .comment-container {
+          background-color: white;
+          // background-color: rgb(241, 231, 200);
+          @include boxShadow;
+          margin: 10px;
+          padding: 10px;
+          border-radius: 10px;
+          .comment-pseudo {
+            font-weight: bold;
+          }
+          .commentaire {
+            overflow: hidden;
+          }
+          div {
+            padding: 5px;
+          }
+          .comment-date {
+            font-size: 90%;
+            font-style: italic;
+            color: grey;
+          }
+        }
+      }
     }
   }
 }

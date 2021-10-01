@@ -8,6 +8,7 @@ exports.createComment = (req, res) => {
     post_id: req.body.post_id,
     commentaire: req.body.commentaire,
     like: req.body.like,
+    date: req.body.date,
   })
     .then(() => res.status(201).json({ message: "Commentaire créé !" }))
     .catch((error) => res.status(400).json({ error }));
@@ -21,6 +22,7 @@ exports.modifyComment = (req, res) => {
       post_id: req.body.post_id,
       commentaire: req.body.commentaire,
       like: req.body.like,
+      date: req.body.date,
     },
     { where: { userId: req.params.userId } }
   )

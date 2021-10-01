@@ -1,9 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
   const Comment = sequelize.define("Comment", {
-    uid: {
+    comment_id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
       allowNull: false,
+      primaryKey: true,
+      validate: {
+        notEmpty: true,
+      },
     },
     userId: {
       type: DataTypes.STRING,
@@ -14,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     post_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     commentaire: {
@@ -24,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
     like: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
+    },
+    date: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
     },
   });
   return Comment;

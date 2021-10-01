@@ -8,12 +8,8 @@ const GetPosts = () => {
   useEffect(() => {
     axios
       .get("http://localhost:4000/api/post")
-      .then((res) => {
-        setData(res.data.posts);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      .then((res) => setData(res.data.posts))
+      .catch((error) => console.log(error));
   }, []);
 
   return (

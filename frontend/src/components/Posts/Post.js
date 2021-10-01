@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import CommentPosts from "./CommentPosts";
+import CommentPosts from "./Comments/CommentPosts";
 const userId = sessionStorage.getItem("userId");
 
 const Post = ({ post }) => {
@@ -8,7 +8,7 @@ const Post = ({ post }) => {
   const urlDefault = "http://localhost:4000/images/posts/default.jpg";
   const [imgDisplay, setImgDisplay] = useState(false);
   const [activComment, setActivComment] = useState(true);
-  const [like, setLike] = useState(true);
+  const [like, setLike] = useState(false);
 
   useEffect(() => {
     if (post.imageUrl === "") {
