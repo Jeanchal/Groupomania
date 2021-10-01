@@ -24,18 +24,17 @@ const SupprProfil = () => {
     <div className="infos-container">
       <h3>Supprimer le compte</h3>
       <form action="" onSubmit={deleteUser}>
-        <div className="profilGrid">
-          <label htmlFor="mdp-profil">Entrer votre mot de passe</label>
+        <div className="supp-container">
           <input
             type="password"
             name="mdp-supprProfil"
             id="mdp-supprProfil"
-            placeholder="********"
+            placeholder="Entrer votre mot de passe... "
             onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
-        <div className="submit-infos">
-          <input type="submit" value="Supprimer le compte" />
+          <div className="submit-infos">
+            <input type="submit" value="Supprimer le compte" />
+          </div>
         </div>
       </form>
     </div>

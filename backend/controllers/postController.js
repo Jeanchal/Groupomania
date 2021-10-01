@@ -43,3 +43,61 @@ exports.deletePost = (req, res) => {
     .then(() => res.status(201).json({ message: "Post supprimé !" }))
     .catch((error) => res.status(400).json({ error }));
 };
+
+// likes et commentaires
+
+exports.likePost = async (req, res) => {
+  const post = await Post.findOne({ where: { uid: req.params.uid } });
+  try {
+    if (req.body.nb_likes === 1) {
+      Post.update(
+        {
+          nb_likes: post.nb_likes++,
+        },
+        { where: { uid: req.params.uid } }
+      )
+        .then(() => res.status(201).json({ message: "Post modifié !" }))
+        .catch((error) => res.status(400).json({ error }));
+    }
+    if (req.body.nb_likes === 0) {
+      Post.update(
+        {
+          nb_likes: post.nb_likes--,
+        },
+        { where: { uid: req.params.uid } }
+      )
+        .then(() => res.status(201).json({ message: "like annulé !" }))
+        .catch((error) => res.status(400).json({ error }));
+    }
+  } catch (error) {
+    res.status(400).json({ error: error });
+  }
+};
+
+exports.commentPost = async (req, res) => {
+  const post = await Post.findOne({ where: { uid: req.params.uid } });
+  try {
+    if (req.body.nb_commentaires === 1) {
+      Post.update(
+        {
+          nb_likes: post.nb_commentaires++,
+        },
+        { where: { uid: req.params.uid } }
+      )
+        .then(() => res.status(201).json({ message: "Post modifié !" }))
+        .catch((error) => res.status(400).json({ error }));
+    }
+    if (req.body.nb_commentaires === 0) {
+      Post.update(
+        {
+          nb_likes: post.nb_commentaires--,
+        },
+        { where: { uid: req.params.uid } }
+      )
+        .then(() => res.status(201).json({ message: "like annulé !" }))
+        .catch((error) => res.status(400).json({ error }));
+    }
+  } catch (error) {
+    res.status(400).json({ error: error });
+  }
+};

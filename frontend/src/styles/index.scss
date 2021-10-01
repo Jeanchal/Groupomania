@@ -158,12 +158,14 @@
         border-radius: 15px;
         width: 95%;
         h3 {
-          padding-left: 15px;
+          padding-left: 20px;
+          margin-bottom: 10px;
         }
-        .profilGrid {
+        .profilGrid,
+        .supp-container {
           padding: 15px;
           display: grid;
-          grid-template-columns: 2fr 5fr;
+          // grid-template-columns: 2fr 5fr;
           @media (max-width: 515px) {
             display: flex;
             flex-direction: column;
@@ -193,6 +195,20 @@
             resize: none;
             overflow: hidden;
             height: 60px;
+          }
+        }
+        .profilGrid {
+          grid-template-columns: 2fr 5fr;
+        }
+        .supp-container {
+          grid-template-columns: 5fr 2fr;
+          #mdp-supprProfil {
+            height: 30px;
+          }
+          div {
+            position: relative;
+            top: 5px;
+            margin: 0 0 0 10px;
           }
         }
         .submit-infos {
