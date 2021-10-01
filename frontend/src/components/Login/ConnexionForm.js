@@ -8,14 +8,11 @@ const ConnexionForm = () => {
   const gestionConnexion = (e) => {
     e.preventDefault();
 
-    axios({
-      method: "post",
-      url: `http://localhost:4000/api/user/login`,
-      data: {
+    axios
+      .post("http://localhost:4000/api/user/login", {
         email: email,
         password: password,
-      },
-    })
+      })
       .then((res) => {
         alert("Bonjour " + res.data.pseudo + ", content de vous revoir...");
         console.log("Status: " + res.status + ", Utilisateur connecté !");

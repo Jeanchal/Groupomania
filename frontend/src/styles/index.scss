@@ -218,6 +218,9 @@
         padding: 10px 20px 20px 20px;
         margin-bottom: 30px;
         form {
+          #comment {
+            margin: 20px 0 10px 0;
+          }
           .post {
             @include input;
             background-color: $color-3;
@@ -291,6 +294,9 @@
             }
             .post-like {
               font-size: 140%;
+              .like-effect {
+                color: rgb(41, 201, 41) !important;
+              }
             }
             .post-comment {
               font-size: 160%;

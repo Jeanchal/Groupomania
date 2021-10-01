@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import CommentPosts from "./CommentPosts";
 const userId = sessionStorage.getItem("userId");
 
 const Post = ({ post }) => {
   const url = "http://localhost:4000/api/post/" + userId;
+  const urlDefault = "http://localhost:4000/images/posts/default.jpg";
   const [imgDisplay, setImgDisplay] = useState(false);
+  const [activComment, setActivComment] = useState(true);
+  const [like, setLike] = useState(true);
 
   useEffect(() => {
     if (post.imageUrl === "") {
@@ -24,7 +28,9 @@ const Post = ({ post }) => {
   };
 
   const supprPost = () => {
-    const reponse = window.confirm("Souhaitez-vous supprimer cet article ?");
+    const reponse = window.confirm(
+      "Souhaitez-vous vraiment supprimer cet article ?"
+    );
     if (reponse === true) {
       axios
         .delete(url)
@@ -34,7 +40,9 @@ const Post = ({ post }) => {
   };
 
   const modifPost = () => {
-    const reponse = window.confirm("Souhaitez-vous modifier cet article ?");
+    const reponse = window.confirm(
+      "Souhaitez-vous vraiment modifier cet article ?"
+    );
     if (reponse === true) {
       // axios
       //   .put(url, {
@@ -46,6 +54,22 @@ const Post = ({ post }) => {
     }
   };
 
+  const commentaires = () => {
+    if (activComment === true) {
+      setActivComment(false);
+    } else {
+      setActivComment(true);
+    }
+  };
+
+  const liker = () => {
+    if (like === true) {
+      setLike(false);
+    } else {
+      setLike(true);
+    }
+  };
+
   return (
     <div className="post-container">
       <div className="post-head-container">
@@ -53,11 +77,7 @@ const Post = ({ post }) => {
         <p>posté le {dateParser(post.date)}</p>
       </div>
       <img
-        src={
-          imgDisplay
-            ? "http://localhost:4000/images/posts/default.jpg"
-            : post.imageUrl
-        }
+        src={imgDisplay ? urlDefault : post.imageUrl}
         alt="publication"
         id="post-image"
         className={imgDisplay ? "activ-img" : null}
@@ -66,11 +86,17 @@ const Post = ({ post }) => {
       <div className="post-foot-container">
         <div className="post-reactions">
           <div className="post-comment">
-            <i className="far fa-comment-dots" title="commenter"></i>
+            <i
+              className="far fa-comment-dots"
+              title="commenter"
+              onClick={commentaires}
+            ></i>
             <div className="post-number">1</div>
           </div>
           <div className="post-like">
-            <i className="fas fa-thumbs-up" title="liker"></i>
+            <div className={like ? "like-effect" : null}>
+              <i className="fas fa-thumbs-up" title="liker" onClick={liker}></i>
+            </div>
             <div className="post-number">1</div>
           </div>
         </div>
@@ -80,6 +106,9 @@ const Post = ({ post }) => {
             <button onClick={supprPost}>Supprimer</button>
           </div>
         </div>
+      </div>
+      <div className={activComment ? "activ-img" : null}>
+        <CommentPosts />
       </div>
     </div>
   );

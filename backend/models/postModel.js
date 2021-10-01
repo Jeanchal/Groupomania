@@ -20,6 +20,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BIGINT,
       allowNull: false,
     },
+    nb_likes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    nb_commentaires: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
   });
   return Post;
 };

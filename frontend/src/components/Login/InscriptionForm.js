@@ -12,41 +12,18 @@ const InscriptionForm = () => {
     const msgError = document.getElementById("inscriptError");
 
     if (form.password.value === form.confirmPassword.value) {
-      axios({
-        method: "post",
-        url: `http://localhost:4000/api/user/signup`,
-        data: {
+      axios
+        .post("http://localhost:4000/api/user/signup", {
           pseudo: pseudo,
           email: email,
           password: password,
-        },
-      })
+        })
         .then((res) => {
           alert("Bienvenue " + pseudo);
           sessionStorage.setItem("pseudo", res.data.pseudo);
           sessionStorage.setItem("userId", res.data.userId);
           sessionStorage.setItem("token", res.data.token);
           window.location = "/acceuil";
-          axios({
-            method: "post",
-            url: `http://localhost:4000/api/user/signup`,
-            data: {
-              pseudo: pseudo,
-              email: email,
-              password: password,
-            },
-          })
-            .then((res) => {
-              alert("Bienvenue " + pseudo);
-              sessionStorage.setItem("pseudo", res.data.pseudo);
-              sessionStorage.setItem("userId", res.data.userId);
-              sessionStorage.setItem("token", res.data.token);
-              window.location = "/acceuil";
-            })
-            .catch((error) => {
-              console.log(error);
-              msgError.innerText = "Erreur ! saisie incorrecte";
-            });
         })
         .catch((error) => {
           console.log(error);

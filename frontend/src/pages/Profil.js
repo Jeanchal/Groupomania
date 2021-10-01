@@ -4,6 +4,7 @@ import Logo from "../components/Logo";
 import PublicInfos from "../components/Profil/PublicInfos";
 import PersoInfos from "../components/Profil/PersoInfos";
 import UploadImg from "../components/Profil/UploadImg";
+import SupprProfil from "../components/Profil/SupprProfil";
 const pseudo = sessionStorage.getItem("pseudo");
 
 const Profil = () => {
@@ -21,6 +22,9 @@ const Profil = () => {
           <br />
           <br />
           <PersoInfos />
+          <br />
+          <br />
+          <SupprProfil />
         </div>
       </main>
     </div>
