@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CommentPosts from "./Comments/CommentPosts";
-const userId = sessionStorage.getItem("userId");
+const uid = sessionStorage.getItem("uid");
 
 const Post = ({ post }) => {
-  const url = "http://localhost:4000/api/post/" + userId;
+  const url = "http://localhost:4000/api/post/" + uid;
   const urlDefault = "http://localhost:4000/images/posts/default.jpg";
   const [imgDisplay, setImgDisplay] = useState(false);
   const [activComment, setActivComment] = useState(true);
   const [like, setLike] = useState(false);
 
   useEffect(() => {
-    if (post.imageUrl === "") {
+    if (post.image_url === "") {
       setImgDisplay(true);
     }
   }, []);
@@ -47,7 +47,7 @@ const Post = ({ post }) => {
       // axios
       //   .put(url, {
       //     publication: publication,
-      //     imageUrl: urlImage,
+      //     image_url: urlImage,
       //   })
       //   .then(() => (window.location = "/acceuil"))
       //   .catch((error) => console.log(error));
@@ -77,7 +77,7 @@ const Post = ({ post }) => {
         <p>posté le {dateParser(post.date)}</p>
       </div>
       <img
-        src={imgDisplay ? urlDefault : post.imageUrl}
+        src={imgDisplay ? urlDefault : post.image_url}
         alt="publication"
         id="post-image"
         className={imgDisplay ? "activ-img" : null}

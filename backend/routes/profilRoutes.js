@@ -8,9 +8,9 @@ const upload = multer().single("file");
 
 router.post("/", profilController.postProfil);
 router.post("/upload", upload, uploadController.uploadProfil);
-router.put("/:userId", profilController.modifyProfil);
+router.put("/:uid", profilController.modifyProfil);
 router.get("/", profilController.getAllProfils);
-router.get("/:userId", profilController.getOneProfil);
-router.delete("/:userId", profilController.deleteProfil);
+router.get("/:uid", profilController.getOneProfil);
+router.delete("/:uid", profilController.deleteProfil);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-const userId = sessionStorage.getItem("userId");
+const uid = sessionStorage.getItem("uid");
 
 const PersoInfos = () => {
   const [user, setUser] = useState([]);
@@ -9,7 +9,7 @@ const PersoInfos = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api/user/" + userId)
+      .get("http://localhost:4000/api/user/" + uid)
       .then((res) => setUser(res.data.user[0]))
       .catch((error) => console.log(error));
   }, []);
@@ -20,7 +20,7 @@ const PersoInfos = () => {
     );
     if (reponse === true) {
       axios
-        .put("http://localhost:4000/api/user/" + userId, {
+        .put("http://localhost:4000/api/user/" + uid, {
           email: email,
           password: password,
         })

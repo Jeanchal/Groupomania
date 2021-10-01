@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-const userId = sessionStorage.getItem("userId");
+const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
 const url = "http://localhost:4000/api/profil/";
 const urlImage = "http://localhost:4000/images/profil/" + pseudo + ".jpg";
@@ -11,7 +11,7 @@ const UploadImg = () => {
 
   useEffect(() => {
     axios
-      .get(url + userId)
+      .get(url + uid)
       .then((res) => setData(res.data.profil[0]))
       .catch((error) => console.log(error));
   }, []);
@@ -29,8 +29,8 @@ const UploadImg = () => {
       .catch((error) => console.log(error));
 
     axios
-      .put(url + userId, {
-        photoProfil: urlImage,
+      .put(url + uid, {
+        photo_profil: urlImage,
       })
       .then(() => (window.location = "./profil"))
       .catch((error) => console.log(error, "erreur axios"));
@@ -39,7 +39,7 @@ const UploadImg = () => {
   return (
     <div id="img-container">
       <figure>
-        <img src={data.photoProfil} id="imgProfil" alt="img-profil" />
+        <img src={data.photo_profil} id="imgProfil" alt="img-profil" />
       </figure>
       <form action="" onSubmit={gestionImage} className="uploadImg">
         <input

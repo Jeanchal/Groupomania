@@ -10,16 +10,16 @@ const upload = multer().single("file");
 //--------Posts Routes
 router.post("/", postController.createPost);
 router.post("/upload", upload, uploadController.uploadPost);
-router.put("/:userId", postController.modifyPost);
-router.delete(":userId", postController.deletePost);
+router.put("/:uid", postController.modifyPost);
+router.delete(":uid", postController.deletePost);
 router.get("/", postController.getAllPosts);
-router.get("/:userId", postController.getOnePost);
+router.get("/:uid", postController.getOnePost);
 
 //--------Commentaires Routes
 router.post("/comment", commentController.createComment);
-router.put("/comment/:userId", commentController.modifyComment);
-router.delete("/comment/:userId", commentController.deleteComment);
+router.put("/comment/:uid", commentController.modifyComment);
+router.delete("/comment/:uid", commentController.deleteComment);
 router.get("/comment", commentController.getAllComments);
-router.get("/comment/:userId", commentController.getOneComment);
+router.get("/comment/:uid", commentController.getOneComment);
 
 module.exports = router;

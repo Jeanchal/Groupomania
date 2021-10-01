@@ -18,16 +18,16 @@ exports.signup = (req, res) => {
               })
                 .then((user) => {
                   Profil.create({
-                    userId: user.userId,
+                    uid: user.uid,
                     bio: req.body.bio,
                     fonction: req.body.fonction,
-                    photoProfil: req.body.photoProfil,
+                    photo_profil: req.body.photo_profil,
                   });
                   res.status(201).json({
                     pseudo: user.pseudo,
-                    userId: user.userId,
+                    uid: user.uid,
                     token: jsonWebToken.sign(
-                      { userId: user.userId },
+                      { uid: user.uid },
                       process.env.SECURITY_TOKEN,
                       {
                         expiresIn: "24h",
@@ -67,9 +67,9 @@ exports.login = (req, res) => {
           }
           res.status(200).json({
             pseudo: user.pseudo,
-            userId: user.userId,
+            uid: user.uid,
             token: jsonWebToken.sign(
-              { userId: user.userId },
+              { uid: user.uid },
               process.env.SECURITY_TOKEN,
               {
                 expiresIn: "24h",
@@ -92,9 +92,9 @@ exports.modifyUser = (req, res) => {
           pseudo: req.body.pseudo,
           email: req.body.email,
           password: hash,
-          userId: req.body.userId,
+          uid: req.body.uid,
         },
-        { where: { userId: req.params.userId } }
+        { where: { uid: req.params.uid } }
       )
         .then(() => res.status(201).json({ message: "Utilisateur modifié !" }))
         .catch((error) => res.status(400).json({ error }));
@@ -103,7 +103,7 @@ exports.modifyUser = (req, res) => {
 };
 
 exports.deleteUser = (req, res) => {
-  User.destroy({ where: { userId: req.params.userId } })
+  User.destroy({ where: { uid: req.params.uid } })
     .then((user) => {
       if (user) {
         res.status(201).json({ message: "Utilisateur supprimé !" });
@@ -121,7 +121,7 @@ exports.getAllUsers = (req, res) => {
 };
 
 exports.getOneUser = (req, res) => {
-  User.findAll({ where: { userId: req.params.userId } })
+  User.findAll({ where: { uid: req.params.uid } })
     .then((user) => res.status(201).json({ user }))
     .catch((error) => res.status(400).json({ error }));
 };

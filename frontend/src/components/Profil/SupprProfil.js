@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-const userId = sessionStorage.getItem("userId");
+const uid = sessionStorage.getItem("uid");
 
 const SupprProfil = () => {
   const [password, setPassword] = useState();
@@ -11,7 +11,7 @@ const SupprProfil = () => {
     );
     if (reponse === true) {
       axios
-        .delete("http://localhost:4000/api/user/" + userId)
+        .delete("http://localhost:4000/api/user/" + uid)
         .then((res) => {
           window.location = "/";
           sessionStorage.clear();
@@ -28,8 +28,8 @@ const SupprProfil = () => {
           <label htmlFor="mdp-profil">Entrer votre mot de passe</label>
           <input
             type="password"
-            name="mdp-profil"
-            id="mdp-profil"
+            name="mdp-supprProfil"
+            id="mdp-supprProfil"
             placeholder="********"
             onChange={(e) => setPassword(e.target.value)}
           />

@@ -3,10 +3,10 @@ const { Post } = require("../models");
 
 exports.createPost = (req, res) => {
   Post.create({
-    userId: req.body.userId,
+    uid: req.body.uid,
     pseudo: req.body.pseudo,
     publication: req.body.publication,
-    imageUrl: req.body.imageUrl,
+    image_url: req.body.image_url,
     date: req.body.date,
   })
     .then(() => res.status(201).json({ message: "Post créé !" }))
@@ -16,11 +16,11 @@ exports.createPost = (req, res) => {
 exports.modifyPost = (req, res) => {
   Post.update(
     {
-      userId: req.body.userId,
+      uid: req.body.uid,
       publication: req.body.publication,
-      imageUrl: req.body.imageUrl,
+      image_url: req.body.image_url,
     },
-    { where: { userId: req.params.userId } }
+    { where: { uid: req.params.uid } }
   )
     .then(() => res.status(201).json({ message: "Post modifié !" }))
     .catch((error) => res.status(400).json({ error }));
@@ -33,13 +33,13 @@ exports.getAllPosts = (req, res) => {
 };
 
 exports.getOnePost = (req, res) => {
-  Post.findAll({ where: { userId: req.params.userId } })
+  Post.findAll({ where: { uid: req.params.uid } })
     .then((post) => res.status(201).json({ post }))
     .catch((error) => res.status(400).json({ error }));
 };
 
 exports.deletePost = (req, res) => {
-  Post.destroy({ where: { userId: req.params.userId } })
+  Post.destroy({ where: { uid: req.params.uid } })
     .then(() => res.status(201).json({ message: "Post supprimé !" }))
     .catch((error) => res.status(400).json({ error }));
 };

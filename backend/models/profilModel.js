@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-    userId: {
+    uid: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       defaultValue: "...",
     },
-    photoProfil: {
+    photo_profil: {
       type: DataTypes.STRING,
       defaultValue: "./img/profil.jpg",
     },

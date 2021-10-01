@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import GetComments from "./GetComments";
-const userId = sessionStorage.getItem("userId");
+const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
 const post_id = 123456;
 
@@ -12,7 +12,7 @@ const CommentPosts = () => {
 
   useEffect(() => {
     axios
-      .get(url + userId)
+      .get(url + uid)
       .then((res) => {
         console.log(res.data.comment);
         setData(res.data.comment);
@@ -24,7 +24,7 @@ const CommentPosts = () => {
     e.preventDefault();
     axios
       .post(url, {
-        userId: userId,
+        uid: uid,
         pseudo: pseudo,
         post_id: post_id,
         commentaire: comment,
@@ -40,7 +40,7 @@ const CommentPosts = () => {
         {data
           .sort((a, b) => b.date - a.date)
           .map((comment) => (
-            <GetComments comment={comment} key={comment.id} />
+            <GetComments comment={comment} key={comment.comment_id} />
           ))}
       </div>
       <form onSubmit={commentPost} method="post">

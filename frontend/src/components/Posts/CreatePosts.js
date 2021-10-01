@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-const userId = sessionStorage.getItem("userId");
+const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
 
 const CreatePosts = () => {
@@ -25,10 +25,10 @@ const CreatePosts = () => {
   function savePost(img) {
     axios
       .post(url, {
-        userId: userId,
+        uid: uid,
         pseudo: pseudo,
         publication: publication,
-        imageUrl: img,
+        image_url: img,
         date: Date.now(),
       })
       .then(() => (window.location = "/acceuil"))
@@ -63,7 +63,7 @@ const CreatePosts = () => {
           <input
             type="file"
             name="file"
-            id="imageUrl"
+            id="image_url"
             onChange={(e) => setFile(e.target.files[0])}
             className="imagePost"
             title="ajouter une image"

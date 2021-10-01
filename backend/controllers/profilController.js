@@ -3,10 +3,10 @@ const { Profil } = require("../models");
 
 exports.postProfil = (req, res) => {
   Profil.create({
-    userId: req.body.userId,
+    uid: req.body.uid,
     bio: req.body.bio,
     fonction: req.body.fonction,
-    photoProfil: req.body.photoProfil,
+    photo_profil: req.body.photo_profil,
   })
     .then(() => res.status(201).json({ message: "Profil créé !" }))
     .catch((error) => res.status(400).json({ error }));
@@ -17,9 +17,9 @@ exports.modifyProfil = (req, res) => {
     {
       bio: req.body.bio,
       fonction: req.body.fonction,
-      photoProfil: req.body.photoProfil,
+      photo_profil: req.body.photo_profil,
     },
-    { where: { userId: req.params.userId } }
+    { where: { uid: req.params.uid } }
   )
     .then(() => res.status(201).json({ message: "Profil modifié !" }))
     .catch((error) => res.status(400).json({ error }));
@@ -32,13 +32,13 @@ exports.getAllProfils = (req, res) => {
 };
 
 exports.getOneProfil = (req, res) => {
-  Profil.findAll({ where: { userId: req.params.userId } })
+  Profil.findAll({ where: { uid: req.params.uid } })
     .then((profil) => res.status(201).json({ profil }))
     .catch((error) => res.status(400).json({ error }));
 };
 
 exports.deleteProfil = (req, res) => {
-  Profil.destroy({ where: { userId: req.params.userId } })
+  Profil.destroy({ where: { uid: req.params.uid } })
     .then(() => res.status(201).json({ message: "Profil supprimé !" }))
     .catch((error) => res.status(400).json({ error }));
 };

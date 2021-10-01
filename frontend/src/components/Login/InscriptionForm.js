@@ -21,7 +21,7 @@ const InscriptionForm = () => {
         .then((res) => {
           alert("Bienvenue " + pseudo);
           sessionStorage.setItem("pseudo", res.data.pseudo);
-          sessionStorage.setItem("userId", res.data.userId);
+          sessionStorage.setItem("uid", res.data.uid);
           sessionStorage.setItem("token", res.data.token);
           window.location = "/acceuil";
         })
