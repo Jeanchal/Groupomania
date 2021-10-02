@@ -1,7 +1,7 @@
 require("dotenv").config({ path: "./config/.env" });
 const jsonWebToken = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { User, Profil } = require("../models");
+const { User, Profil, Post } = require("../models");
 
 exports.signup = (req, res) => {
   bcrypt
@@ -117,7 +117,10 @@ exports.deleteUser = (req, res) => {
 exports.getAllUsers = (req, res) => {
   User.findAll()
     .then((users) => res.status(201).json({ users }))
-    .catch((error) => res.status(400).json({ error }));
+    .catch((error) => {
+      console.log(error);
+      res.status(400).json({ error });
+    });
 };
 
 exports.getOneUser = (req, res) => {

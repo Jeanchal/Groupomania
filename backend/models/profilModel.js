@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-    uid: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+    // uid: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    // },
     bio: {
       type: DataTypes.TEXT,
       defaultValue: "...",
@@ -26,5 +26,12 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: "./img/profil.jpg",
     },
   });
+
+  Profil.associate = (models) => {
+    Profil.belongsTo(models.User, {
+      foreignKey: "uid",
+      as: "user",
+    });
+  };
   return Profil;
 };

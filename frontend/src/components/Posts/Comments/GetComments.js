@@ -11,16 +11,24 @@ const dateParser = (date) => {
   return newDate;
 };
 
-const GetComments = ({ comment }) => {
-  return (
-    <div className="comment-container">
-      <div className="comment-pseudo">{comment.pseudo}</div>
-      <div className="commentaire">{comment.commentaire}</div>
-      <div className="comment-date">
-        posté le {dateParser(comment.createdAt)}
+const GetComments = ({ comment, post }) => {
+  if (post.post_id === comment.post_id) {
+    return (
+      <div className="comment-container">
+        <div className="comment-pseudo">{comment.pseudo}</div>
+        <div className="commentaire">{comment.commentaire}</div>
+        <div className="modif-comment">
+          <p>posté le {dateParser(comment.createdAt)}</p>
+          <div>
+            <i className="fas fa-trash-alt"></i>
+            <i className="fas fa-edit"></i>
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return <div></div>;
+  }
 };
 
 export default GetComments;

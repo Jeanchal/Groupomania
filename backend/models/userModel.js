@@ -31,22 +31,23 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   });
+
+  User.associate = (models) => {
+    User.hasOne(models.Profil, {
+      foreignKey: "uid",
+      as: "user",
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
+    });
+  };
+
+  User.associate = (models) => {
+    User.hasMany(models.Post, {
+      foreignKey: "uid",
+      as: "user",
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
+    });
+  };
   return User;
 };
-
-// bio: {
-//   type: DataTypes.TEXT,
-//   allowNull: true,
-// },
-// fonction: {
-//   type: DataTypes.STRING,
-//   allowNull: true,
-// },
-// urlPhotoProfil: {
-//   type: DataTypes.STRING,
-//   allowNull: true,
-// },
-// urlBackgroundProfil: {
-//   type: DataTypes.STRING,
-//   allowNull: true,
-// },

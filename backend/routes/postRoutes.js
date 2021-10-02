@@ -13,9 +13,9 @@ router.post("/upload", upload, uploadController.uploadPost);
 router.put("/:uid", postController.modifyPost);
 router.put("/:uid", postController.commentPost);
 router.put("/:uid", postController.likePost);
-router.delete(":uid", postController.deletePost);
+router.delete(":post_id", postController.deletePost);
 router.get("/", postController.getAllPosts);
-router.get("/:uid", postController.getOnePost);
+router.get("/:post_id", postController.getOnePost);
 
 //--------Commentaires Routes
 router.post("/comment", commentController.createComment);

@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-    uid: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+    // uid: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    // },
     pseudo: {
       type: DataTypes.STRING,
       defaultValue: "",
@@ -38,5 +38,18 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0,
     },
   });
+
+  Post.associate = (models) => {
+    Post.belongsTo(models.User, {
+      foreignKey: "uid",
+      as: "user",
+    });
+    Post.hasMany(models.Comment, {
+      foreignKey: "post_id",
+      as: "post",
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
+    });
+  };
   return Post;
 };

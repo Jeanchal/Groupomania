@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CommentPosts from "./Comments/CommentPosts";
-const uid = sessionStorage.getItem("uid");
+// const uid = sessionStorage.getItem("uid");
 
 const Post = ({ post }) => {
-  const url = "http://localhost:4000/api/post/" + uid;
-  const urlDefault = "http://localhost:4000/images/posts/default.jpg";
+  const url = "http://localhost:4000/api/post/" + post.post_id;
   const [imgDisplay, setImgDisplay] = useState(false);
   const [activComment, setActivComment] = useState(true);
   const [like, setLike] = useState(false);
@@ -76,12 +75,11 @@ const Post = ({ post }) => {
         <h3 className="post-pseudo">{post.pseudo}</h3>
         <p>posté le {dateParser(post.date)}</p>
       </div>
-      <img
-        src={imgDisplay ? urlDefault : post.image_url}
-        alt="publication"
-        id="post-image"
-        className={imgDisplay ? "activ-img" : null}
-      />
+      <div>
+        {imgDisplay ? null : (
+          <img src={post.image_url} alt="publication" id="post-image" />
+        )}
+      </div>
       <div>{post.publication}</div>
       <div className="post-foot-container">
         <div className="post-reactions">
@@ -108,7 +106,7 @@ const Post = ({ post }) => {
         </div>
       </div>
       <div className={activComment ? "activ-img" : null}>
-        <CommentPosts />
+        <CommentPosts post={post} />
       </div>
     </div>
   );

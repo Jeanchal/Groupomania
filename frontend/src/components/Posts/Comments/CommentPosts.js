@@ -3,9 +3,8 @@ import axios from "axios";
 import GetComments from "./GetComments";
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
-const post_id = 123456;
 
-const CommentPosts = () => {
+const CommentPosts = ({ post }) => {
   const url = "http://localhost:4000/api/post/comment/";
   const [data, setData] = useState([]);
   const [comment, setComment] = useState("");
@@ -14,7 +13,6 @@ const CommentPosts = () => {
     axios
       .get(url + uid)
       .then((res) => {
-        console.log(res.data.comment);
         setData(res.data.comment);
       })
       .catch((error) => console.log(error));
@@ -22,11 +20,12 @@ const CommentPosts = () => {
 
   function commentPost(e) {
     e.preventDefault();
+
     axios
       .post(url, {
         uid: uid,
         pseudo: pseudo,
-        post_id: post_id,
+        post_id: post.post_id,
         commentaire: comment,
         date: Date.now(),
       })
@@ -40,7 +39,11 @@ const CommentPosts = () => {
         {data
           .sort((a, b) => b.date - a.date)
           .map((comment) => (
-            <GetComments comment={comment} key={comment.comment_id} />
+            <GetComments
+              comment={comment}
+              post={post}
+              key={comment.comment_id}
+            />
           ))}
       </div>
       <form onSubmit={commentPost} method="post">
@@ -48,7 +51,9 @@ const CommentPosts = () => {
           type="text"
           name="comment"
           id="comment"
-          onChange={(e) => setComment(e.target.value)}
+          onChange={(e) => {
+            setComment(e.target.value);
+          }}
           value={comment}
           placeholder="Ecrire un commentaire..."
           className="post"

@@ -288,7 +288,6 @@
           width: 100%;
           border-radius: 10px;
           margin-bottom: 10px;
-          // display: none;
         }
         .activ-img {
           display: none;
@@ -356,10 +355,9 @@
         overflow-y: scroll;
         .comment-container {
           background-color: white;
-          // background-color: rgb(241, 231, 200);
           @include boxShadow;
           margin: 10px;
-          padding: 10px;
+          padding: 10px 10px 0 10px;
           border-radius: 10px;
           .comment-pseudo {
             font-weight: bold;
@@ -370,10 +368,25 @@
           div {
             padding: 5px;
           }
-          .comment-date {
-            font-size: 90%;
-            font-style: italic;
-            color: grey;
+          .modif-comment {
+            display: flex;
+            justify-content: space-between;
+            i {
+              margin-left: 10px;
+              position: relative;
+              top: 7px;
+              font-size: 110%;
+              color: rgb(97, 96, 96);
+              cursor: pointer;
+              &:hover {
+                opacity: 0.8;
+              }
+            }
+            p {
+              font-size: 90%;
+              font-style: italic;
+              color: grey;
+            }
           }
         }
       }

@@ -17,10 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    post_id: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+    // post_id: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    // },
     commentaire: {
       type: DataTypes.TEXT,
       defaultValue: "",
@@ -34,5 +34,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
+
+  Comment.associate = (models) => {
+    Comment.belongsTo(models.Post, {
+      foreignKey: "post_id",
+      as: "post",
+    });
+  };
   return Comment;
 };

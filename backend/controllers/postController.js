@@ -33,13 +33,16 @@ exports.getAllPosts = (req, res) => {
 };
 
 exports.getOnePost = (req, res) => {
-  Post.findAll({ where: { uid: req.params.uid } })
+  Post.findAll({ where: { post_id: req.params.post_id } })
     .then((post) => res.status(201).json({ post }))
-    .catch((error) => res.status(400).json({ error }));
+    .catch((error) => {
+      console.log(error);
+      res.status(400).json({ error });
+    });
 };
 
 exports.deletePost = (req, res) => {
-  Post.destroy({ where: { uid: req.params.uid } })
+  Post.destroy({ where: { post_id: req.params.post_id } })
     .then(() => res.status(201).json({ message: "Post supprimé !" }))
     .catch((error) => res.status(400).json({ error }));
 };
