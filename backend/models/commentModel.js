@@ -17,10 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // post_id: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    // },
     commentaire: {
       type: DataTypes.TEXT,
       defaultValue: "",
@@ -39,6 +35,8 @@ module.exports = (sequelize, DataTypes) => {
     Comment.belongsTo(models.Post, {
       foreignKey: "post_id",
       as: "post",
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
     });
   };
   return Comment;
