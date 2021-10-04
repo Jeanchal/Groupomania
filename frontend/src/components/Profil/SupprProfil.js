@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import url from "../../general/url";
 const uid = sessionStorage.getItem("uid");
 
 const SupprProfil = () => {
@@ -11,7 +12,9 @@ const SupprProfil = () => {
     );
     if (reponse === true) {
       axios
-        .delete("http://localhost:4000/api/user/" + uid)
+        .delete(url.user + uid, {
+          password: password,
+        })
         .then((res) => {
           window.location = "/";
           sessionStorage.clear();

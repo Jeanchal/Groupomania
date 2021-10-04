@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import GetComments from "./GetComments";
+import url from "../../../general/url";
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
 
 const CommentPosts = ({ post }) => {
-  const url = "http://localhost:4000/api/comment/";
   const [data, setData] = useState([]);
   const [comment, setComment] = useState("");
 
   useEffect(() => {
     axios
-      .get(url)
-      .then((res) => {
-        setData(res.data.comments);
-      })
+      .get(url.comment)
+      .then((res) => setData(res.data.comments))
       .catch((error) => console.log(error));
   }, []);
 
@@ -22,7 +20,7 @@ const CommentPosts = ({ post }) => {
     e.preventDefault();
 
     axios
-      .post(url, {
+      .post(url.comment, {
         uid: uid,
         pseudo: pseudo,
         post_id: post.post_id,

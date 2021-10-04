@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CommentPosts from "./Comments/CommentPosts";
-// const uid = sessionStorage.getItem("uid");
+import url from "../../general/url";
+import dateParser from "../../general/dateParser";
 
 const Post = ({ post }) => {
-  const url = "http://localhost:4000/api/post/" + post.post_id;
-  const urlLike = "http://localhost:4000/api/post/like/" + post.post_id;
   const [imgDisplay, setImgDisplay] = useState(false);
   const [activComment, setActivComment] = useState(true);
   const [like, setLike] = useState(false);
@@ -26,24 +25,13 @@ const Post = ({ post }) => {
     }
   }, []);
 
-  const dateParser = (date) => {
-    let newDate = new Date(date).toLocaleDateString("fr-FR", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-    });
-    return newDate;
-  };
-
   const supprPost = () => {
     const reponse = window.confirm(
       "Souhaitez-vous vraiment supprimer cet article ?"
     );
     if (reponse === true) {
       axios
-        .delete(url)
+        .delete(url.post + post.post_id)
         .then(() => setDisplayPost(false))
         .catch((error) => console.log(error));
     }
@@ -75,7 +63,7 @@ const Post = ({ post }) => {
   const liker = () => {
     if (like === false) {
       axios
-        .put(urlLike, {
+        .put(url.like + post.post_id, {
           nb_likes: 1,
         })
         .then(() => {
@@ -86,7 +74,7 @@ const Post = ({ post }) => {
         .catch((error) => console.log(error));
     } else {
       axios
-        .put(urlLike, {
+        .put(url.like + post.post_id, {
           nb_likes: 0,
         })
         .then(() => {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import url from "../../general/url";
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
-const url = "http://localhost:4000/api/profil/";
-const urlImage = "http://localhost:4000/images/profil/" + pseudo + ".jpg";
+const urlImage = url.imageProfil + pseudo + ".jpg";
 
 const UploadImg = () => {
   const [file, setFile] = useState();
@@ -11,7 +11,7 @@ const UploadImg = () => {
 
   useEffect(() => {
     axios
-      .get(url + uid)
+      .get(url.profil + uid)
       .then((res) => setData(res.data.profil[0]))
       .catch((error) => console.log(error));
   }, []);
@@ -24,12 +24,12 @@ const UploadImg = () => {
     console.log(data);
 
     axios
-      .post(url + "upload", data)
+      .post(url.profil + "upload", data)
       .then(() => console.log(data.file.filename))
       .catch((error) => console.log(error));
 
     axios
-      .put(url + uid, {
+      .put(url.profil + uid, {
         photo_profil: urlImage,
       })
       .then(() => (window.location = "./profil"))

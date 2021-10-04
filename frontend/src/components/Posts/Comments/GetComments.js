@@ -1,19 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-
-const dateParser = (date) => {
-  let newDate = new Date(date).toLocaleDateString("fr-FR", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-  });
-  return newDate;
-};
+import url from "../../../general/url";
+import dateParser from "../../../general/dateParser";
 
 const GetComments = ({ comment, post }) => {
-  const url = "http://localhost:4000/api/comment/";
   const [commentModif, setCommentModif] = useState(false);
   const [commentSuppr, setCommentSuppr] = useState(false);
   const [textModif, setTextModif] = useState(comment.commentaire);
@@ -24,16 +14,12 @@ const GetComments = ({ comment, post }) => {
     );
     if (reponse === true) {
       axios
-        .delete(url + comment.comment_id)
-        .then(() => {
-          setCommentSuppr(true);
-          console.log("Commentaire supprimé !");
-        })
+        .delete(url.comment + comment.comment_id)
+        .then(() => setCommentSuppr(true))
         .catch((error) => console.log(error));
     }
   }
   function modifComment() {
-    console.log(comment.comment_id);
     if (commentModif === false) {
       setCommentModif(true);
     } else {
@@ -42,7 +28,7 @@ const GetComments = ({ comment, post }) => {
   }
   function saveModifComment() {
     axios
-      .put(url + comment.comment_id, {
+      .put(url.comment + comment.comment_id, {
         commentaire: textModif,
       })
       .then(() => setCommentModif(false))

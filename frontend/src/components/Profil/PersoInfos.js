@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import url from "../../general/url";
 const uid = sessionStorage.getItem("uid");
 
 const PersoInfos = () => {
@@ -9,7 +10,7 @@ const PersoInfos = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api/user/" + uid)
+      .get(url.user + uid)
       .then((res) => setUser(res.data.user[0]))
       .catch((error) => console.log(error));
   }, []);
@@ -20,7 +21,7 @@ const PersoInfos = () => {
     );
     if (reponse === true) {
       axios
-        .put("http://localhost:4000/api/user/" + uid, {
+        .put(url.user + uid, {
           email: email,
           password: password,
         })

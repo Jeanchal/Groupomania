@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import url from "../../general/url";
 
 const InscriptionForm = () => {
   const [pseudo, setPseudo] = useState("");
@@ -13,7 +14,7 @@ const InscriptionForm = () => {
 
     if (form.password.value === form.confirmPassword.value) {
       axios
-        .post("http://localhost:4000/api/user/signup", {
+        .post(url.user, {
           pseudo: pseudo,
           email: email,
           password: password,

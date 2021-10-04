@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Post from "./Post";
 import axios from "axios";
+import url from "../../general/url";
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
 
 const CreatePosts = () => {
   const name = pseudo + Date.now();
-  const urlImage = "http://localhost:4000/images/posts/" + name + ".jpg";
-  const url = "http://localhost:4000/api/post/";
+  const urlImage = url.imagePost + name + ".jpg";
   const [file, setFile] = useState(null);
   const [publication, setPublication] = useState("");
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api/post")
+      .get(url.post)
       .then((res) => setData(res.data.posts))
       .catch((error) => console.log(error));
   }, []);
@@ -26,14 +26,14 @@ const CreatePosts = () => {
     console.log(data.file);
 
     axios
-      .post(url + "upload", data)
+      .post(url.post + "upload", data)
       .then(() => console.log(data.file.filename))
       .catch((error) => console.log(error));
   }
 
   function savePost(img) {
     axios
-      .post(url, {
+      .post(url.post, {
         uid: uid,
         pseudo: pseudo,
         publication: publication,

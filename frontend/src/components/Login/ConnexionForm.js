@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import url from "../../general/url";
 
 const ConnexionForm = () => {
   const [email, setEmail] = useState("");
@@ -7,9 +8,10 @@ const ConnexionForm = () => {
 
   const gestionConnexion = (e) => {
     e.preventDefault();
+    const msgError = document.getElementById("connectError");
 
     axios
-      .post("http://localhost:4000/api/user/login", {
+      .post(url.user, {
         email: email,
         password: password,
       })
@@ -23,8 +25,6 @@ const ConnexionForm = () => {
       })
       .catch((error) => {
         console.log(error);
-        console.log("Erreur: email ou mot de passe incorrects");
-        const msgError = document.getElementById("connectError");
         msgError.innerText = "Erreur ! email ou mot de passe incorrects";
       });
   };
