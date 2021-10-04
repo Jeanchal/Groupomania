@@ -54,32 +54,26 @@ exports.deletePost = (req, res) => {
 
 // likes et commentaires
 
-exports.likePost = async (req, res) => {
-  const post = await Post.findOne({ where: { post_id: req.params.post_id } });
-  try {
+exports.likePost = (req, res) => {
+  Post.findOne({
+    where: { post_id: req.params.post_id },
+  }).then((objet) => {
+    const nbLikes = objet.dataValues.nb_likes;
+    let total;
     if (req.body.nb_likes === 1) {
-      Post.update(
-        {
-          nb_likes: post.nb_likes++,
-        },
-        { where: { post_id: req.params.post_id } }
-      )
-        .then(() => res.status(201).json({ message: "Post modifié !" }))
-        .catch((error) => res.status(400).json({ error }));
+      total = nbLikes + 1;
+    } else {
+      total = nbLikes - 1;
     }
-    if (req.body.nb_likes === 0) {
-      Post.update(
-        {
-          nb_likes: post.nb_likes--,
-        },
-        { where: { post_id: req.params.post_id } }
-      )
-        .then(() => res.status(201).json({ message: "like annulé !" }))
-        .catch((error) => res.status(400).json({ error }));
-    }
-  } catch (error) {
-    res.status(400).json({ error: error });
-  }
+    Post.update(
+      {
+        nb_likes: total,
+      },
+      { where: { post_id: req.params.post_id } }
+    )
+      .then(() => res.status(201).json({ nbLikes: total }))
+      .catch((error) => res.status(400).json({ error }));
+  });
 };
 
 exports.commentPost = async (req, res) => {

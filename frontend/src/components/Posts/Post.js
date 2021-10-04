@@ -5,10 +5,12 @@ import CommentPosts from "./Comments/CommentPosts";
 
 const Post = ({ post }) => {
   const url = "http://localhost:4000/api/post/" + post.post_id;
+  const urlLike = "http://localhost:4000/api/post/like/" + post.post_id;
   const [imgDisplay, setImgDisplay] = useState(false);
   const [activComment, setActivComment] = useState(true);
   const [like, setLike] = useState(false);
-  const [nbLikes, setNbLikes] = useState(false);
+  const [activNbLikes, setActivNbLikes] = useState(false);
+  const [nbLikes, setNbLikes] = useState(post.nb_likes);
   const [nbComments, setNbComments] = useState(false);
   const [displayPost, setDisplayPost] = useState(true);
 
@@ -17,7 +19,7 @@ const Post = ({ post }) => {
       setImgDisplay(true);
     }
     if (post.nb_likes > 0) {
-      setNbLikes(true);
+      setActivNbLikes(true);
     }
     if (post.nb_commentaires > 0) {
       setNbComments(true);
@@ -71,18 +73,31 @@ const Post = ({ post }) => {
   };
 
   const liker = () => {
-    if (like === true) {
-      setLike(false);
+    if (like === false) {
+      axios
+        .put(urlLike, {
+          nb_likes: 1,
+        })
+        .then(() => {
+          setLike(true);
+          setActivNbLikes(true);
+          setNbLikes(post.nb_likes + 1);
+        })
+        .catch((error) => console.log(error));
     } else {
-      setLike(true);
+      axios
+        .put(urlLike, {
+          nb_likes: 0,
+        })
+        .then(() => {
+          setLike(false);
+          setNbLikes(post.nb_likes);
+          if (post.nb_likes === 0) {
+            setActivNbLikes(false);
+          }
+        })
+        .catch((error) => console.log(error));
     }
-
-    axios
-      .put(url, {
-        nb_likes: 1,
-      })
-      .then(() => console.log("requête ok"))
-      .catch((error) => console.log(error));
   };
 
   if (displayPost === true) {
@@ -118,9 +133,7 @@ const Post = ({ post }) => {
                   onClick={liker}
                 ></i>
               </div>
-              <div className="post-number">
-                {nbLikes ? post.nb_likes : null}
-              </div>
+              <div className="post-number">{activNbLikes ? nbLikes : null}</div>
             </div>
           </div>
           <div>

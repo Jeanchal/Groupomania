@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import GetPosts from "./GetPosts";
 import Post from "./Post";
 import axios from "axios";
 const uid = sessionStorage.getItem("uid");

@@ -53,10 +53,3 @@ exports.deleteComment = (req, res) => {
     .then(() => res.status(201).json({ message: "Commentaire supprimé !" }))
     .catch((error) => res.status(400).json({ error }));
 };
-
-// //
-// exports.getCommentUid = (req, res) => {
-//   Comment.findAll({ where: { uid: req.params.uid } })
-//     .then((comment) => res.status(201).json({ comment }))
-//     .catch((error) => res.status(400).json({ error }));
-// };

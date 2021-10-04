@@ -14,6 +14,6 @@ router.get("/", postController.getAllPosts);
 router.get("/:post_id", postController.getOnePost);
 
 router.put("/:post_id", postController.commentPost);
-router.put("/:post_id", postController.likePost);
+router.put("/like/:post_id", postController.likePost);
 
 module.exports = router;
