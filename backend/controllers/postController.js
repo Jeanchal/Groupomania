@@ -9,18 +9,17 @@ exports.createPost = (req, res) => {
     image_url: req.body.image_url,
     date: req.body.date,
   })
-    .then(() => res.status(201).json({ message: "Post créé !" }))
+    .then((post) => res.status(201).json({ message: "Post créé !", post }))
     .catch((error) => res.status(400).json({ error }));
 };
 
 exports.modifyPost = (req, res) => {
   Post.update(
     {
-      uid: req.body.uid,
       publication: req.body.publication,
       image_url: req.body.image_url,
     },
-    { where: { uid: req.params.uid } }
+    { where: { post_id: req.params.post_id } }
   )
     .then(() => res.status(201).json({ message: "Post modifié !" }))
     .catch((error) => res.status(400).json({ error }));
@@ -50,14 +49,14 @@ exports.deletePost = (req, res) => {
 // likes et commentaires
 
 exports.likePost = async (req, res) => {
-  const post = await Post.findOne({ where: { uid: req.params.uid } });
+  const post = await Post.findOne({ where: { post_id: req.params.post_id } });
   try {
     if (req.body.nb_likes === 1) {
       Post.update(
         {
           nb_likes: post.nb_likes++,
         },
-        { where: { uid: req.params.uid } }
+        { where: { post_id: req.params.post_id } }
       )
         .then(() => res.status(201).json({ message: "Post modifié !" }))
         .catch((error) => res.status(400).json({ error }));
@@ -67,7 +66,7 @@ exports.likePost = async (req, res) => {
         {
           nb_likes: post.nb_likes--,
         },
-        { where: { uid: req.params.uid } }
+        { where: { post_id: req.params.post_id } }
       )
         .then(() => res.status(201).json({ message: "like annulé !" }))
         .catch((error) => res.status(400).json({ error }));
@@ -78,14 +77,14 @@ exports.likePost = async (req, res) => {
 };
 
 exports.commentPost = async (req, res) => {
-  const post = await Post.findOne({ where: { uid: req.params.uid } });
+  const post = await Post.findOne({ where: { post_id: req.params.post_id } });
   try {
     if (req.body.nb_commentaires === 1) {
       Post.update(
         {
           nb_likes: post.nb_commentaires++,
         },
-        { where: { uid: req.params.uid } }
+        { where: { post_id: req.params.post_id } }
       )
         .then(() => res.status(201).json({ message: "Post modifié !" }))
         .catch((error) => res.status(400).json({ error }));
@@ -95,7 +94,7 @@ exports.commentPost = async (req, res) => {
         {
           nb_likes: post.nb_commentaires--,
         },
-        { where: { uid: req.params.uid } }
+        { where: { post_id: req.params.post_id } }
       )
         .then(() => res.status(201).json({ message: "like annulé !" }))
         .catch((error) => res.status(400).json({ error }));

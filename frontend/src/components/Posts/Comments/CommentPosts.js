@@ -5,15 +5,15 @@ const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
 
 const CommentPosts = ({ post }) => {
-  const url = "http://localhost:4000/api/post/comment/";
+  const url = "http://localhost:4000/api/comment/";
   const [data, setData] = useState([]);
   const [comment, setComment] = useState("");
 
   useEffect(() => {
     axios
-      .get(url + uid)
+      .get(url)
       .then((res) => {
-        setData(res.data.comment);
+        setData(res.data.comments);
       })
       .catch((error) => console.log(error));
   }, []);

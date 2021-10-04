@@ -4,6 +4,7 @@ const path = require("path");
 const userRoutes = require("./routes/userRoutes");
 const profilRoutes = require("./routes/profilRoutes");
 const postRoutes = require("./routes/postRoutes");
+const commentRoutes = require("./routes/commentRoutes");
 
 class App {
   app;
@@ -33,6 +34,7 @@ class App {
     this.app.use("/api/user", userRoutes);
     this.app.use("/api/profil", profilRoutes);
     this.app.use("/api/post", postRoutes);
+    this.app.use("/api/comment", commentRoutes);
   }
   setDatabase(connect) {
     this.database = connect;

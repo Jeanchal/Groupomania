@@ -41,4 +41,13 @@ exports.deleteProfil = (req, res) => {
   Profil.destroy({ where: { uid: req.params.uid } })
     .then(() => res.status(201).json({ message: "Profil supprimé !" }))
     .catch((error) => res.status(400).json({ error }));
+
+  Profil.findOne({ where: { uid: req.params.uid } })
+    .then((objet) => {
+      // res.status(201).json({ objet });
+      const fileLink = objet[0].dataValues.photo_profil;
+      const filename = fileLink.split("/images/profil/")[1];
+      fs.unlink(`./images/profil/${filename}`);
+    })
+    .catch((error) => res.status(400).json({ error }));
 };

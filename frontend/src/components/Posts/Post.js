@@ -8,10 +8,18 @@ const Post = ({ post }) => {
   const [imgDisplay, setImgDisplay] = useState(false);
   const [activComment, setActivComment] = useState(true);
   const [like, setLike] = useState(false);
+  const [nbLikes, setNbLikes] = useState(false);
+  const [nbComments, setNbComments] = useState(false);
 
   useEffect(() => {
     if (post.image_url === "") {
       setImgDisplay(true);
+    }
+    if (post.nb_likes > 0) {
+      setNbLikes(true);
+    }
+    if (post.nb_commentaires > 0) {
+      setNbComments(true);
     }
   }, []);
 
@@ -67,6 +75,13 @@ const Post = ({ post }) => {
     } else {
       setLike(true);
     }
+
+    axios
+      .put(url, {
+        nb_likes: 1,
+      })
+      .then(() => console.log("requête ok"))
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -89,13 +104,15 @@ const Post = ({ post }) => {
               title="commenter"
               onClick={commentaires}
             ></i>
-            <div className="post-number">1</div>
+            <div className="post-number">
+              {nbComments ? post.nb_commentaires : null}
+            </div>
           </div>
           <div className="post-like">
             <div className={like ? "like-effect" : null}>
               <i className="fas fa-thumbs-up" title="liker" onClick={liker}></i>
             </div>
-            <div className="post-number">1</div>
+            <div className="post-number">{nbLikes ? post.nb_likes : null}</div>
           </div>
         </div>
         <div>

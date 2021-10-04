@@ -9,10 +9,6 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-    // uid: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    // },
     pseudo: {
       type: DataTypes.STRING,
       defaultValue: "",

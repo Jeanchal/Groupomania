@@ -10,7 +10,9 @@ exports.createComment = (req, res) => {
     like: req.body.like,
     date: req.body.date,
   })
-    .then(() => res.status(201).json({ message: "Commentaire créé !" }))
+    .then((comment) =>
+      res.status(201).json({ message: "Commentaire créé !", comment })
+    )
     .catch((error) => res.status(400).json({ error }));
 };
 
@@ -24,7 +26,7 @@ exports.modifyComment = (req, res) => {
       like: req.body.like,
       date: req.body.date,
     },
-    { where: { uid: req.params.uid } }
+    { where: { comment_id: req.params.comment_id } }
   )
     .then(() => res.status(201).json({ message: "Commentaire modifié !" }))
     .catch((error) => res.status(400).json({ error }));
@@ -37,13 +39,20 @@ exports.getAllComments = (req, res) => {
 };
 
 exports.getOneComment = (req, res) => {
-  Comment.findAll({ where: { uid: req.params.uid } })
+  Comment.findAll({ where: { comment_id: req.params.comment_id } })
     .then((comment) => res.status(201).json({ comment }))
     .catch((error) => res.status(400).json({ error }));
 };
 
 exports.deleteComment = (req, res) => {
-  Comment.destroy({ where: { uid: req.params.uid } })
+  Comment.destroy({ where: { comment_id: req.params.comment_id } })
     .then(() => res.status(201).json({ message: "Commentaire supprimé !" }))
     .catch((error) => res.status(400).json({ error }));
 };
+
+// //
+// exports.getCommentUid = (req, res) => {
+//   Comment.findAll({ where: { uid: req.params.uid } })
+//     .then((comment) => res.status(201).json({ comment }))
+//     .catch((error) => res.status(400).json({ error }));
+// };
