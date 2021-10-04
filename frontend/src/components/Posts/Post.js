@@ -10,6 +10,7 @@ const Post = ({ post }) => {
   const [like, setLike] = useState(false);
   const [nbLikes, setNbLikes] = useState(false);
   const [nbComments, setNbComments] = useState(false);
+  const [displayPost, setDisplayPost] = useState(true);
 
   useEffect(() => {
     if (post.image_url === "") {
@@ -41,7 +42,7 @@ const Post = ({ post }) => {
     if (reponse === true) {
       axios
         .delete(url)
-        .then(() => (window.location = "/acceuil"))
+        .then(() => setDisplayPost(false))
         .catch((error) => console.log(error));
     }
   };
@@ -84,49 +85,59 @@ const Post = ({ post }) => {
       .catch((error) => console.log(error));
   };
 
-  return (
-    <div className="post-container">
-      <div className="post-head-container">
-        <h3 className="post-pseudo">{post.pseudo}</h3>
-        <p>posté le {dateParser(post.date)}</p>
-      </div>
-      <div>
-        {imgDisplay ? null : (
-          <img src={post.image_url} alt="publication" id="post-image" />
-        )}
-      </div>
-      <div>{post.publication}</div>
-      <div className="post-foot-container">
-        <div className="post-reactions">
-          <div className="post-comment">
-            <i
-              className="far fa-comment-dots"
-              title="commenter"
-              onClick={commentaires}
-            ></i>
-            <div className="post-number">
-              {nbComments ? post.nb_commentaires : null}
-            </div>
-          </div>
-          <div className="post-like">
-            <div className={like ? "like-effect" : null}>
-              <i className="fas fa-thumbs-up" title="liker" onClick={liker}></i>
-            </div>
-            <div className="post-number">{nbLikes ? post.nb_likes : null}</div>
-          </div>
+  if (displayPost === true) {
+    return (
+      <div className="post-container">
+        <div className="post-head-container">
+          <h3 className="post-pseudo">{post.pseudo}</h3>
+          <p>posté le {dateParser(post.date)}</p>
         </div>
         <div>
-          <div className="post-modif">
-            <button onClick={modifPost}>Modifier</button>
-            <button onClick={supprPost}>Supprimer</button>
+          {imgDisplay ? null : (
+            <img src={post.image_url} alt="publication" id="post-image" />
+          )}
+        </div>
+        <div>{post.publication}</div>
+        <div className="post-foot-container">
+          <div className="post-reactions">
+            <div className="post-comment">
+              <i
+                className="far fa-comment-dots"
+                title="commenter"
+                onClick={commentaires}
+              ></i>
+              <div className="post-number">
+                {nbComments ? post.nb_commentaires : null}
+              </div>
+            </div>
+            <div className="post-like">
+              <div className={like ? "like-effect" : null}>
+                <i
+                  className="fas fa-thumbs-up"
+                  title="liker"
+                  onClick={liker}
+                ></i>
+              </div>
+              <div className="post-number">
+                {nbLikes ? post.nb_likes : null}
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="post-modif">
+              <button onClick={modifPost}>Modifier</button>
+              <button onClick={supprPost}>Supprimer</button>
+            </div>
           </div>
         </div>
+        <div className={activComment ? "activ-img" : null}>
+          <CommentPosts post={post} />
+        </div>
       </div>
-      <div className={activComment ? "activ-img" : null}>
-        <CommentPosts post={post} />
-      </div>
-    </div>
-  );
+    );
+  } else {
+    return null;
+  }
 };
 
 export default Post;

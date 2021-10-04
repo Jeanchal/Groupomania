@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/postController");
 const uploadController = require("../controllers/uploadController");
-const commentController = require("../controllers/commentController");
 const auth = require("../middlewares/auth");
 const multer = require("multer");
 const upload = multer().single("file");

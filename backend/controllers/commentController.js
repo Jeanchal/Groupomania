@@ -10,8 +10,12 @@ exports.createComment = (req, res) => {
     like: req.body.like,
     date: req.body.date,
   })
-    .then((comment) =>
-      res.status(201).json({ message: "Commentaire créé !", comment })
+    .then(() =>
+      Comment.findAll()
+        .then((comments) =>
+          res.status(201).json({ message: "Commentaire créé !", comments })
+        )
+        .catch((error) => res.status(400).json({ error }))
     )
     .catch((error) => res.status(400).json({ error }));
 };

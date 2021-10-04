@@ -29,13 +29,16 @@ const CommentPosts = ({ post }) => {
         commentaire: comment,
         date: Date.now(),
       })
-      .then(() => (window.location = "/acceuil"))
+      .then((res) => {
+        setData(res.data.comments);
+        setComment("");
+      })
       .catch((error) => console.log(error));
   }
 
   return (
     <div>
-      <div id="getComment-container">
+      <div>
         {data
           .sort((a, b) => b.date - a.date)
           .map((comment) => (

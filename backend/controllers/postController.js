@@ -9,7 +9,13 @@ exports.createPost = (req, res) => {
     image_url: req.body.image_url,
     date: req.body.date,
   })
-    .then((post) => res.status(201).json({ message: "Post créé !", post }))
+    .then(() => {
+      Post.findAll()
+        .then((posts) =>
+          res.status(201).json({ message: "Post créé !", posts })
+        )
+        .catch((error) => res.status(400).json({ error }));
+    })
     .catch((error) => res.status(400).json({ error }));
 };
 
