@@ -25,6 +25,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BIGINT,
       allowNull: false,
     },
+    nb_likes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
     users_liked: {
       type: DataTypes.TEXT,
       defaultValue: "[]",
