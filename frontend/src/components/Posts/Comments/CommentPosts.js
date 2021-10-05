@@ -32,6 +32,16 @@ const CommentPosts = ({ post }) => {
         setComment("");
       })
       .catch((error) => console.log(error));
+
+    axios
+      .put(url.postComment + post.post_id, {
+        nbComments: 1,
+      })
+      .then((objet) => {
+        const nbCom = document.querySelector(".post-number");
+        nbCom.innerText = objet.data.nbCommentaires;
+      })
+      .catch((error) => console.log(error));
   }
 
   return (

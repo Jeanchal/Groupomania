@@ -9,11 +9,11 @@ const GetComments = ({ comment, post }) => {
   const [commentModif, setCommentModif] = useState(false);
   const [commentSuppr, setCommentSuppr] = useState(false);
   const [textModif, setTextModif] = useState(comment.commentaire);
-  const [activModif, setActivModif] = useState(false);
+  const [activModif, setActivModif] = useState(true);
 
   useEffect(() => {
     if (comment.uid === uid) {
-      setActivModif(true);
+      setActivModif(false);
     }
   }, []);
 
@@ -25,6 +25,16 @@ const GetComments = ({ comment, post }) => {
       axios
         .delete(urlComment)
         .then(() => setCommentSuppr(true))
+        .catch((error) => console.log(error));
+
+      axios
+        .put(url.postComment + post.post_id, {
+          nbComments: 0,
+        })
+        .then((objet) => {
+          const nbCom = document.querySelector(".post-number");
+          nbCom.innerText = objet.data.nbCommentaires;
+        })
         .catch((error) => console.log(error));
     }
   }

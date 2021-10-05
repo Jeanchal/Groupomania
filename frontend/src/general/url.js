@@ -5,6 +5,7 @@ const url = {
   profil: "http://localhost:4000/api/profil",
   profilUpload: "http://localhost:4000/api/profil/upload",
   post: "http://localhost:4000/api/post",
+  postComment: "http://localhost:4000/api/post/comment/",
   postUpload: "http://localhost:4000/api/post/upload",
   like: "http://localhost:4000/api/post/like/",
   comment: "http://localhost:4000/api/comment",

@@ -8,13 +8,9 @@ const uid = sessionStorage.getItem("uid");
 const Post = ({ post }) => {
   const urlPost = url.post + "/" + post.post_id;
   const urlLike = url.like + post.post_id;
-  const [imgDisplay, setImgDisplay] = useState(false);
   const [activComment, setActivComment] = useState(true);
   const [like, setLike] = useState(false);
-  const [activNbLikes, setActivNbLikes] = useState(false);
-  const [activModif, setActivModif] = useState(false);
   const [nbLikes, setNbLikes] = useState(post.nb_likes);
-  const [nbComments, setNbComments] = useState(false);
   const [displayPost, setDisplayPost] = useState(true);
   let activLike = 0;
 
@@ -22,11 +18,7 @@ const Post = ({ post }) => {
   if (tabUsersLiked.includes(uid)) activLike = 1;
 
   useEffect(() => {
-    if (post.uid === uid) setActivModif(true);
-    if (post.image_url === "") setImgDisplay(true);
-    if (post.nb_likes > 0) setActivNbLikes(true);
     if (activLike === 1) setLike(true);
-    // if (post.nb_commentaires > 0) setNbComments(true);
   }, []);
 
   const supprPost = () => {
@@ -73,7 +65,6 @@ const Post = ({ post }) => {
         })
         .then((objet) => {
           setLike(true);
-          setActivNbLikes(true);
           setNbLikes(objet.data.nbLikes);
         })
         .catch((error) => console.log(error));
@@ -86,7 +77,6 @@ const Post = ({ post }) => {
         .then((objet) => {
           setLike(false);
           setNbLikes(objet.data.nbLikes);
-          if (objet.data.nbLikes === 0) setActivNbLikes(false);
         })
         .catch((error) => console.log(error));
     }
@@ -100,7 +90,7 @@ const Post = ({ post }) => {
           <p>posté le {dateParser(post.date)}</p>
         </div>
         <div>
-          {imgDisplay ? null : (
+          {post.image_url === "" ? null : (
             <img src={post.image_url} alt="publication" id="post-image" />
           )}
         </div>
@@ -114,7 +104,7 @@ const Post = ({ post }) => {
                 onClick={commentaires}
               ></i>
               <div className="post-number">
-                {nbComments ? post.nb_commentaires : null}
+                {post.nb_commentaires > 0 ? post.nb_commentaires : null}
               </div>
             </div>
             <div className="post-like">
@@ -125,11 +115,14 @@ const Post = ({ post }) => {
                   onClick={liker}
                 ></i>
               </div>
-              <div className="post-number">{activNbLikes ? nbLikes : null}</div>
+              <div className="post-number">{nbLikes > 0 ? nbLikes : null}</div>
             </div>
           </div>
           <div>
-            <div id="post-modif" className={activModif ? "activ-img" : null}>
+            <div
+              id="post-modif"
+              className={post.uid === uid ? "activ-img" : null}
+            >
               <button onClick={modifPost}>Modifier</button>
               <button onClick={supprPost}>Supprimer</button>
             </div>

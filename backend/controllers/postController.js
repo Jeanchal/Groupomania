@@ -67,7 +67,6 @@ exports.likePost = async (req, res) => {
         tabString = JSON.stringify(postLikes);
         nbLikes = post.nb_likes + 1;
         message = "publication likée !";
-        console.log(nbLikes);
       } else {
         res
           .status(400)
@@ -101,32 +100,21 @@ exports.likePost = async (req, res) => {
   }
 };
 
-// likes et commentaires
-
 exports.commentPost = async (req, res) => {
-  const post = await Post.findOne({ where: { post_id: req.params.post_id } });
-  try {
-    if (req.body.nb_commentaires === 1) {
-      Post.update(
-        {
-          nb_likes: post.nb_commentaires++,
-        },
-        { where: { post_id: req.params.post_id } }
-      )
-        .then(() => res.status(201).json({ message: "Post modifié !" }))
-        .catch((error) => res.status(400).json({ error }));
-    }
-    if (req.body.nb_commentaires === 0) {
-      Post.update(
-        {
-          nb_likes: post.nb_commentaires--,
-        },
-        { where: { post_id: req.params.post_id } }
-      )
-        .then(() => res.status(201).json({ message: "like annulé !" }))
-        .catch((error) => res.status(400).json({ error }));
-    }
-  } catch (error) {
-    res.status(400).json({ error: error });
-  }
+  const post = await Post.findOne({
+    where: { post_id: req.params.post_id },
+  });
+  let nbCommentaires;
+  if (req.body.nbComments === 1) nbCommentaires = post.nb_commentaires + 1;
+  if (req.body.nbComments === 0) nbCommentaires = post.nb_commentaires - 1;
+  Post.update(
+    {
+      nb_commentaires: nbCommentaires,
+    },
+    { where: { post_id: req.params.post_id } }
+  )
+    .then(() =>
+      res.status(201).json({ message: "Post modifié !", nbCommentaires })
+    )
+    .catch((error) => res.status(400).json({ error }));
 };
