@@ -94,7 +94,7 @@ const Post = ({ post }) => {
             <img src={post.image_url} alt="publication" id="post-image" />
           )}
         </div>
-        <div>{post.publication}</div>
+        <div className="publication">{post.publication}</div>
         <div className="post-foot-container">
           <div className="post-reactions">
             <div className="post-comment">
