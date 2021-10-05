@@ -5,6 +5,7 @@ import dateParser from "../../../general/dateParser";
 const uid = sessionStorage.getItem("uid");
 
 const GetComments = ({ comment, post }) => {
+  const urlComment = url.comment + "/" + comment.comment_id;
   const [commentModif, setCommentModif] = useState(false);
   const [commentSuppr, setCommentSuppr] = useState(false);
   const [textModif, setTextModif] = useState(comment.commentaire);
@@ -22,7 +23,7 @@ const GetComments = ({ comment, post }) => {
     );
     if (reponse === true) {
       axios
-        .delete(url.comment + comment.comment_id)
+        .delete(urlComment)
         .then(() => setCommentSuppr(true))
         .catch((error) => console.log(error));
     }
@@ -36,7 +37,7 @@ const GetComments = ({ comment, post }) => {
   }
   function saveModifComment() {
     axios
-      .put(url.comment + comment.comment_id, {
+      .put(urlComment, {
         commentaire: textModif,
       })
       .then(() => setCommentModif(false))

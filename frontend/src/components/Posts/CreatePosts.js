@@ -26,7 +26,7 @@ const CreatePosts = () => {
     console.log(data.file);
 
     axios
-      .post(url.post + "upload", data)
+      .post(url.postUpload, data)
       .then(() => console.log(data.file.filename))
       .catch((error) => console.log(error));
   }

@@ -6,6 +6,7 @@ import dateParser from "../../general/dateParser";
 const uid = sessionStorage.getItem("uid");
 
 const Post = ({ post }) => {
+  const urlPost = url.post + "/" + post.post_id;
   const [imgDisplay, setImgDisplay] = useState(false);
   const [activComment, setActivComment] = useState(true);
   const [like, setLike] = useState(false);
@@ -36,7 +37,7 @@ const Post = ({ post }) => {
     );
     if (reponse === true) {
       axios
-        .delete(url.post + post.post_id)
+        .delete(urlPost)
         .then(() => setDisplayPost(false))
         .catch((error) => console.log(error));
     }
@@ -68,7 +69,7 @@ const Post = ({ post }) => {
   const liker = () => {
     if (like === false) {
       axios
-        .put(url.like + post.post_id, {
+        .put(urlPost, {
           nb_likes: 1,
         })
         .then(() => {
@@ -79,7 +80,7 @@ const Post = ({ post }) => {
         .catch((error) => console.log(error));
     } else {
       axios
-        .put(url.like + post.post_id, {
+        .put(urlPost, {
           nb_likes: 0,
         })
         .then(() => {

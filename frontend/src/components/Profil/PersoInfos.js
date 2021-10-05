@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
 const uid = sessionStorage.getItem("uid");
+const urlUser = url.user + "/" + uid;
 
 const PersoInfos = () => {
   const [user, setUser] = useState([]);
@@ -10,7 +11,7 @@ const PersoInfos = () => {
 
   useEffect(() => {
     axios
-      .get(url.user + uid)
+      .get(urlUser)
       .then((res) => setUser(res.data.user[0]))
       .catch((error) => console.log(error));
   }, []);
@@ -21,7 +22,7 @@ const PersoInfos = () => {
     );
     if (reponse === true) {
       axios
-        .put(url.user + uid, {
+        .put(urlUser, {
           email: email,
           password: password,
         })

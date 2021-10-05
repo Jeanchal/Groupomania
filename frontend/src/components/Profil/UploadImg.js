@@ -4,6 +4,7 @@ import url from "../../general/url";
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
 const urlImage = url.imageProfil + pseudo + ".jpg";
+const urlProfil = url.profil + "/" + uid;
 
 const UploadImg = () => {
   const [file, setFile] = useState();
@@ -11,7 +12,7 @@ const UploadImg = () => {
 
   useEffect(() => {
     axios
-      .get(url.profil + uid)
+      .get(urlProfil)
       .then((res) => setData(res.data.profil[0]))
       .catch((error) => console.log(error));
   }, []);
@@ -24,12 +25,12 @@ const UploadImg = () => {
     console.log(data);
 
     axios
-      .post(url.profil + "upload", data)
+      .post(url.profilUpload, data)
       .then(() => console.log(data.file.filename))
       .catch((error) => console.log(error));
 
     axios
-      .put(url.profil + uid, {
+      .put(urlProfil, {
         photo_profil: urlImage,
       })
       .then(() => (window.location = "./profil"))

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
 const uid = sessionStorage.getItem("uid");
+const urlUser = url.user + "/" + uid;
 
 const SupprProfil = () => {
   const [password, setPassword] = useState();
@@ -12,7 +13,7 @@ const SupprProfil = () => {
     );
     if (reponse === true) {
       axios
-        .delete(url.user + uid, {
+        .delete(urlUser, {
           password: password,
         })
         .then((res) => {
