@@ -36,7 +36,7 @@ const CommentPosts = ({ post }) => {
 
   return (
     <div>
-      <div>
+      <div id="getComment-container">
         {data
           .sort((a, b) => b.date - a.date)
           .map((comment) => (
@@ -47,22 +47,24 @@ const CommentPosts = ({ post }) => {
             />
           ))}
       </div>
-      <form onSubmit={commentPost} method="post">
-        <textarea
-          type="text"
-          name="comment"
-          id="comment"
-          onChange={(e) => {
-            setComment(e.target.value);
-          }}
-          value={comment}
-          placeholder="Ecrire un commentaire..."
-          className="post"
-        />
-        <div>
-          <input type="submit" value="Commenter" className="submitPost" />
-        </div>
-      </form>
+      <div className="comment-post">
+        <form onSubmit={commentPost} method="post">
+          <textarea
+            type="text"
+            name="comment"
+            id="comment"
+            onChange={(e) => {
+              setComment(e.target.value);
+            }}
+            value={comment}
+            placeholder="Ecrire un commentaire..."
+            className="post"
+          />
+          <div>
+            <input type="submit" value="Commenter" className="submitPost" />
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

@@ -14,7 +14,7 @@ const InscriptionForm = () => {
 
     if (form.password.value === form.confirmPassword.value) {
       axios
-        .post(url.user, {
+        .post(url.signup, {
           pseudo: pseudo,
           email: email,
           password: password,

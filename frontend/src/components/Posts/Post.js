@@ -3,17 +3,22 @@ import axios from "axios";
 import CommentPosts from "./Comments/CommentPosts";
 import url from "../../general/url";
 import dateParser from "../../general/dateParser";
+const uid = sessionStorage.getItem("uid");
 
 const Post = ({ post }) => {
   const [imgDisplay, setImgDisplay] = useState(false);
   const [activComment, setActivComment] = useState(true);
   const [like, setLike] = useState(false);
   const [activNbLikes, setActivNbLikes] = useState(false);
+  const [activModif, setActivModif] = useState(false);
   const [nbLikes, setNbLikes] = useState(post.nb_likes);
   const [nbComments, setNbComments] = useState(false);
   const [displayPost, setDisplayPost] = useState(true);
 
   useEffect(() => {
+    if (post.uid === uid) {
+      setActivModif(true);
+    }
     if (post.image_url === "") {
       setImgDisplay(true);
     }
@@ -125,7 +130,7 @@ const Post = ({ post }) => {
             </div>
           </div>
           <div>
-            <div className="post-modif">
+            <div id="post-modif" className={activModif ? "activ-img" : null}>
               <button onClick={modifPost}>Modifier</button>
               <button onClick={supprPost}>Supprimer</button>
             </div>

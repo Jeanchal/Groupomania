@@ -49,9 +49,11 @@ const CreatePosts = () => {
 
     if (file === null) {
       savePost("");
+      setPublication("");
     } else {
       postImage();
       savePost(urlImage);
+      setPublication("");
     }
   };
 

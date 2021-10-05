@@ -330,7 +330,7 @@
               }
             }
           }
-          .post-modif {
+          #post-modif {
             button {
               margin: 0 5px 5px 5px;
               cursor: pointer;
@@ -346,17 +346,16 @@
         }
       }
       #getComment-container {
-        margin-top: 10px;
+        margin-top: 20px;
         background-color: $color-3;
         border-radius: 10px;
-        padding: 5px;
         max-height: 350px;
         overflow-x: hidden;
         overflow-y: scroll;
         .comment-container {
           background-color: white;
           @include boxShadow;
-          margin: 10px;
+          margin: 15px;
           padding: 10px 10px 0 10px;
           border-radius: 10px;
           .comment-pseudo {

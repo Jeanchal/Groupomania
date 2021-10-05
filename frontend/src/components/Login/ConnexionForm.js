@@ -11,7 +11,7 @@ const ConnexionForm = () => {
     const msgError = document.getElementById("connectError");
 
     axios
-      .post(url.user, {
+      .post(url.login, {
         email: email,
         password: password,
       })
