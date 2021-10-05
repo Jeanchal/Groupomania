@@ -94,7 +94,7 @@ exports.likePost = async (req, res) => {
       },
       { where: { post_id: req.params.post_id } }
     )
-      .then(() => res.status(201).json({ message }))
+      .then(() => res.status(201).json({ message, nbLikes }))
       .catch((error) => res.status(400).json({ error }));
   } catch (error) {
     res.status(400).json({ error: error });

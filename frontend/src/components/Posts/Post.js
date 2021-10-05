@@ -7,6 +7,7 @@ const uid = sessionStorage.getItem("uid");
 
 const Post = ({ post }) => {
   const urlPost = url.post + "/" + post.post_id;
+  const urlLike = url.like + post.post_id;
   const [imgDisplay, setImgDisplay] = useState(false);
   const [activComment, setActivComment] = useState(true);
   const [like, setLike] = useState(false);
@@ -15,20 +16,17 @@ const Post = ({ post }) => {
   const [nbLikes, setNbLikes] = useState(post.nb_likes);
   const [nbComments, setNbComments] = useState(false);
   const [displayPost, setDisplayPost] = useState(true);
+  let activLike = 0;
+
+  const tabUsersLiked = JSON.parse(post.users_liked);
+  if (tabUsersLiked.includes(uid)) activLike = 1;
 
   useEffect(() => {
-    if (post.uid === uid) {
-      setActivModif(true);
-    }
-    if (post.image_url === "") {
-      setImgDisplay(true);
-    }
-    if (post.nb_likes > 0) {
-      setActivNbLikes(true);
-    }
-    if (post.nb_commentaires > 0) {
-      setNbComments(true);
-    }
+    if (post.uid === uid) setActivModif(true);
+    if (post.image_url === "") setImgDisplay(true);
+    if (post.nb_likes > 0) setActivNbLikes(true);
+    if (activLike === 1) setLike(true);
+    // if (post.nb_commentaires > 0) setNbComments(true);
   }, []);
 
   const supprPost = () => {
@@ -69,26 +67,26 @@ const Post = ({ post }) => {
   const liker = () => {
     if (like === false) {
       axios
-        .put(urlPost, {
-          nb_likes: 1,
+        .put(urlLike, {
+          uid: uid,
+          likes: 1,
         })
-        .then(() => {
+        .then((objet) => {
           setLike(true);
           setActivNbLikes(true);
-          setNbLikes(post.nb_likes + 1);
+          setNbLikes(objet.data.nbLikes);
         })
         .catch((error) => console.log(error));
     } else {
       axios
-        .put(urlPost, {
-          nb_likes: 0,
+        .put(urlLike, {
+          uid: uid,
+          likes: 0,
         })
-        .then(() => {
+        .then((objet) => {
           setLike(false);
-          setNbLikes(post.nb_likes);
-          if (post.nb_likes === 0) {
-            setActivNbLikes(false);
-          }
+          setNbLikes(objet.data.nbLikes);
+          if (objet.data.nbLikes === 0) setActivNbLikes(false);
         })
         .catch((error) => console.log(error));
     }
