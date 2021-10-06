@@ -1,6 +1,6 @@
 import Logo from "../components/Logo";
 import Navigation from "../components/Navigation";
-import Posts from "../components/Posts/Posts";
+import PostContainer from "../components/Posts/PostContainer";
 
 const Acceuil = () => {
   return (
@@ -10,7 +10,7 @@ const Acceuil = () => {
         <Navigation />
       </header>
       <main>
-        <Posts />
+        <PostContainer />
       </main>
     </div>
   );

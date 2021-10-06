@@ -240,6 +240,13 @@
         @include box;
         padding: 10px 20px 20px 20px;
         margin-bottom: 30px;
+        #formCreate .post {
+          overflow: hidden;
+        }
+        #formModif .post {
+          font-size: 130%;
+          height: 200px;
+        }
         form {
           #comment {
             margin: 20px 0 10px 0;
@@ -251,9 +258,8 @@
             width: 100%;
             box-sizing: border-box;
             padding: 15px;
-            font-size: 170%;
+            font-size: 150%;
             resize: none;
-            overflow: hidden;
             &:focus {
               outline: none;
             }
@@ -346,9 +352,6 @@
             }
           }
         }
-        #input-modif-post {
-          margin-top: 20px;
-        }
       }
       #getComment-container {
         margin-top: 20px;
@@ -357,6 +360,7 @@
         max-height: 350px;
         overflow-x: hidden;
         overflow-y: scroll;
+
         .comment-container {
           background-color: white;
           @include boxShadow;

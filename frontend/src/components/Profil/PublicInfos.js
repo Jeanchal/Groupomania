@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
 const uid = sessionStorage.getItem("uid");
-const urlProfil = url.profil + "/" + uid;
 
 const PublicInfos = () => {
   const [data, setData] = useState([]);
@@ -11,7 +10,7 @@ const PublicInfos = () => {
 
   useEffect(() => {
     axios
-      .get(urlProfil)
+      .get(url.profil + "/" + uid)
       .then((res) => setData(res.data.profil[0]))
       .catch((error) => console.log(error));
   }, []);
@@ -22,7 +21,7 @@ const PublicInfos = () => {
     );
     if (reponse === true) {
       axios
-        .put(urlProfil, {
+        .put(url.profil + "/" + uid, {
           fonction: fonction,
           bio: bio,
         })

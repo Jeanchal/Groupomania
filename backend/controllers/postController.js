@@ -31,16 +31,37 @@ exports.createPost = async (req, res) => {
   }
 };
 
-exports.modifyPost = (req, res) => {
-  Post.update(
-    {
-      publication: req.body.publication,
-      image_url: req.body.image_url,
-    },
-    { where: { post_id: req.params.post_id } }
-  )
-    .then(() => res.status(201).json({ message: "Post modifié !" }))
-    .catch((error) => res.status(400).json({ error }));
+exports.modifyPost = async (req, res) => {
+  const message = { message: "Post modifié !" };
+  const where = { where: { post_id: req.params.post_id } };
+  try {
+    if (req.body.image_url === "") {
+      await Post.update(
+        {
+          publication: req.body.publication,
+        },
+        where
+      );
+      res.status(201).json(message);
+    } else {
+      await pipeline(
+        req.file.stream,
+        fs.createWriteStream(
+          `${__dirname}/../images/posts/${req.body.image_url}`
+        )
+      );
+      await Post.update(
+        {
+          publication: req.body.publication,
+          image_url: req.body.image_url,
+        },
+        where
+      );
+      res.status(201).json(message);
+    }
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 };
 
 exports.getAllPosts = (req, res) => {
