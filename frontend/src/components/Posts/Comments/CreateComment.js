@@ -5,7 +5,7 @@ import url from "../../../general/url";
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
 
-const CommentPosts = ({ post, setNbComment }) => {
+const CreateComment = ({ post, setNbComment }) => {
   const [data, setData] = useState([]);
   const [comment, setComment] = useState("");
 
@@ -81,4 +81,4 @@ const CommentPosts = ({ post, setNbComment }) => {
   );
 };
 
-export default CommentPosts;
+export default CreateComment;

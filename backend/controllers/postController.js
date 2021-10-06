@@ -5,19 +5,27 @@ const { promisify } = require("util");
 const pipeline = promisify(require("stream").pipeline);
 
 exports.createPost = async (req, res) => {
-  const fileName = req.body.name + ".jpg";
+  const objet = {
+    uid: req.body.uid,
+    pseudo: req.body.pseudo,
+    publication: req.body.publication,
+    image_url: req.body.image_url,
+    date: req.body.date,
+  };
   try {
-    await pipeline(
-      req.file.stream,
-      fs.createWriteStream(`${__dirname}/../images/posts/${fileName}`)
-    );
-    await Post.create({
-      uid: req.body.uid,
-      pseudo: req.body.pseudo,
-      publication: req.body.publication,
-      image_url: req.body.image_url,
-      date: Date.now(),
-    }).then((post) => res.status(201).json({ message: "Post créé !", post }));
+    if (req.body.image_url === "") {
+      await Post.create(objet);
+      res.status(201).json({ message: "Post créé !" });
+    } else {
+      await pipeline(
+        req.file.stream,
+        fs.createWriteStream(
+          `${__dirname}/../images/posts/${req.body.image_url}`
+        )
+      );
+      await Post.create(objet);
+      res.status(201).json({ message: "Post créé !" });
+    }
   } catch (error) {
     res.status(400).json({ error });
   }

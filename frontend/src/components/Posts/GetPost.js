@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import CommentPosts from "./Comments/CommentPosts";
+import CreateComment from "./Comments/CreateComment";
 import url from "../../general/url";
 import dateParser from "../../general/dateParser";
 const uid = sessionStorage.getItem("uid");
 
-const Post = ({ post }) => {
+const GetPost = ({ post }) => {
   const urlPost = url.post + "/" + post.post_id;
   const urlLike = url.like + post.post_id;
   const [activComment, setActivComment] = useState(true);
@@ -127,7 +127,7 @@ const Post = ({ post }) => {
           </div>
         </div>
         <div className={activComment ? "activ-img" : null}>
-          <CommentPosts post={post} setNbComment={setNbComment} />
+          <CreateComment post={post} setNbComment={setNbComment} />
         </div>
       </div>
     );
@@ -136,4 +136,4 @@ const Post = ({ post }) => {
   }
 };
 
-export default Post;
+export default GetPost;
