@@ -12,6 +12,7 @@ const Post = ({ post }) => {
   const [like, setLike] = useState(false);
   const [nbLikes, setNbLikes] = useState(post.nb_likes);
   const [displayPost, setDisplayPost] = useState(true);
+  const [nbComment, setNbComment] = useState(post.nb_commentaires);
   let activLike = 0;
 
   const tabUsersLiked = JSON.parse(post.users_liked);
@@ -57,29 +58,21 @@ const Post = ({ post }) => {
   };
 
   const liker = () => {
-    if (like === false) {
+    function updateLike(nb, boolean) {
       axios
         .put(urlLike, {
           uid: uid,
-          likes: 1,
+          likes: nb,
         })
         .then((objet) => {
-          setLike(true);
-          setNbLikes(objet.data.nbLikes);
-        })
-        .catch((error) => console.log(error));
-    } else {
-      axios
-        .put(urlLike, {
-          uid: uid,
-          likes: 0,
-        })
-        .then((objet) => {
-          setLike(false);
+          setLike(boolean);
           setNbLikes(objet.data.nbLikes);
         })
         .catch((error) => console.log(error));
     }
+
+    if (like === false) updateLike(1, true);
+    else updateLike(0, false);
   };
 
   if (displayPost === true) {
@@ -108,7 +101,7 @@ const Post = ({ post }) => {
                 onClick={commentaires}
               ></i>
               <div className="post-number">
-                {post.nb_commentaires > 0 ? post.nb_commentaires : null}
+                {post.nb_commentaires > 0 ? nbComment : null}
               </div>
             </div>
             <div className="post-like">
@@ -134,7 +127,7 @@ const Post = ({ post }) => {
           </div>
         </div>
         <div className={activComment ? "activ-img" : null}>
-          <CommentPosts post={post} />
+          <CommentPosts post={post} setNbComment={setNbComment} />
         </div>
       </div>
     );

@@ -5,7 +5,7 @@ import url from "../../../general/url";
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
 
-const CommentPosts = ({ post }) => {
+const CommentPosts = ({ post, setNbComment }) => {
   const [data, setData] = useState([]);
   const [comment, setComment] = useState("");
 
@@ -29,6 +29,7 @@ const CommentPosts = ({ post }) => {
       })
       .then((res) => {
         setData(res.data.comments);
+        console.log(res.data.comments);
         setComment("");
       })
       .catch((error) => console.log(error));
@@ -38,8 +39,8 @@ const CommentPosts = ({ post }) => {
         nbComments: 1,
       })
       .then((objet) => {
-        const nbCom = document.querySelector(".post-number");
-        nbCom.innerText = objet.data.nbCommentaires;
+        setNbComment(objet.data.nbCommentaires);
+        console.log(objet);
       })
       .catch((error) => console.log(error));
   }
@@ -53,6 +54,7 @@ const CommentPosts = ({ post }) => {
             <GetComments
               comment={comment}
               post={post}
+              setNbComment={setNbComment}
               key={comment.comment_id}
             />
           ))}

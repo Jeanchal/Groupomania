@@ -4,7 +4,7 @@ import url from "../../../general/url";
 import dateParser from "../../../general/dateParser";
 const uid = sessionStorage.getItem("uid");
 
-const GetComments = ({ comment, post }) => {
+const GetComments = ({ comment, post, setNbComment }) => {
   const urlComment = url.comment + "/" + comment.comment_id;
   const [commentModif, setCommentModif] = useState(false);
   const [commentSuppr, setCommentSuppr] = useState(false);
@@ -32,8 +32,7 @@ const GetComments = ({ comment, post }) => {
           nbComments: 0,
         })
         .then((objet) => {
-          const nbCom = document.querySelector(".post-number");
-          nbCom.innerText = objet.data.nbCommentaires;
+          setNbComment(objet.data.nbCommentaires);
         })
         .catch((error) => console.log(error));
     }
