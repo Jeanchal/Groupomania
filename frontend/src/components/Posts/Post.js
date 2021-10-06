@@ -91,7 +91,11 @@ const Post = ({ post }) => {
         </div>
         <div>
           {post.image_url === "" ? null : (
-            <img src={post.image_url} alt="publication" id="post-image" />
+            <img
+              src={url.imagePost + post.image_url}
+              alt="publication"
+              id="post-image"
+            />
           )}
         </div>
         <div className="publication">{post.publication}</div>
@@ -119,12 +123,13 @@ const Post = ({ post }) => {
             </div>
           </div>
           <div>
-            <div
-              id="post-modif"
-              className={post.uid === uid ? "activ-img" : null}
-            >
-              <button onClick={modifPost}>Modifier</button>
-              <button onClick={supprPost}>Supprimer</button>
+            <div id="post-modif">
+              {post.uid === uid ? (
+                <div>
+                  <button onClick={modifPost}>Modifier</button>
+                  <button onClick={supprPost}>Supprimer</button>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

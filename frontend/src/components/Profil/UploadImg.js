@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
+// import history from "../../general/history";
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
-const urlImage = url.imageProfil + pseudo + ".jpg";
-const urlProfil = url.profil + "/" + uid;
+const nomImage = pseudo + ".jpg";
 
 const UploadImg = () => {
   const [file, setFile] = useState();
@@ -12,7 +12,7 @@ const UploadImg = () => {
 
   useEffect(() => {
     axios
-      .get(urlProfil)
+      .get(url.profil + "/" + uid)
       .then((res) => setData(res.data.profil[0]))
       .catch((error) => console.log(error));
   }, []);
@@ -30,8 +30,8 @@ const UploadImg = () => {
       .catch((error) => console.log(error));
 
     axios
-      .put(urlProfil, {
-        photo_profil: urlImage,
+      .put(url.profil + "/" + uid, {
+        photo_profil: nomImage,
       })
       .then(() => (window.location = "./profil"))
       .catch((error) => console.log(error, "erreur axios"));
@@ -40,7 +40,11 @@ const UploadImg = () => {
   return (
     <div id="img-container">
       <figure>
-        <img src={data.photo_profil} id="imgProfil" alt="img-profil" />
+        <img
+          src={url.imageProfil + data.photo_profil}
+          id="imgProfil"
+          alt="img-profil"
+        />
       </figure>
       <form action="" onSubmit={gestionImage} className="uploadImg">
         <input

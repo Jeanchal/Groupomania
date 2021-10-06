@@ -7,7 +7,7 @@ const pseudo = sessionStorage.getItem("pseudo");
 
 const CreatePosts = () => {
   const name = pseudo + Date.now();
-  const urlImage = url.imagePost + name + ".jpg";
+  const nameImg = name + ".jpg";
   const [file, setFile] = useState(null);
   const [publication, setPublication] = useState("");
   const [data, setData] = useState([]);
@@ -52,7 +52,7 @@ const CreatePosts = () => {
       setPublication("");
     } else {
       postImage();
-      savePost(urlImage);
+      savePost(nameImg);
       setPublication("");
     }
   };

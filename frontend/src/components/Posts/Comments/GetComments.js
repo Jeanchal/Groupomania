@@ -76,8 +76,16 @@ const GetComments = ({ comment, post }) => {
           <div className="modif-comment">
             <p>posté le {dateParser(comment.createdAt)}</p>
             <div className={activModif ? "activ-img" : null}>
-              <i className="fas fa-trash-alt" onClick={supprComment}></i>
-              <i className="fas fa-edit" onClick={modifComment}></i>
+              <i
+                className="fas fa-trash-alt"
+                title="supprimer"
+                onClick={supprComment}
+              ></i>
+              <i
+                className="fas fa-edit"
+                title="modifier"
+                onClick={modifComment}
+              ></i>
             </div>
           </div>
         </div>
