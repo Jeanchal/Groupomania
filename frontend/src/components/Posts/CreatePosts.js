@@ -12,49 +12,41 @@ const CreatePosts = () => {
   const [publication, setPublication] = useState("");
   const [data, setData] = useState([]);
 
-  useEffect(() => {
+  function getData() {
     axios
       .get(url.post)
       .then((res) => setData(res.data.posts))
       .catch((error) => console.log(error));
+  }
+
+  useEffect(() => {
+    getData();
   }, []);
-
-  function postImage() {
-    const data = new FormData();
-    data.append("name", name);
-    data.append("file", file);
-    console.log(data.file);
-
-    axios
-      .post(url.postUpload, data)
-      .then(() => console.log(data.file.filename))
-      .catch((error) => console.log(error));
-  }
-
-  function savePost(img) {
-    axios
-      .post(url.post, {
-        uid: uid,
-        pseudo: pseudo,
-        publication: publication,
-        image_url: img,
-        date: Date.now(),
-      })
-      .then((res) => setData(res.data.posts))
-      .catch((error) => console.log(error));
-  }
 
   const createPost = (e) => {
     e.preventDefault();
 
-    if (file === null) {
-      savePost("");
-      setPublication("");
-    } else {
-      postImage();
-      savePost(nameImg);
-      setPublication("");
-    }
+    const data = new FormData();
+    data.append("name", name);
+    data.append("file", file);
+    data.append("uid", uid);
+    data.append("pseudo", pseudo);
+    data.append("publication", publication);
+    data.append("image_url", nameImg);
+
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+
+    axios
+      .post(url.post, data, config)
+      .then(() => {
+        getData();
+        setPublication("");
+      })
+      .catch((error) => console.log(error));
   };
 
   return (

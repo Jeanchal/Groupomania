@@ -1,22 +1,26 @@
 require("dotenv").config({ path: "./config/.env" });
+const fs = require("fs");
 const { Post } = require("../models");
+const { promisify } = require("util");
+const pipeline = promisify(require("stream").pipeline);
 
-exports.createPost = (req, res) => {
-  Post.create({
-    uid: req.body.uid,
-    pseudo: req.body.pseudo,
-    publication: req.body.publication,
-    image_url: req.body.image_url,
-    date: req.body.date,
-  })
-    .then(() => {
-      Post.findAll()
-        .then((posts) =>
-          res.status(201).json({ message: "Post créé !", posts })
-        )
-        .catch((error) => res.status(400).json({ error }));
-    })
-    .catch((error) => res.status(400).json({ error }));
+exports.createPost = async (req, res) => {
+  const fileName = req.body.name + ".jpg";
+  try {
+    await pipeline(
+      req.file.stream,
+      fs.createWriteStream(`${__dirname}/../images/posts/${fileName}`)
+    );
+    await Post.create({
+      uid: req.body.uid,
+      pseudo: req.body.pseudo,
+      publication: req.body.publication,
+      image_url: req.body.image_url,
+      date: Date.now(),
+    }).then((post) => res.status(201).json({ message: "Post créé !", post }));
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 };
 
 exports.modifyPost = (req, res) => {

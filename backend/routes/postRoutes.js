@@ -6,7 +6,7 @@ const auth = require("../middlewares/auth");
 const multer = require("multer");
 const upload = multer().single("file");
 
-router.post("/", postController.createPost);
+router.post("/", upload, postController.createPost);
 router.post("/upload", upload, uploadController.uploadPost);
 router.put("/:post_id", postController.modifyPost);
 router.delete("/:post_id", postController.deletePost);
