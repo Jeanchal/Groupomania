@@ -4,7 +4,7 @@ import url from "../../general/url";
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
 
-const CreatePosts = ({ setData }) => {
+const CreatePosts = ({ setData, activModifPost, post }) => {
   const date = Date.now();
   const name = pseudo + date;
   const [file, setFile] = useState(null);
@@ -52,15 +52,54 @@ const CreatePosts = ({ setData }) => {
     }
   };
 
+  const modifPost = (e) => {
+    const reponse = window.confirm(
+      "Souhaitez-vous vraiment modifier cet article ?"
+    );
+    if (reponse === true) {
+      if (file === null && publication === "") {
+        alert("impossible de poster une publication vide !");
+      } else {
+        let nameImg;
+        file === null ? (nameImg = "") : (nameImg = name + ".jpg");
+
+        const config = {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        };
+
+        const data = new FormData();
+        data.append("publication", publication);
+        data.append("image_url", nameImg);
+        data.append("date", date);
+        data.append("name", name);
+        data.append("file", file);
+
+        axios
+          .put(url.post + "/" + post.post_id, data, config)
+          .then(() => {
+            getData();
+            setFile(null);
+            setPublication("");
+          })
+          .catch((error) => console.log(error));
+      }
+    }
+    e.preventDefault();
+  };
+
   return (
-    <form onSubmit={createPost} method="post">
+    <form onSubmit={activModifPost ? modifPost : createPost} method="post">
       <textarea
         type="text"
         name="publication"
         id="publication"
         onChange={(e) => setPublication(e.target.value)}
         value={publication}
-        placeholder="Quoi de neuf ?"
+        placeholder={
+          activModifPost ? "Ecrire ici pour modifier..." : "Quoi de neuf?"
+        }
         className="post"
       />
       <div>
@@ -73,7 +112,11 @@ const CreatePosts = ({ setData }) => {
           className="imagePost"
           title="ajouter une image"
         />
-        <input type="submit" value="Publier" className="submitPost" />
+        <input
+          type="submit"
+          value={activModifPost ? "Modifier" : "Publier"}
+          className="submitPost"
+        />
       </div>
     </form>
   );

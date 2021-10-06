@@ -3,6 +3,7 @@ import axios from "axios";
 import CreateComment from "./Comments/CreateComment";
 import url from "../../general/url";
 import dateParser from "../../general/dateParser";
+import CreatePosts from "./CreatePosts";
 const uid = sessionStorage.getItem("uid");
 
 const GetPost = ({ post }) => {
@@ -13,6 +14,7 @@ const GetPost = ({ post }) => {
   const [nbLikes, setNbLikes] = useState(post.nb_likes);
   const [displayPost, setDisplayPost] = useState(true);
   const [nbComment, setNbComment] = useState(post.nb_commentaires);
+  const [activModifPost, setActivModifPost] = useState(false);
   let activLike = 0;
 
   const tabUsersLiked = JSON.parse(post.users_liked);
@@ -35,18 +37,21 @@ const GetPost = ({ post }) => {
   };
 
   const modifPost = () => {
-    const reponse = window.confirm(
-      "Souhaitez-vous vraiment modifier cet article ?"
-    );
-    if (reponse === true) {
-      // axios
-      //   .put(url, {
-      //     publication: publication,
-      //     image_url: urlImage,
-      //   })
-      //   .then(() => (window.location = "/acceuil"))
-      //   .catch((error) => console.log(error));
-    }
+    activModifPost === false
+      ? setActivModifPost(true)
+      : setActivModifPost(false);
+    // const reponse = window.confirm(
+    //   "Souhaitez-vous vraiment modifier cet article ?"
+    // );
+    // if (reponse === true) {
+    // axios
+    //   .put(url, {
+    //     publication: publication,
+    //     image_url: urlImage,
+    //   })
+    //   .then(() => (window.location = "/acceuil"))
+    //   .catch((error) => console.log(error));
+    // }
   };
 
   const commentaires = () => {
@@ -125,6 +130,12 @@ const GetPost = ({ post }) => {
               ) : null}
             </div>
           </div>
+        </div>
+        <div
+          id="input-modif-post"
+          className={activModifPost ? null : "activ-img"}
+        >
+          <CreatePosts activModifPost={activModifPost} post={post} />
         </div>
         <div className={activComment ? "activ-img" : null}>
           <CreateComment post={post} setNbComment={setNbComment} />
