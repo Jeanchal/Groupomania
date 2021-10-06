@@ -229,6 +229,13 @@
       @media (min-width: 850px) {
         width: 60%;
       }
+      i {
+        cursor: pointer;
+        opacity: 0.9;
+        &:hover {
+          opacity: 0.7;
+        }
+      }
       .post-container {
         @include box;
         padding: 10px 20px 20px 20px;
@@ -308,9 +315,6 @@
           }
           .post-reactions {
             display: flex;
-            i:hover {
-              opacity: 0.8;
-            }
             .post-like {
               font-size: 140%;
               .like-effect {
@@ -335,16 +339,10 @@
             }
           }
           #post-modif {
-            button {
-              margin: 0 5px 5px 5px;
-              cursor: pointer;
-              border: none;
-              background-color: $color-2;
-              color: white;
-              font-weight: bold;
-              font-size: 80%;
-              border-radius: 10px;
-              padding: 10px;
+            margin-right: 5px;
+            div i {
+              margin-left: 25px;
+              font-size: 140%;
             }
           }
         }
@@ -382,11 +380,6 @@
               position: relative;
               top: 7px;
               font-size: 110%;
-              color: rgb(97, 96, 96);
-              cursor: pointer;
-              &:hover {
-                opacity: 0.8;
-              }
             }
             p {
               font-size: 90%;

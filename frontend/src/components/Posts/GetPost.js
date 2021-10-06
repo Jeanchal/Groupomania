@@ -124,8 +124,16 @@ const GetPost = ({ post }) => {
             <div id="post-modif">
               {post.uid === uid ? (
                 <div>
-                  <button onClick={modifPost}>Modifier</button>
-                  <button onClick={supprPost}>Supprimer</button>
+                  <i
+                    className="fas fa-edit"
+                    title="modifier"
+                    onClick={modifPost}
+                  ></i>
+                  <i
+                    className="fas fa-trash-alt"
+                    title="supprimer"
+                    onClick={supprPost}
+                  ></i>
                 </div>
               ) : null}
             </div>
