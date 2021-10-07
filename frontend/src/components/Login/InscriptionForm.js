@@ -24,7 +24,7 @@ const InscriptionForm = () => {
           sessionStorage.setItem("pseudo", res.data.pseudo);
           sessionStorage.setItem("uid", res.data.uid);
           sessionStorage.setItem("token", res.data.token);
-          window.location = "/acceuil";
+          window.location = "/profil";
         })
         .catch((error) => {
           console.log(error);

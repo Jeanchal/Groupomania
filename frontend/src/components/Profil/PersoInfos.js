@@ -1,32 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
 const uid = sessionStorage.getItem("uid");
 
-const PersoInfos = () => {
-  const [user, setUser] = useState([]);
+const PersoInfos = ({ user, setUser }) => {
+  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
 
-  useEffect(() => {
-    axios
-      .get(url.profil + "/" + uid)
-      .then((res) => setUser(res.data.user[0]))
-      .catch((error) => console.log(error));
-  }, []);
+  function savePersoInfos(e) {
+    e.preventDefault();
+    let message;
+    let reponse;
 
-  function savePersoInfos() {
-    const reponse = window.confirm(
-      "Souhaitez-vous vraiment modifier ces informations ?"
-    );
-    if (reponse === true) {
-      axios
-        .put(url.user + "/" + uid, {
-          email: email,
-          password: password,
-        })
-        .then((res) => setUser(res.data.user[0]))
-        .catch((error) => console.log(error));
+    if (password === "" && newPassword === "") {
+      message = "Attention, Souhaitez-vous vraiment modifier votre email ?";
+      reponse = window.confirm(message);
+      if (reponse === true) {
+        axios
+          .put(url.user + "/" + uid, {
+            email: email,
+          })
+          .then((res) => setUser(res.data.user[0]))
+          .catch((error) => console.log(error));
+      }
+    } else {
+      if (password === newPassword) {
+        message =
+          "Attention, Souhaitez-vous vraiment modifier votre email et mot de passe ?";
+        reponse = window.confirm(message);
+        if (reponse === true) {
+          axios
+            .put(url.user + "/" + uid, {
+              email: email,
+              password: password,
+            })
+            .then((res) => setUser(res.data.user[0]))
+            .catch((error) => console.log(error));
+        }
+      } else {
+        message = "Attention, erreur de saisie sur le nouveau mot de passe...";
+        reponse = window.confirm(message);
+      }
     }
   }
 
@@ -41,15 +56,27 @@ const PersoInfos = () => {
             name="email-profil"
             id="email-profil"
             onChange={(e) => setEmail(e.target.value)}
-            placeholder={user.email}
+            defaultValue={user.email}
           />
-          <label htmlFor="mdp-profil">Mot de passe</label>
+          <label htmlFor="mdp-profil">Nouveau mot de passe</label>
           <input
             type="password"
             name="mdp-profil"
             id="mdp-profil"
+            minLength="5"
+            maxLength="12"
             placeholder="********"
             onChange={(e) => setPassword(e.target.value)}
+          />
+          <label htmlFor="mdp-profil">Confirmer mot de passe</label>
+          <input
+            type="password"
+            name="mdp-profil"
+            id="mdp-profil"
+            minLength="5"
+            maxLength="12"
+            placeholder="********"
+            onChange={(e) => setNewPassword(e.target.value)}
           />
         </div>
         <div className="submit-infos">

@@ -11,11 +11,12 @@ const PublicInfos = () => {
   useEffect(() => {
     axios
       .get(url.profil + "/" + uid)
-      .then((res) => setData(res.data.profil[0]))
+      .then((res) => setData(res.data.profil))
       .catch((error) => console.log(error));
   }, []);
 
-  function savePublicInfos() {
+  function savePublicInfos(e) {
+    e.preventDefault();
     const reponse = window.confirm(
       "Souhaitez-vous vraiment modifier ces informations ?"
     );
@@ -41,7 +42,7 @@ const PublicInfos = () => {
             name="fonction"
             id="fonction"
             onChange={(e) => setFonction(e.target.value)}
-            placeholder={data.fonction}
+            defaultValue={data.fonction}
           />
           <label htmlFor="bio">Bio</label>
           <textarea
@@ -49,7 +50,7 @@ const PublicInfos = () => {
             name="bio"
             id="bio"
             onChange={(e) => setBio(e.target.value)}
-            placeholder={data.bio}
+            defaultValue={data.bio}
           ></textarea>
         </div>
         <div className="submit-infos">

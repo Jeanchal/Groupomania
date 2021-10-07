@@ -104,26 +104,31 @@ exports.modifyUser = (req, res) => {
 
 exports.deleteUser = async (req, res) => {
   const where = { where: { uid: req.params.uid } };
-  const user = await User.findOne(where);
-  let message = { error: "Mot de passe incorrect !" };
+  let message = { error: "Utilisateur non trouvé !" };
 
-  console.log(req.body.password);
+  await User.findOne(where)
+    .then((user) => {
+      if (!user) return res.status(401).json(message);
 
-  await bcrypt.compare(req.body.password, user.password).then((valid) => {
-    if (!valid) return res.status(401).json(message);
-    else {
-      User.destroy(where)
-        .then((user) => {
-          message = { message: "Utilisateur supprimé !" };
-          if (user) res.status(201).json(message);
-          else {
-            message = { message: "Erreur, utilisateur non trouvé !" };
-            res.status(404).json(message);
+      bcrypt
+        .compare(req.body.password, user.password)
+        .then((valid) => {
+          if (!valid) {
+            message = { error: "Mot de passe incorrect !" };
+            return res.status(401).json(message);
           }
+          User.destroy(where).then((user) => {
+            message = { message: "Utilisateur supprimé !" };
+            if (user) res.status(201).json(message);
+            else {
+              message = { message: "Erreur, utilisateur non trouvé !" };
+              res.status(404).json(message);
+            }
+          });
         })
-        .catch((error) => res.status(400).json({ error }));
-    }
-  });
+        .catch((error) => res.status(500).json({ error }));
+    })
+    .catch((error) => res.status(500).json({ error }));
 };
 
 exports.getAllUsers = (req, res) => {

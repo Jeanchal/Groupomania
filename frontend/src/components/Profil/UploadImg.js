@@ -13,7 +13,7 @@ const UploadImg = () => {
   useEffect(() => {
     axios
       .get(url.profil + "/" + uid)
-      .then((res) => setData(res.data.profil[0]))
+      .then((res) => setData(res.data.profil))
       .catch((error) => console.log(error));
   }, []);
 

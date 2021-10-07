@@ -8,24 +8,23 @@ const SupprProfil = () => {
 
   function deleteUser(e) {
     e.preventDefault();
-    // const reponse = window.confirm(
-    //   "Souhaitez-vous vraiment supprimer votre compte définitivement ?"
-    // );
-    // if (reponse === true) {
-    axios
-      .delete(url.user + "/" + uid, {
-        password: password,
-      })
-      .then(() => {
-        window.location = "/";
-        sessionStorage.clear();
-      })
-      .catch((error) => {
-        console.log(error);
-        const msgError = document.getElementById("inscriptError");
-        msgError.innerText = "Erreur, mot de passe incorrect !";
-      });
-    // }
+    const reponse = window.confirm(
+      "Souhaitez-vous vraiment supprimer votre compte définitivement ?"
+    );
+    if (reponse === true) {
+      axios
+        .post(url.user + "/" + uid, {
+          password: password,
+        })
+        .then(() => {
+          window.location = "./";
+          sessionStorage.clear();
+        })
+        .catch(() => {
+          const msgError = document.getElementById("inscriptError");
+          msgError.innerText = "Erreur, mot de passe incorrect !";
+        });
+    }
   }
 
   return (
@@ -39,7 +38,6 @@ const SupprProfil = () => {
             id="mdp-supprProfil"
             placeholder="Entrer votre mot de passe... "
             onChange={(e) => setPassword(e.target.value)}
-            // value={password}
           />
           <div className="submit-infos">
             <input type="submit" value="Supprimer le compte" />

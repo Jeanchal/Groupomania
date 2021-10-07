@@ -134,7 +134,6 @@
             object-fit: cover;
             object-position: center;
             border-radius: 40px;
-            // border-radius: 50%;
             box-shadow: 1px 1px 30px grey;
             margin-bottom: 10px;
           }
@@ -165,8 +164,7 @@
         .supp-container {
           padding: 15px;
           display: grid;
-          // grid-template-columns: 2fr 5fr;
-          @media (max-width: 515px) {
+          @media (max-width: 925px) {
             display: flex;
             flex-direction: column;
             label,
@@ -198,7 +196,10 @@
           }
         }
         .profilGrid {
-          grid-template-columns: 2fr 5fr;
+          grid-template-columns: 2.5fr 5fr;
+          label {
+            font-size: 90%;
+          }
         }
         .supp-container {
           grid-template-columns: 5fr 2fr;
