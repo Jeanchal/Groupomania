@@ -43,6 +43,7 @@ module.exports = (sequelize, DataTypes) => {
     Post.belongsTo(models.User, {
       foreignKey: "uid",
       as: "user",
+      allowNull: false,
       onUpdate: "CASCADE",
       onDelete: "CASCADE",
     });

@@ -5,30 +5,18 @@ exports.createComment = (req, res) => {
   Comment.create({
     uid: req.body.uid,
     pseudo: req.body.pseudo,
-    post_id: req.body.post_id,
+    post_id: req.params.post_id,
     commentaire: req.body.commentaire,
-    like: req.body.like,
     date: req.body.date,
   })
-    .then(() =>
-      Comment.findAll()
-        .then((comments) =>
-          res.status(201).json({ message: "Commentaire créé !", comments })
-        )
-        .catch((error) => res.status(400).json({ error }))
-    )
+    .then(() => res.status(201).json({ message: "Commentaire créé !" }))
     .catch((error) => res.status(400).json({ error }));
 };
 
 exports.modifyComment = (req, res) => {
   Comment.update(
     {
-      uid: req.body.uid,
-      pseudo: req.body.pseudo,
-      post_id: req.body.post_id,
       commentaire: req.body.commentaire,
-      like: req.body.like,
-      date: req.body.date,
     },
     { where: { comment_id: req.params.comment_id } }
   )
@@ -43,7 +31,7 @@ exports.getAllComments = (req, res) => {
 };
 
 exports.getOneComment = (req, res) => {
-  Comment.findAll({ where: { comment_id: req.params.comment_id } })
+  Comment.findOne({ where: { comment_id: req.params.comment_id } })
     .then((comment) => res.status(201).json({ comment }))
     .catch((error) => res.status(400).json({ error }));
 };

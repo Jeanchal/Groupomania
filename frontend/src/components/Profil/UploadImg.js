@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
-// import history from "../../general/history";
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
 const nomImage = pseudo + ".jpg";

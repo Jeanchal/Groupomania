@@ -9,27 +9,29 @@ const CreateComment = ({ post, setNbComment }) => {
   const [data, setData] = useState([]);
   const [comment, setComment] = useState("");
 
-  useEffect(() => {
+  function getData() {
     axios
       .get(url.comment)
       .then((res) => setData(res.data.comments))
       .catch((error) => console.log(error));
+  }
+
+  useEffect(() => {
+    getData();
   }, []);
 
   function commentPost(e) {
     e.preventDefault();
 
     axios
-      .post(url.comment, {
+      .post(url.comment + "/" + post.post_id, {
         uid: uid,
         pseudo: pseudo,
-        post_id: post.post_id,
         commentaire: comment,
         date: Date.now(),
       })
-      .then((res) => {
-        setData(res.data.comments);
-        console.log(res.data.comments);
+      .then(() => {
+        getData();
         setComment("");
       })
       .catch((error) => console.log(error));

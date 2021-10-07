@@ -5,7 +5,6 @@
     border-bottom: 3px ridge rgb(209, 208, 208);
     padding-top: 5px;
     background-color: white;
-    margin-bottom: 50px;
     @include flexCenter;
     @media (min-width: 785px) {
       display: flex;
@@ -50,6 +49,14 @@
         }
       }
     }
+  }
+  .session {
+    margin-bottom: 50px;
+    padding: 5px 30px 5px 20px;
+    color: $color-2;
+    font-weight: bold;
+    font-style: italic;
+    text-align: end;
   }
   main {
     margin-bottom: 30px;

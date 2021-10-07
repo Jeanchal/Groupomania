@@ -21,10 +21,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       defaultValue: "",
     },
-    like: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
     date: {
       type: DataTypes.BIGINT,
       allowNull: false,
@@ -35,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     Comment.belongsTo(models.Post, {
       foreignKey: "post_id",
       as: "post",
+      allowNull: false,
       onUpdate: "CASCADE",
       onDelete: "CASCADE",
     });
