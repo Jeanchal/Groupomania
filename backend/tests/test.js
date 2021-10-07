@@ -1,201 +1,102 @@
-// process.env.IMAGEDIR = "tests/images";
-const { MongoMemoryServer } = require("mongodb-memory-server");
 const request = require("supertest");
-// const fs = require("fs");
-// const path = require("path");
+const http = require("http");
+const App = require("../app");
+const db = require("../config/db");
+const port = 4000;
+const appExpress = new App(port, db).app;
+const app = http.createServer(appExpress);
 let auth;
-// let idUser;
-let mongoServer;
-let app;
+let auth2;
 
-// function emptyDir(directory) {
-//   fs.readdir(directory, (err, files) => {
-//     if (err) throw err;
-//     for (const file of files) {
-//       fs.unlink(path.join(directory, file), (err) => {
-//         if (err) throw err;
-//       });
-//     }
-//   });
-// }
-
-beforeAll(async () => {
-  mongoServer = await MongoMemoryServer.create();
-  process.env.DB_URL = mongoServer.getUri();
-  app = require("../app");
-});
+// beforeAll(async () => {
+//   app = require("../app");
+// });
 
 describe("Tests API", function () {
-  test("route signupUser", async () => {
+  test("signup", async () => {
     const user = {
-      pseudo: "jean-jean",
-      email: "jean@jean",
-      password: "jean@jean",
+      pseudo: "test@test",
+      email: "test@test",
+      password: "test@test",
     };
     const response = await request(app).post("/api/user/signup").send(user);
     expect(response.statusCode).toBe(201);
     expect(response.body.message).toBe("Utilisateur créé !");
   });
-  test("route loginUser", async () => {
-    const response = await request(app).post("/api/user/login").send({
-      email: "jean@jean",
-      password: "jean@jean",
-    });
+  test("login", async () => {
+    const user = {
+      email: "test@test",
+      password: "test@test",
+    };
+    const response = await request(app).post("/api/user/login").send(user);
     expect(response.statusCode).toBe(200);
     expect(response.body.message).toBe("Utilisateur connecté !");
-    auth = {
-      userId: response.body.userId,
+    auth2 = {
+      pseudo: response.body.pseudo,
+      uid: response.body.uid,
       token: response.body.token,
     };
   });
-  test("route getOneSauce", async () => {
-    const response = await request(app)
-      .get("/api/user/" + auth.userId)
-      .auth(auth.token, { type: "bearer" });
-    expect(response.statusCode).toBe(200);
-    expect(response.body.pseudo).toEqual("jean-jean");
-    expect(response.body._id).toEqual(auth.userId);
-  });
-  test("route modifyUser", async () => {
+  test("getAllUsers", async () => {
     const user = {
-      pseudo: "jean-luc",
-      email: "jean@luc",
-      password: "jean@luc",
+      pseudo: "jean@test",
+      email: "jean@test",
+      password: "jean@test",
+    };
+    let response = await request(app).post("/api/user/signup").send(user);
+    auth = {
+      pseudo: response.body.pseudo,
+      uid: response.body.uid,
+      token: response.body.token,
+    };
+    //-------------------------------------
+    response = await request(app)
+      .get("/api/user")
+      .auth(auth.token, { type: "bearer" });
+    expect(response.statusCode).toBe(201);
+    expect(response.body.users[0].pseudo).toEqual("test@test");
+    expect(response.body.users[1].pseudo).toEqual("jean@test");
+    // expect(response.body.users.length).toBe(2);
+  });
+  test("getOneUser", async () => {
+    const response = await request(app)
+      .get("/api/user/" + auth.uid)
+      .auth(auth.token, { type: "bearer" });
+    expect(response.statusCode).toBe(201);
+    expect(response.body.user.pseudo).toEqual("jean@test");
+  });
+  test("modifyUser", async () => {
+    const user = {
+      email: "jean@56",
+      password: "jean@56",
     };
     const response = await request(app)
-      .put("/api/user/signup/6148ac3010fe321d90a53f02")
-      .auth(auth.token, { type: "bearer" })
-      .send(user);
+      .put("/api/user/" + auth.uid)
+      .send(user)
+      .auth(auth.token, { type: "bearer" });
     expect(response.statusCode).toBe(201);
     expect(response.body.message).toBe("Utilisateur modifié !");
   });
-  test("route deleteUser", async () => {
+  test("deleteUser", async () => {
+    const password = {
+      password: "test@test",
+    };
     const response = await request(app)
-      .delete("/api/user/signup/" + auth.userId)
+      .post("/api/user/" + auth2.uid)
+      .send(password)
       .auth(auth.token, { type: "bearer" });
-    expect(response.statusCode).toBe(200);
-    expect(response.body.message).toEqual("Sauce supprimée !");
+    expect(response.statusCode).toBe(201);
+    expect(response.body.message).toEqual("Utilisateur supprimé !");
   });
-  // test("route postSauce", async () => {
-  //   const sauce = {
-  //     name: "Sauce Bechamel",
-  //     manufacturer: "les Sauces du chef",
-  //     description: "sauce Bechamel",
-  //     mainPepper: "oeufs",
-  //     heat: 7,
-  //     userId: auth.userId,
-  //   };
-  //   const response = await request(app)
-  //     .post("/api/sauces")
-  //     .field("sauce", JSON.stringify(sauce))
-  //     .attach("image", __dirname + "/test-image.jpg")
-  //     .auth(auth.token, { type: "bearer" });
-  //   expect(response.statusCode).toBe(201);
-  //   expect(response.body.sauce.name).toBe(sauce.name);
-  //   expect(response.body.sauce.manufacturer).toBe(sauce.manufacturer);
-  //   expect(response.body.sauce.description).toBe(sauce.description);
-  //   expect(response.body.sauce.mainPepper).toBe(sauce.mainPepper);
-  //   expect(response.body.sauce.heat).toBe(sauce.heat);
-  //   idSauce = response.body.sauce._id;
-  // });
-  // test("route getAllSauces", async () => {
-  //   const sauce = {
-  //     name: "Sauce Tomate",
-  //     manufacturer: "les Sauces du chef",
-  //     description: "sauce tomate",
-  //     mainPepper: "tomates",
-  //     heat: 3,
-  //     userId: auth.userId,
-  //   };
-  //   let response = await request(app)
-  //     .post("/api/sauces")
-  //     .field("sauce", JSON.stringify(sauce))
-  //     .attach("image", __dirname + "/test-image.jpg")
-  //     .auth(auth.token, { type: "bearer" });
-  //   // suppFile(response.body.sauce);
-  //   response = await request(app)
-  //     .get("/api/sauces")
-  //     .auth(auth.token, { type: "bearer" });
-  //   expect(response.statusCode).toBe(200);
-  //   expect(response.body.length).toBe(2);
-  //   expect(response.body[0].name).toEqual("Sauce Bechamel");
-  //   expect(response.body[1].name).toEqual("Sauce Tomate");
-  // });
-  // test("route putSauce", async () => {
-  //   const sauce = {
-  //     name: "Sauce Citron",
-  //     manufacturer: "les Sauces du chef",
-  //     description: "sauce Citron",
-  //     mainPepper: "citrons",
-  //     heat: 4,
-  //     userId: auth.userId,
-  //   };
-  //   const response = await request(app)
-  //     .put("/api/sauces/" + idSauce)
-  //     .field("sauce", JSON.stringify(sauce))
-  //     .attach("image", __dirname + "/test-image.jpg")
-  //     .auth(auth.token, { type: "bearer" });
-  //   expect(response.statusCode).toBe(200);
-  //   expect(response.body.sauceObject.name).toBe(sauce.name);
-  //   expect(response.body.sauceObject.manufacturer).toBe(sauce.manufacturer);
-  //   expect(response.body.sauceObject.description).toBe(sauce.description);
-  //   expect(response.body.sauceObject.mainPepper).toBe(sauce.mainPepper);
-  //   expect(response.body.sauceObject.heat).toBe(sauce.heat);
-  // });
-  // test("route postLikeSauce", async () => {
-  //   let response = await request(app)
-  //     .post("/api/sauces/" + idSauce + "/like")
-  //     .send({
-  //       userId: auth.userId,
-  //       like: 1,
-  //     })
-  //     .auth(auth.token, { type: "bearer" });
-  //   expect(response.statusCode).toEqual(200);
-  //   expect(response.body.message).toBe("Sauce likée !");
-  //   expect(response.body.sauce.likes).toBe(1);
-  //   response = await request(app)
-  //     .post("/api/sauces/" + idSauce + "/like")
-  //     .send({
-  //       userId: auth.userId,
-  //       like: 0,
-  //     })
-  //     .auth(auth.token, { type: "bearer" });
-  //   expect(response.statusCode).toEqual(200);
-  //   expect(response.body.message).toBe("Like annulé !");
-  //   expect(response.body.sauce.likes).toBe(0);
-  //   response = await request(app)
-  //     .post("/api/sauces/" + idSauce + "/like")
-  //     .send({
-  //       userId: auth.userId,
-  //       like: -1,
-  //     })
-  //     .auth(auth.token, { type: "bearer" });
-  //   expect(response.statusCode).toEqual(200);
-  //   expect(response.body.message).toBe("Sauce Dislikée !");
-  //   expect(response.body.sauce.dislikes).toBe(1);
-  //   response = await request(app)
-  //     .post("/api/sauces/" + idSauce + "/like")
-  //     .send({
-  //       userId: auth.userId,
-  //       like: 0,
-  //     })
-  //     .auth(auth.token, { type: "bearer" });
-  //   expect(response.statusCode).toEqual(200);
-  //   expect(response.body.message).toBe("Dislike annulé !");
-  //   expect(response.body.sauce.likes).toBe(0);
-  // });
-  // test("route deleteSauce", async () => {
-  //   const response = await request(app)
-  //     .delete("/api/sauces/" + idSauce)
-  //     .auth(auth.token, { type: "bearer" });
-  //   expect(response.statusCode).toBe(200);
-  //   expect(response.body.message).toEqual("Sauce supprimée !");
-  //   expect(response.body.sauce._id).toBe(idSauce);
-  // });
-});
-
-afterAll(async () => {
-  await require("mongoose").disconnect();
-  await mongoServer.stop();
-  // emptyDir("tests/images");
+  test("deleteUser", async () => {
+    const password = {
+      password: "jean@56",
+    };
+    const response = await request(app)
+      .post("/api/user/" + auth.uid)
+      .send(password)
+      .auth(auth.token, { type: "bearer" });
+    expect(response.statusCode).toBe(201);
+    expect(response.body.message).toEqual("Utilisateur supprimé !");
+  });
 });

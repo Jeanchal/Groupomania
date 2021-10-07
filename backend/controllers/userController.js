@@ -1,9 +1,10 @@
 require("dotenv").config({ path: "./config/.env" });
 const jsonWebToken = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { User, Profil, Post } = require("../models");
+const { User, Profil } = require("../models");
 
 exports.signup = (req, res) => {
+  let message;
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
@@ -29,24 +30,20 @@ exports.signup = (req, res) => {
                     token: jsonWebToken.sign(
                       { uid: user.uid },
                       process.env.SECURITY_TOKEN,
-                      {
-                        expiresIn: "24h",
-                      }
+                      { expiresIn: "24h" }
                     ),
-                    message: "Utilisateur connecté !",
+                    message: "Utilisateur créé !",
                   });
                 })
                 .catch((error) => res.status(400).json({ error }));
             } else {
-              res
-                .status(400)
-                .json({ message: "Erreur, pseudo déja utilisé !" });
+              message = { message: "Erreur, pseudo déja utilisé !" };
+              res.status(400).json(message);
             }
           });
         } else {
-          res
-            .status(400)
-            .json({ message: "Erreur, adresse email déja utilisée !" });
+          message = { message: "Erreur, adresse email déja utilisée !" };
+          res.status(400).json(message);
         }
       });
     })
@@ -56,15 +53,15 @@ exports.signup = (req, res) => {
 exports.login = (req, res) => {
   User.findOne({ where: { email: req.body.email } })
     .then((user) => {
-      if (!user) {
+      if (!user)
         return res.status(401).json({ error: "Utilisateur non trouvé !" });
-      }
+
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
-          if (!valid) {
+          if (!valid)
             return res.status(401).json({ error: "Mot de passe incorrect !" });
-          }
+
           res.status(200).json({
             pseudo: user.pseudo,
             uid: user.uid,
@@ -89,10 +86,8 @@ exports.modifyUser = (req, res) => {
     .then((hash) => {
       User.update(
         {
-          pseudo: req.body.pseudo,
           email: req.body.email,
           password: hash,
-          uid: req.body.uid,
         },
         { where: { uid: req.params.uid } }
       )
