@@ -65,6 +65,7 @@
       @include flexCenter;
       @include box;
       padding: 10px 20px 40px 20px;
+      margin-top: 50px;
       .form {
         display: grid;
         width: $minWidth;

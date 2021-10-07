@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import GetPost from "./GetPost";
 import axios from "axios";
 import url from "../../general/url";
+import GetPosts from "./GetPosts";
 
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
@@ -96,7 +96,7 @@ const PostContainer = () => {
       {data
         .sort((a, b) => b.date - a.date)
         .map((post) => (
-          <GetPost
+          <GetPosts
             post={post}
             key={post.post_id}
             setFile={setFile}

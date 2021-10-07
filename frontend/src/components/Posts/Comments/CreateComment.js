@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import GetComments from "./GetComments";
 import url from "../../../general/url";
+import GetComments from "./GetComments";
 
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");

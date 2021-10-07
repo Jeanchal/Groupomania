@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import CreateComment from "./Comments/CreateComment";
 import url from "../../general/url";
 import dateParser from "../../general/dateParser";
-import PostFootContainer from "./PostFootContainer";
+import PostFooter from "./PostFooter";
+import CreateComment from "./Comments/CreateComment";
 
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
@@ -12,7 +12,7 @@ const date = Date.now();
 const name = pseudo + date;
 let nameImg;
 
-const GetPost = ({ post, file, setFile, setData }) => {
+const PostGet = ({ post, file, setFile, setData }) => {
   const [like, setLike] = useState(false);
   const [activComment, setActivComment] = useState(true);
   const [displayPost, setDisplayPost] = useState(true);
@@ -120,7 +120,7 @@ const GetPost = ({ post, file, setFile, setData }) => {
               <div className="publication">{textModif}</div>
             )}
           </div>
-          <PostFootContainer
+          <PostFooter
             post={post}
             setActivComment={setActivComment}
             activComment={activComment}
@@ -143,4 +143,4 @@ const GetPost = ({ post, file, setFile, setData }) => {
   }
 };
 
-export default GetPost;
+export default PostGet;

@@ -9,7 +9,7 @@ const config = {
   },
 };
 
-const PostFootContainer = ({
+const PostFooter = ({
   post,
   setActivComment,
   activComment,
@@ -114,4 +114,4 @@ const PostFootContainer = ({
   );
 };
 
-export default PostFootContainer;
+export default PostFooter;
