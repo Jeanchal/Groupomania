@@ -21,7 +21,7 @@ const GetComments = ({ comment, post, setNbComment }) => {
     if (comment.uid === uid) {
       setActivModif(false);
     }
-  }, []);
+  }, [comment.uid]);
 
   function modifComment() {
     if (commentModif === false) {

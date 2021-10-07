@@ -23,7 +23,7 @@ const GetPost = ({ post, file, setFile, setData }) => {
   useEffect(() => {
     const tabUsersLiked = JSON.parse(post.users_liked);
     if (tabUsersLiked.includes(uid)) setLike(true);
-  }, []);
+  }, [post.users_liked]);
 
   function getData() {
     const config = {

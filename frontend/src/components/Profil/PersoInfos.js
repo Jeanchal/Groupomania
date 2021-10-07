@@ -75,11 +75,11 @@ const PersoInfos = ({ user, setUser }) => {
             placeholder="********"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <label htmlFor="mdp-profil">Confirmer mot de passe</label>
+          <label htmlFor="new-mdp-profil">Confirmer mot de passe</label>
           <input
             type="password"
-            name="mdp-profil"
-            id="mdp-profil"
+            name="new-mdp-profil"
+            id="new-mdp-profil"
             minLength="5"
             maxLength="12"
             placeholder="********"

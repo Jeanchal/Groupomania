@@ -33,7 +33,10 @@ const PublicInfos = () => {
       };
       axios
         .put(url.profil + "/" + uid, objet, config)
-        .then((res) => setData(res.data.profil[0]))
+        .then((res) => {
+          setData(res.data.profil[0]);
+          console.log(res.data.profil);
+        })
         .catch((error) => console.log(error));
     }
   }
