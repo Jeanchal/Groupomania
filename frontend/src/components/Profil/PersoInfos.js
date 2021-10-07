@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
+
 const uid = sessionStorage.getItem("uid");
+const token = sessionStorage.getItem("token");
+const config = {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+};
 
 const PersoInfos = ({ user, setUser }) => {
   const [password, setPassword] = useState("");
@@ -12,15 +19,14 @@ const PersoInfos = ({ user, setUser }) => {
     e.preventDefault();
     let message;
     let reponse;
+    let objet;
 
     if (password === "" && newPassword === "") {
       message = "Attention, Souhaitez-vous vraiment modifier votre email ?";
       reponse = window.confirm(message);
       if (reponse === true) {
         axios
-          .put(url.user + "/" + uid, {
-            email: email,
-          })
+          .put(url.user + "/" + uid, { email: email }, config)
           .then((res) => setUser(res.data.user[0]))
           .catch((error) => console.log(error));
       }
@@ -30,11 +36,12 @@ const PersoInfos = ({ user, setUser }) => {
           "Attention, Souhaitez-vous vraiment modifier votre email et mot de passe ?";
         reponse = window.confirm(message);
         if (reponse === true) {
+          objet = {
+            email: email,
+            password: password,
+          };
           axios
-            .put(url.user + "/" + uid, {
-              email: email,
-              password: password,
-            })
+            .put(url.user + "/" + uid, objet, config)
             .then((res) => setUser(res.data.user[0]))
             .catch((error) => console.log(error));
         }

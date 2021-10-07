@@ -7,6 +7,7 @@ import PostFootContainer from "./PostFootContainer";
 
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
+const token = sessionStorage.getItem("token");
 const date = Date.now();
 const name = pseudo + date;
 let nameImg;
@@ -25,20 +26,27 @@ const GetPost = ({ post, file, setFile, setData }) => {
   }, []);
 
   function getData() {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
     axios
-      .get(url.post)
+      .get(url.post, config)
       .then((res) => setData(res.data.posts))
       .catch((error) => console.log(error));
   }
 
-  const config = {
-    headers: {
-      "content-type": "multipart/form-data",
-    },
-  };
-
   const modifPost = (e) => {
     e.preventDefault();
+
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
     if (file === null && textModif === "") {
       alert("impossible de poster une publication vide !");

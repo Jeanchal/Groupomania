@@ -2,8 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import GetComments from "./GetComments";
 import url from "../../../general/url";
+
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
+const token = sessionStorage.getItem("token");
+const config = {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+};
 
 const CreateComment = ({ post, setNbComment }) => {
   const [data, setData] = useState([]);
@@ -11,7 +18,7 @@ const CreateComment = ({ post, setNbComment }) => {
 
   function getData() {
     axios
-      .get(url.comment)
+      .get(url.comment, config)
       .then((res) => setData(res.data.comments))
       .catch((error) => console.log(error));
   }
@@ -23,13 +30,14 @@ const CreateComment = ({ post, setNbComment }) => {
   function commentPost(e) {
     e.preventDefault();
 
+    let objet = {
+      uid: uid,
+      pseudo: pseudo,
+      commentaire: comment,
+      date: Date.now(),
+    };
     axios
-      .post(url.comment + "/" + post.post_id, {
-        uid: uid,
-        pseudo: pseudo,
-        commentaire: comment,
-        date: Date.now(),
-      })
+      .post(url.comment + "/" + post.post_id, objet, config)
       .then(() => {
         getData();
         setComment("");
@@ -37,13 +45,8 @@ const CreateComment = ({ post, setNbComment }) => {
       .catch((error) => console.log(error));
 
     axios
-      .put(url.postComment + post.post_id, {
-        nbComments: 1,
-      })
-      .then((objet) => {
-        setNbComment(objet.data.nbCommentaires);
-        console.log(objet);
-      })
+      .put(url.postComment + post.post_id, { nbComments: 1 }, config)
+      .then((objet) => setNbComment(objet.data.nbCommentaires))
       .catch((error) => console.log(error));
   }
 

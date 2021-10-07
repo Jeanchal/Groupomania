@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
+
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
+const token = sessionStorage.getItem("token");
 const nomImage = pseudo + ".jpg";
+const config = {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+};
 
 const UploadImg = () => {
   const [file, setFile] = useState();
@@ -11,7 +18,7 @@ const UploadImg = () => {
 
   useEffect(() => {
     axios
-      .get(url.profil + "/" + uid)
+      .get(url.profil + "/" + uid, config)
       .then((res) => setData(res.data.profil))
       .catch((error) => console.log(error));
   }, []);
@@ -24,14 +31,12 @@ const UploadImg = () => {
     console.log(data);
 
     axios
-      .post(url.profilUpload, data)
+      .post(url.profilUpload, data, config)
       .then(() => console.log(data.file.filename))
       .catch((error) => console.log(error));
 
     axios
-      .put(url.profil + "/" + uid, {
-        photo_profil: nomImage,
-      })
+      .put(url.profil + "/" + uid, { photo_profil: nomImage }, config)
       .then(() => (window.location = "./profil"))
       .catch((error) => console.log(error, "erreur axios"));
   };

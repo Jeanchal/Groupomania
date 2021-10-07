@@ -5,10 +5,10 @@ const auth = require("../middlewares/auth");
 const multer = require("multer");
 const upload = multer().single("file");
 
-router.post("/upload", upload, profilController.uploadProfil);
-router.put("/:uid", profilController.modifyProfil);
-router.get("/", profilController.getAllProfils);
-router.get("/:uid", profilController.getOneProfil);
+router.post("/upload", auth, upload, profilController.uploadProfil);
+router.put("/:uid", auth, profilController.modifyProfil);
+router.get("/", auth, profilController.getAllProfils);
+router.get("/:uid", auth, profilController.getOneProfil);
 
 // router.post("/", profilController.postProfil);
 // router.delete("/:uid", profilController.deleteProfil);

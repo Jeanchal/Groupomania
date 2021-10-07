@@ -3,6 +3,12 @@ import axios from "axios";
 import url from "../../../general/url";
 import dateParser from "../../../general/dateParser";
 const uid = sessionStorage.getItem("uid");
+const token = sessionStorage.getItem("token");
+const config = {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+};
 
 const GetComments = ({ comment, post, setNbComment }) => {
   const urlComment = url.comment + "/" + comment.comment_id;
@@ -17,26 +23,6 @@ const GetComments = ({ comment, post, setNbComment }) => {
     }
   }, []);
 
-  function supprComment() {
-    const reponse = window.confirm(
-      "Souhaitez-vous vraiment supprimer ce commentaire ?"
-    );
-    if (reponse === true) {
-      axios
-        .delete(urlComment)
-        .then(() => setCommentSuppr(true))
-        .catch((error) => console.log(error));
-
-      axios
-        .put(url.postComment + post.post_id, {
-          nbComments: 0,
-        })
-        .then((objet) => {
-          setNbComment(objet.data.nbCommentaires);
-        })
-        .catch((error) => console.log(error));
-    }
-  }
   function modifComment() {
     if (commentModif === false) {
       setCommentModif(true);
@@ -44,11 +30,25 @@ const GetComments = ({ comment, post, setNbComment }) => {
       setCommentModif(false);
     }
   }
+  function supprComment() {
+    const reponse = window.confirm(
+      "Souhaitez-vous vraiment supprimer ce commentaire ?"
+    );
+    if (reponse === true) {
+      axios
+        .delete(urlComment, config)
+        .then(() => setCommentSuppr(true))
+        .catch((error) => console.log(error));
+
+      axios
+        .put(url.postComment + post.post_id, { nbComments: 0 }, config)
+        .then((objet) => setNbComment(objet.data.nbCommentaires))
+        .catch((error) => console.log(error));
+    }
+  }
   function saveModifComment() {
     axios
-      .put(urlComment, {
-        commentaire: textModif,
-      })
+      .put(urlComment, { commentaire: textModif }, config)
       .then(() => setCommentModif(false))
       .catch((error) => console.log(error));
   }

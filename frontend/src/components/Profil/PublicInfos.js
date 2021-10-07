@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
 const uid = sessionStorage.getItem("uid");
+const token = sessionStorage.getItem("token");
+const config = {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+};
 
 const PublicInfos = () => {
   const [data, setData] = useState([]);
@@ -10,7 +16,7 @@ const PublicInfos = () => {
 
   useEffect(() => {
     axios
-      .get(url.profil + "/" + uid)
+      .get(url.profil + "/" + uid, config)
       .then((res) => setData(res.data.profil))
       .catch((error) => console.log(error));
   }, []);
@@ -21,11 +27,12 @@ const PublicInfos = () => {
       "Souhaitez-vous vraiment modifier ces informations ?"
     );
     if (reponse === true) {
+      let objet = {
+        fonction: fonction,
+        bio: bio,
+      };
       axios
-        .put(url.profil + "/" + uid, {
-          fonction: fonction,
-          bio: bio,
-        })
+        .put(url.profil + "/" + uid, objet, config)
         .then((res) => setData(res.data.profil[0]))
         .catch((error) => console.log(error));
     }

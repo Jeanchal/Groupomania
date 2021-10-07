@@ -5,6 +5,7 @@ import url from "../../general/url";
 
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
+const token = sessionStorage.getItem("token");
 
 const PostContainer = () => {
   const [data, setData] = useState([]);
@@ -12,8 +13,14 @@ const PostContainer = () => {
   const [publication, setPublication] = useState("");
 
   function getData() {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
     axios
-      .get(url.post)
+      .get(url.post, config)
       .then((res) => setData(res.data.posts))
       .catch((error) => console.log(error));
   }
@@ -35,6 +42,7 @@ const PostContainer = () => {
       const config = {
         headers: {
           "content-type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
       };
 

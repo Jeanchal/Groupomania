@@ -5,15 +5,22 @@ import PublicInfos from "./PublicInfos";
 import PersoInfos from "./PersoInfos";
 import UploadImg from "./UploadImg";
 import SupprProfil from "./SupprProfil";
+
 const uid = sessionStorage.getItem("uid");
 const pseudo = sessionStorage.getItem("pseudo");
+const token = sessionStorage.getItem("token");
+const config = {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+};
 
 const ProfilContainer = () => {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
     axios
-      .get(url.user + "/" + uid)
+      .get(url.user + "/" + uid, config)
       .then((res) => setUser(res.data.user[0]))
       .catch((error) => console.log(error));
   }, []);

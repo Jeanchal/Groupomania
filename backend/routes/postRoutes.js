@@ -5,13 +5,12 @@ const auth = require("../middlewares/auth");
 const multer = require("multer");
 const upload = multer().single("file");
 
-router.post("/", upload, postController.createPost);
-router.put("/:post_id", upload, postController.modifyPost);
-router.delete("/:post_id", postController.deletePost);
-router.get("/", postController.getAllPosts);
-router.get("/:post_id", postController.getOnePost);
-
-router.put("/comment/:post_id", postController.commentPost);
-router.put("/like/:post_id", postController.likePost);
+router.post("/", auth, upload, postController.createPost);
+router.put("/:post_id", auth, upload, postController.modifyPost);
+router.delete("/:post_id", auth, postController.deletePost);
+router.get("/", auth, postController.getAllPosts);
+router.get("/:post_id", auth, postController.getOnePost);
+router.put("/comment/:post_id", auth, postController.commentPost);
+router.put("/like/:post_id", auth, postController.likePost);
 
 module.exports = router;

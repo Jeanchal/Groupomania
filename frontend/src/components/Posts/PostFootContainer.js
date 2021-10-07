@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
 const uid = sessionStorage.getItem("uid");
+const token = sessionStorage.getItem("token");
+const config = {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+};
 
 const PostFootContainer = ({
   post,
@@ -23,23 +29,6 @@ const PostFootContainer = ({
       setActivComment(true);
     }
   };
-  const liker = () => {
-    function updateLike(nb, boolean) {
-      axios
-        .put(url.like + post.post_id, {
-          uid: uid,
-          likes: nb,
-        })
-        .then((objet) => {
-          setLike(boolean);
-          setNbLikes(objet.data.nbLikes);
-        })
-        .catch((error) => console.log(error));
-    }
-
-    if (like === false) updateLike(1, true);
-    else updateLike(0, false);
-  };
   const modifPost = () => {
     if (activModifPost === false) {
       setActivModifPost(true);
@@ -53,13 +42,31 @@ const PostFootContainer = ({
       }
     }
   };
+  const liker = () => {
+    function updateLike(nb, boolean) {
+      let objet = {
+        uid: uid,
+        likes: nb,
+      };
+      axios
+        .put(url.like + post.post_id, objet, config)
+        .then((objet) => {
+          setLike(boolean);
+          setNbLikes(objet.data.nbLikes);
+        })
+        .catch((error) => console.log(error));
+    }
+
+    if (like === false) updateLike(1, true);
+    else updateLike(0, false);
+  };
   const supprPost = () => {
     const reponse = window.confirm(
       "Souhaitez-vous vraiment supprimer cet article ?"
     );
     if (reponse === true) {
       axios
-        .delete(url.post + "/" + post.post_id)
+        .delete(url.post + "/" + post.post_id, config)
         .then(() => setDisplayPost(false))
         .catch((error) => console.log(error));
     }

@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
 const uid = sessionStorage.getItem("uid");
+const token = sessionStorage.getItem("token");
+const config = {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+};
 
 const SupprProfil = () => {
   const [password, setPassword] = useState();
@@ -13,9 +19,7 @@ const SupprProfil = () => {
     );
     if (reponse === true) {
       axios
-        .post(url.user + "/" + uid, {
-          password: password,
-        })
+        .post(url.user + "/" + uid, { password: password }, config)
         .then(() => {
           window.location = "./";
           sessionStorage.clear();
