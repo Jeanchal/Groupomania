@@ -47,7 +47,7 @@ const GetPost = ({ post, file, setFile, setData }) => {
 
       const data = new FormData();
       data.append("publication", textModif);
-      data.append("image_url", nameImg);
+      data.append("image", nameImg);
       data.append("name", name);
       data.append("file", file);
 
@@ -71,9 +71,9 @@ const GetPost = ({ post, file, setFile, setData }) => {
             <p>posté le {dateParser(post.date)}</p>
           </div>
           <div className={activModifPost ? "opacImage" : null}>
-            {post.image_url === "" ? null : (
+            {post.image === "" ? null : (
               <img
-                src={url.imagePost + post.image_url}
+                src={url.imagePost + post.image}
                 alt="publication"
                 id="post-image"
               />
@@ -96,7 +96,7 @@ const GetPost = ({ post, file, setFile, setData }) => {
                   <input
                     type="file"
                     name="file"
-                    id="image_url"
+                    id="image"
                     onChange={(e) => setFile(e.target.files[0])}
                     className="imagePost"
                     title="ajouter une image"

@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       defaultValue: "",
     },
-    image_url: {
+    image: {
       type: DataTypes.STRING,
       defaultValue: "",
     },

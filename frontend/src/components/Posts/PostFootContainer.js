@@ -52,9 +52,6 @@ const PostFootContainer = ({
         setTextModif(post.publication);
       }
     }
-    // activModifPost === false
-    //   ? setActivModifPost(true)
-    //   : setActivModifPost(false);
   };
   const supprPost = () => {
     const reponse = window.confirm(

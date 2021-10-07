@@ -1,3 +1,6 @@
 /node_modules
 /config/.env
-/images/*
+/images/posts/*
+/images/profil/*
+!/images/posts/default.jpg
+!/images/profil/profil.jpg

@@ -42,7 +42,7 @@ const PostContainer = () => {
       data.append("uid", uid);
       data.append("pseudo", pseudo);
       data.append("publication", publication);
-      data.append("image_url", nameImg);
+      data.append("image", nameImg);
       data.append("date", Date.now());
       data.append("name", name);
       data.append("file", file);
@@ -76,7 +76,7 @@ const PostContainer = () => {
             <input
               type="file"
               name="file"
-              id="image_url"
+              id="image"
               onChange={(e) => setFile(e.target.files[0])}
               className="imagePost"
               title="ajouter une image"

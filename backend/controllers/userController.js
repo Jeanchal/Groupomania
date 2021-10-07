@@ -102,31 +102,28 @@ exports.modifyUser = (req, res) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-exports.deleteUser = (req, res) => {
-  User.findOne({ where: { uid: req.params.uid } })
-    .then((user) => {
-      bcrypt
-        .compare(req.body.password, user.password)
-        .then((valid) => {
-          if (!valid) {
-            return res.status(401).json({ error: "Mot de passe incorrect !" });
-          } else {
-            User.destroy({ where: { uid: req.params.uid } })
-              .then((user) => {
-                if (user) {
-                  res.status(201).json({ message: "Utilisateur supprimé !" });
-                } else {
-                  res
-                    .status(404)
-                    .json({ message: "Erreur, utilisateur non trouvé !" });
-                }
-              })
-              .catch((error) => res.status(400).json({ error }));
+exports.deleteUser = async (req, res) => {
+  const where = { where: { uid: req.params.uid } };
+  const user = await User.findOne(where);
+  let message = { error: "Mot de passe incorrect !" };
+
+  console.log(req.body.password);
+
+  await bcrypt.compare(req.body.password, user.password).then((valid) => {
+    if (!valid) return res.status(401).json(message);
+    else {
+      User.destroy(where)
+        .then((user) => {
+          message = { message: "Utilisateur supprimé !" };
+          if (user) res.status(201).json(message);
+          else {
+            message = { message: "Erreur, utilisateur non trouvé !" };
+            res.status(404).json(message);
           }
         })
-        .catch((error) => res.status(500).json({ error }));
-    })
-    .catch((error) => res.status(500).json({ error }));
+        .catch((error) => res.status(400).json({ error }));
+    }
+  });
 };
 
 exports.getAllUsers = (req, res) => {

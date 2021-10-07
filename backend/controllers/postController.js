@@ -9,19 +9,17 @@ exports.createPost = async (req, res) => {
     uid: req.body.uid,
     pseudo: req.body.pseudo,
     publication: req.body.publication,
-    image_url: req.body.image_url,
+    image: req.body.image,
     date: req.body.date,
   };
   try {
-    if (req.body.image_url === "") {
+    if (req.body.image === "") {
       await Post.create(objet);
       res.status(201).json({ message: "Post créé !" });
     } else {
       await pipeline(
         req.file.stream,
-        fs.createWriteStream(
-          `${__dirname}/../images/posts/${req.body.image_url}`
-        )
+        fs.createWriteStream(`${__dirname}/../images/posts/${req.body.image}`)
       );
       await Post.create(objet);
       res.status(201).json({ message: "Post créé !" });
@@ -35,7 +33,7 @@ exports.modifyPost = async (req, res) => {
   const message = { message: "Post modifié !" };
   const where = { where: { post_id: req.params.post_id } };
   try {
-    if (req.body.image_url === "") {
+    if (req.body.image === "") {
       await Post.update(
         {
           publication: req.body.publication,
@@ -46,14 +44,12 @@ exports.modifyPost = async (req, res) => {
     } else {
       await pipeline(
         req.file.stream,
-        fs.createWriteStream(
-          `${__dirname}/../images/posts/${req.body.image_url}`
-        )
+        fs.createWriteStream(`${__dirname}/../images/posts/${req.body.image}`)
       );
       await Post.update(
         {
           publication: req.body.publication,
-          image_url: req.body.image_url,
+          image: req.body.image,
         },
         where
       );
@@ -71,7 +67,7 @@ exports.getAllPosts = (req, res) => {
 };
 
 exports.getOnePost = (req, res) => {
-  Post.findAll({ where: { post_id: req.params.post_id } })
+  Post.findOne({ where: { post_id: req.params.post_id } })
     .then((post) => res.status(201).json({ post }))
     .catch((error) => {
       console.log(error);
@@ -79,16 +75,29 @@ exports.getOnePost = (req, res) => {
     });
 };
 
-exports.deletePost = (req, res) => {
-  Post.destroy({ where: { post_id: req.params.post_id } })
-    .then(() => res.status(201).json({ message: "Post supprimé !" }))
-    .catch((error) => res.status(400).json({ error }));
+exports.deletePost = async (req, res) => {
+  const where = { where: { post_id: req.params.post_id } };
+  try {
+    if (req.body.image === "") {
+      await Post.destroy(where);
+      res.status(201).json({ message: "Post supprimé !" });
+    } else {
+      const post = await Post.findOne(where);
+      fs.unlink(`images/posts/${post.image}`, () =>
+        console.log(post.image + "supprimé !")
+      );
+      await Post.destroy(where);
+      res.status(201).json({ message: "Post et image supprimés !" });
+    }
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 };
 
 exports.likePost = async (req, res) => {
-  const post = await Post.findOne({
-    where: { post_id: req.params.post_id },
-  });
+  const where = { where: { post_id: req.params.post_id } };
+  const msgError = { error: "impossible, la publication est déja likée !" };
+  const post = await Post.findOne(where);
   const postLikes = JSON.parse(post.users_liked);
   let tabString;
   let nbLikes;
@@ -101,9 +110,7 @@ exports.likePost = async (req, res) => {
         nbLikes = post.nb_likes + 1;
         message = "publication likée !";
       } else {
-        res
-          .status(400)
-          .json({ error: "impossible, la publication est déja likée !" });
+        res.status(400).json(msgError);
       }
     }
     if (req.body.likes === 0) {
@@ -114,9 +121,7 @@ exports.likePost = async (req, res) => {
         tabString = JSON.stringify(postLikes);
         message = "like annulé !";
       } else {
-        res
-          .status(400)
-          .json({ error: "erreur, la publication n'est pas likée !" });
+        res.status(400).json(msgError);
       }
     }
     Post.update(
@@ -124,7 +129,7 @@ exports.likePost = async (req, res) => {
         users_liked: tabString,
         nb_likes: nbLikes,
       },
-      { where: { post_id: req.params.post_id } }
+      where
     )
       .then(() => res.status(201).json({ message, nbLikes }))
       .catch((error) => res.status(400).json({ error }));
@@ -134,9 +139,8 @@ exports.likePost = async (req, res) => {
 };
 
 exports.commentPost = async (req, res) => {
-  const post = await Post.findOne({
-    where: { post_id: req.params.post_id },
-  });
+  const where = { where: { post_id: req.params.post_id } };
+  const post = await Post.findOne(where);
   let nbCommentaires;
   if (req.body.nbComments === 1) nbCommentaires = post.nb_commentaires + 1;
   if (req.body.nbComments === 0) nbCommentaires = post.nb_commentaires - 1;
@@ -144,7 +148,7 @@ exports.commentPost = async (req, res) => {
     {
       nb_commentaires: nbCommentaires,
     },
-    { where: { post_id: req.params.post_id } }
+    where
   )
     .then(() =>
       res.status(201).json({ message: "Post modifié !", nbCommentaires })

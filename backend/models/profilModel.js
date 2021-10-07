@@ -9,10 +9,6 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-    // uid: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    // },
     bio: {
       type: DataTypes.TEXT,
       defaultValue: "...",
@@ -23,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     photo_profil: {
       type: DataTypes.STRING,
-      defaultValue: "./img/profil.jpg",
+      defaultValue: "profil.jpg",
     },
   });
 

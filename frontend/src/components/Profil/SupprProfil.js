@@ -2,26 +2,30 @@ import React, { useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
 const uid = sessionStorage.getItem("uid");
-const urlUser = url.user + "/" + uid;
 
 const SupprProfil = () => {
   const [password, setPassword] = useState();
 
-  function deleteUser() {
-    const reponse = window.confirm(
-      "Souhaitez-vous vraiment supprimer votre compte définitivement ?"
-    );
-    if (reponse === true) {
-      axios
-        .delete(urlUser, {
-          password: password,
-        })
-        .then((res) => {
-          window.location = "/";
-          sessionStorage.clear();
-        })
-        .catch((error) => console.log(error));
-    }
+  function deleteUser(e) {
+    e.preventDefault();
+    // const reponse = window.confirm(
+    //   "Souhaitez-vous vraiment supprimer votre compte définitivement ?"
+    // );
+    // if (reponse === true) {
+    axios
+      .delete(url.user + "/" + uid, {
+        password: password,
+      })
+      .then(() => {
+        window.location = "/";
+        sessionStorage.clear();
+      })
+      .catch((error) => {
+        console.log(error);
+        const msgError = document.getElementById("inscriptError");
+        msgError.innerText = "Erreur, mot de passe incorrect !";
+      });
+    // }
   }
 
   return (
@@ -35,12 +39,14 @@ const SupprProfil = () => {
             id="mdp-supprProfil"
             placeholder="Entrer votre mot de passe... "
             onChange={(e) => setPassword(e.target.value)}
+            // value={password}
           />
           <div className="submit-infos">
             <input type="submit" value="Supprimer le compte" />
           </div>
         </div>
       </form>
+      <div id="inscriptError"></div>
     </div>
   );
 };
