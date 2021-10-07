@@ -16,7 +16,7 @@ const Navigation = () => {
         <i title="acceuil" className="fas fa-home"></i>
       </NavLink>
       <NavLink exact to="profil" activeClassName="nav-active">
-        <i title="profil" className="fas fa-user"></i>
+        <i title="mon profil" className="fas fa-user"></i>
       </NavLink>
       <NavLink exact to="#" onClick={logOut}>
         <i title="se déconnecter" className="fas fa-door-open"></i>

@@ -9,7 +9,7 @@ const config = {
   },
 };
 
-const PublicInfos = () => {
+const PublicInfos = ({ activModifProfil, user }) => {
   const [data, setData] = useState([]);
   const [fonction, setFonction] = useState("...");
   const [bio, setBio] = useState("...");
@@ -43,14 +43,23 @@ const PublicInfos = () => {
 
   return (
     <div className="infos-container">
-      <h3>Informations publiques</h3>
+      <h3>Informations Publiques</h3>
       <form action="" onSubmit={savePublicInfos}>
         <div className="profilGrid">
+          <label htmlFor="pseudo">Pseudo</label>
+          <input
+            type="text"
+            name="pseudo"
+            id={activModifProfil ? "pseudo" : null}
+            disabled="disabled"
+            value={user.pseudo}
+          />
           <label htmlFor="fonction">Poste Actuel</label>
           <input
             type="text"
             name="fonction"
             id="fonction"
+            disabled={activModifProfil ? null : "disabled"}
             onChange={(e) => setFonction(e.target.value)}
             defaultValue={data.fonction}
           />
@@ -59,11 +68,15 @@ const PublicInfos = () => {
             type="text"
             name="bio"
             id="bio"
+            disabled={activModifProfil ? null : "disabled"}
             onChange={(e) => setBio(e.target.value)}
             defaultValue={data.bio}
           ></textarea>
         </div>
-        <div className="submit-infos">
+        <div
+          id={activModifProfil ? null : "buttonModif"}
+          className="submit-infos"
+        >
           <input type="submit" value="Modifier" />
         </div>
       </form>

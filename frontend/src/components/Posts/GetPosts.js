@@ -99,12 +99,13 @@ const PostGet = ({ post, file, setFile, setData }) => {
                   placeholder="Ecrire ici..."
                   className="post"
                 />
-                <div>
+                <div className="imageSelect">
                   <i className="fas fa-image" title="ajouter une image"></i>
                   <input
                     type="file"
                     name="file"
                     id="image"
+                    accept=".jpg, .jpeg, .png"
                     onChange={(e) => setFile(e.target.files[0])}
                     className="imagePost"
                     title="ajouter une image"

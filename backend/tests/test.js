@@ -12,7 +12,7 @@ let auth2;
 //   app = require("../app");
 // });
 
-describe("Tests API", function () {
+describe("Tests API Groupomania", function () {
   test("signup", async () => {
     const user = {
       pseudo: "test@test",

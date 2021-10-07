@@ -123,12 +123,11 @@
       padding: 0 0 40px 15px;
       width: 90%;
       @media (min-width: 850px) {
-        width: 70%;
+        width: 50%;
         @include transition;
       }
       #img-container {
         @include flexCenter;
-        margin-bottom: 40px;
         figure {
           width: 250px;
           height: 250px;
@@ -152,18 +151,24 @@
           input {
             margin: 5px;
           }
+          #file {
+            width: 120px;
+          }
           #btn-image-profil {
             @include btn;
             background-color: $color-2;
-            padding: 10px 20px 10px 20px;
-            width: 100px;
+            padding: 12px 30px 12px 30px;
+            position: relative;
+            right: 20px;
+            bottom: 2px;
           }
         }
       }
       .infos-container {
         background-color: $color-3;
         border-radius: 15px;
-        width: 95%;
+        width: 90%;
+        margin: 20px 0 10px 0;
         h3 {
           padding-left: 20px;
           margin-bottom: 10px;
@@ -207,6 +212,11 @@
           grid-template-columns: 2.5fr 5fr;
           label {
             font-size: 90%;
+          }
+          #pseudo {
+            background-color: rgb(218, 218, 218);
+            font-weight: bold;
+            font-size: 100%;
           }
         }
         .supp-container {

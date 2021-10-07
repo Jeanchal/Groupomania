@@ -12,8 +12,8 @@ const config = {
   },
 };
 
-const UploadImg = () => {
-  const [file, setFile] = useState();
+const UploadImg = ({ activModifProfil }) => {
+  const [file, setFile] = useState(null);
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -50,15 +50,30 @@ const UploadImg = () => {
           alt="img-profil"
         />
       </figure>
-      <form action="" onSubmit={gestionImage} className="uploadImg">
-        <input
-          type="file"
-          id="file"
-          name="image"
-          accept=".jpg, .jpeg, .png"
-          onChange={(e) => setFile(e.target.files[0])}
-        />
-        <input type="submit" value="Envoyer" id="btn-image-profil" />
+      <form
+        action=""
+        id={activModifProfil ? null : "formImg"}
+        onSubmit={gestionImage}
+        className="uploadImg"
+      >
+        <div className="imageSelect">
+          <i className="fas fa-image" title="ajouter une image"></i>
+          <input
+            type="file"
+            name="file"
+            id="image"
+            onChange={(e) => setFile(e.target.files[0])}
+            accept=".jpg, .jpeg, .png"
+            className="imagePost"
+            title="ajouter une image"
+          />
+          <input
+            type="submit"
+            value="Envoyer"
+            className="submitPost"
+            id="btn-image-profil"
+          />
+        </div>
       </form>
     </div>
   );

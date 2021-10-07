@@ -32,24 +32,20 @@ const SupprProfil = () => {
   }
 
   return (
-    <div className="infos-container">
-      <h3>Supprimer le compte</h3>
-      <form action="" onSubmit={deleteUser}>
-        <div className="supp-container">
-          <input
-            type="password"
-            name="mdp-supprProfil"
-            id="mdp-supprProfil"
-            placeholder="Entrer votre mot de passe... "
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <div className="submit-infos">
-            <input type="submit" value="Supprimer le compte" />
-          </div>
+    <form action="" onSubmit={deleteUser}>
+      <div className="supp-container">
+        <input
+          type="password"
+          name="mdp-supprProfil"
+          id="mdp-supprProfil"
+          placeholder="Entrer votre mot de passe... "
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <div className="submit-infos">
+          <input type="submit" value="Supprimer le compte" />
         </div>
-      </form>
-      <div id="inscriptError"></div>
-    </div>
+      </div>
+    </form>
   );
 };
 

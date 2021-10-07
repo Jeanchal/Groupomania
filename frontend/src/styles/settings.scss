@@ -58,4 +58,27 @@ body {
   .opacImage {
     opacity: 0.3;
   }
+  #supp-user-container,
+  #perso-infos-user,
+  #buttonModif,
+  #formImg {
+    display: none !important;
+  }
+  .imageSelect {
+    position: relative;
+    bottom: 15px;
+    right: 20px;
+    .fa-image {
+      font-size: 270%;
+      transform: translate(50%, 26%);
+      color: grey;
+      opacity: 0.7;
+    }
+    .imagePost {
+      opacity: 0;
+      width: 40px;
+      height: 30px;
+      transform: translate(-50%, 0);
+    }
+  }
 }
