@@ -9,9 +9,13 @@ README
 */Dans le fichier .env
 -----------------------
 compléter le fichier en remplacant les  informations entre guillemets:
+-SECURITY_TOKEN= (ajouter une clé de sécurité pour token jwt)
 -PORT=4000
 -HOST=localhost
--SECURITY_TOKEN= (ajouter une clé de sécurité pour token jwt)
+-USER=test
+-PASSWORD=test
+-DATABASE=databasetest
+
 ATTENTION: sur chaque ligne, il ne doit y avoir aucun espace
 
 */Pour lancer le serveur backend, depuis le repertoire de travail
