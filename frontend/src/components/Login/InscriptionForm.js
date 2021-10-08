@@ -28,10 +28,10 @@ const InscriptionForm = () => {
         })
         .catch((error) => {
           console.log(error);
-          msgError.innerText = "Erreur ! saisie incorrecte";
+          msgError.innerText = "Erreur, saisie incorrecte...";
         });
     } else {
-      msgError.textContent = "Attention, mot de passe incorrect !";
+      msgError.textContent = "Attention, mot de passe incorrect...";
     }
   };
 
@@ -43,6 +43,8 @@ const InscriptionForm = () => {
           type="text"
           name="pseudo"
           id="pseudo"
+          minLength="4"
+          maxLength="15"
           onChange={(e) => setPseudo(e.target.value)}
           value={pseudo}
           className="input"
@@ -52,6 +54,8 @@ const InscriptionForm = () => {
           type="email"
           name="email"
           id="email"
+          minLength="4"
+          maxLength="25"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
           className="input"
@@ -61,6 +65,8 @@ const InscriptionForm = () => {
           type="password"
           name="password"
           id="password"
+          minLength="5"
+          maxLength="12"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           className="input"
@@ -70,6 +76,8 @@ const InscriptionForm = () => {
           type="password"
           name="confirmPassword"
           id="confirmPassword"
+          minLength="5"
+          maxLength="12"
           className="input"
         />
         <div id="inscriptError"></div>

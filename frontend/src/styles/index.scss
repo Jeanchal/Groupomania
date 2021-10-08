@@ -169,6 +169,7 @@
       .infos-container {
         background-color: $color-3;
         border-radius: 15px;
+        @include boxShadow;
         width: 90%;
         margin: 20px 0 10px 0;
         h3 {
@@ -239,10 +240,6 @@
             cursor: default;
             background-color: rgb(243, 241, 241);
             border-radius: 10px;
-            border: none;
-            &:focus {
-              outline: none;
-            }
           }
           textarea {
             resize: none;
@@ -393,6 +390,19 @@
           border-radius: 10px;
           .comment-pseudo {
             font-weight: bold;
+          }
+          .modifComment {
+            input {
+              background-color: $color-3;
+              padding: 10px;
+              border-radius: 10px;
+              margin-right: 10px;
+            }
+            button {
+              @include btn;
+              background-color: $color-2;
+              padding: 10px 20px 10px 20px;
+            }
           }
           .commentaire {
             overflow: hidden;

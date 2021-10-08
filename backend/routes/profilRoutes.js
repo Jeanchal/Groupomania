@@ -10,7 +10,4 @@ router.put("/:uid", auth, profilController.modifyProfil);
 router.get("/", auth, profilController.getAllProfils);
 router.get("/:uid", auth, profilController.getOneProfil);
 
-// router.post("/", profilController.postProfil);
-// router.delete("/:uid", profilController.deleteProfil);
-
 module.exports = router;

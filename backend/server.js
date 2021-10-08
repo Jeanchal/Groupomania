@@ -1,7 +1,8 @@
 const http = require("http");
 const App = require("./app");
 const db = require("./config/db");
-const port = 4000;
+require("dotenv").config({ path: "./config/.env" });
+const port = process.env.PORT;
 const appExpress = new App(port, db).app;
 const server = http.createServer(appExpress);
 
@@ -12,7 +13,3 @@ model.sequelize.sync().then((req) => {
     console.log("Listening on port " + port);
   });
 });
-
-// server.listen(port, () => {
-//   console.log("Listening on port " + port);
-// });

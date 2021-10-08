@@ -1,8 +1,14 @@
+require("dotenv").config({ path: "./config/.env" });
 const { Sequelize } = require("sequelize");
-const sequelize = new Sequelize("Groupomania", "jeanchal", "Edenpark@1987", {
-  host: "localhost",
-  dialect: "mysql",
-});
+const sequelize = new Sequelize(
+  process.env.DATABASE,
+  process.env.USER,
+  process.env.PASSWORD,
+  {
+    host: process.env.HOST,
+    dialect: "mysql",
+  }
+);
 
 try {
   sequelize.authenticate();

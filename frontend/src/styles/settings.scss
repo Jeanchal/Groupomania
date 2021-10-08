@@ -9,22 +9,27 @@
   border: none;
   border-radius: 10px;
 }
+@mixin boxShadow {
+  box-shadow: 0 1px 2px rgb(107, 103, 103);
+}
+@mixin transition {
+  transition: 0.3s ease-in-out;
+}
 @mixin btn {
   @include input;
+  @include boxShadow;
+  @include transition;
   color: white;
   font-weight: bold;
   cursor: pointer;
-}
-@mixin boxShadow {
-  box-shadow: 0 1px 2px rgb(107, 103, 103);
+  &:hover {
+    opacity: 0.8;
+  }
 }
 @mixin box {
   background-color: white;
   border-radius: 20px;
   @include boxShadow;
-}
-@mixin transition {
-  transition: 0.3s ease-in-out;
 }
 
 $color-1: rgb(72, 72, 83);
@@ -51,6 +56,13 @@ body {
     color: black;
     text-decoration: none;
   }
+  input,
+  textarea {
+    border: none;
+    &:focus {
+      outline: none;
+    }
+  }
   .responsive {
     width: $minWidth;
     @media (min-width: $minwidth3) {
@@ -63,7 +75,7 @@ body {
   }
   .imageSelect {
     position: relative;
-    bottom: 15px;
+    bottom: 10px;
     right: 20px;
     .fa-image {
       font-size: 270%;
@@ -83,6 +95,6 @@ body {
   .mdp-Error {
     color: red;
     font-style: oblique;
-    font-size: 75%;
+    font-size: 80%;
   }
 }

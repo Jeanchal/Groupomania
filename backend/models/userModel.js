@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: true,
+        min: 4,
+        max: 15,
       },
     },
     email: {
@@ -21,6 +23,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: true,
+        min: 4,
+        max: 25,
       },
     },
     password: {
@@ -28,6 +32,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: true,
+        min: 5,
+        max: 12,
       },
     },
   });

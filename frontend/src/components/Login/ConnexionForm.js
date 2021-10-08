@@ -25,7 +25,7 @@ const ConnexionForm = () => {
       })
       .catch((error) => {
         console.log(error);
-        msgError.innerText = "Erreur ! email ou mot de passe incorrects";
+        msgError.innerText = "Erreur, identifiants incorrects...";
       });
   };
 

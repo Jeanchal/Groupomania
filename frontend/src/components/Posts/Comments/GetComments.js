@@ -60,7 +60,7 @@ const GetComments = ({ comment, post, setNbComment }) => {
           <div className="comment-pseudo">{comment.pseudo}</div>
           <div>
             {commentModif ? (
-              <div>
+              <div className="modifComment">
                 <input
                   type="text"
                   onChange={(e) => setTextModif(e.target.value)}
