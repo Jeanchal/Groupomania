@@ -81,9 +81,7 @@ const PostFooter = ({
             title="commenter"
             onClick={commentaires}
           ></i>
-          <div className="post-number">
-            {post.nb_commentaires > 0 ? nbComment : null}
-          </div>
+          <div className="post-number">{nbComment > 0 ? nbComment : null}</div>
         </div>
         <div className="post-like">
           <div className={like ? "like-effect" : null}>

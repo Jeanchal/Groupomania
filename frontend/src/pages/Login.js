@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Logo from "../components/Logo";
 import InscriptionForm from "../components/Login/InscriptionForm";
 import ConnexionForm from "../components/Login/ConnexionForm";
@@ -6,6 +6,10 @@ import ConnexionForm from "../components/Login/ConnexionForm";
 const Login = () => {
   const [inscriptionModel, setInscriptionModel] = useState(false);
   const [connexionModel, setConnexionModel] = useState(true);
+
+  useEffect(() => {
+    sessionStorage.clear();
+  }, []);
 
   const GestionModels = (e) => {
     if (e.target.id === "signup") {

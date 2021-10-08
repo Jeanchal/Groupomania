@@ -42,6 +42,9 @@ body {
   margin: 0;
   background: linear-gradient(0.25turn, #cbdeee, #f8f6e1, #cbdeee);
   font-family: "Ubuntu", sans-serif;
+  @media (max-width: 280px) {
+    background: linear-gradient(#cbdeee, #f8f6e1);
+  }
   a,
   a:visited,
   a:active {

@@ -100,7 +100,7 @@ exports.likePost = async (req, res) => {
   let message;
   let msgError;
 
-  const user = await User.findOne({ uid: req.body.uid });
+  const user = await User.findOne({ where: { uid: req.body.uid } });
   const post = await Post.findOne(where);
   const postLikes = JSON.parse(post.users_liked);
 

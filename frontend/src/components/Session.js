@@ -4,7 +4,9 @@ const pseudo = sessionStorage.getItem("pseudo");
 const Session = () => {
   return (
     <footer>
-      <div className="session">{pseudo}</div>
+      <div className="session">
+        <div>{pseudo}</div>
+      </div>
     </footer>
   );
 };
