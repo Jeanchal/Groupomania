@@ -12,7 +12,7 @@ const config = {
   },
 };
 
-const UploadImg = ({ activModifProfil }) => {
+const UploadImg = () => {
   const [file, setFile] = useState(null);
   const [data, setData] = useState([]);
 
@@ -45,17 +45,16 @@ const UploadImg = ({ activModifProfil }) => {
     <div id="img-container">
       <figure>
         <img
-          src={url.imageProfil + data.photo_profil}
+          src={
+            data.photo_profil === undefined
+              ? url.imageProfil + "profil.jpg"
+              : url.imageProfil + data.photo_profil
+          }
           id="imgProfil"
           alt="img-profil"
         />
       </figure>
-      <form
-        action=""
-        id={activModifProfil ? null : "formImg"}
-        onSubmit={gestionImage}
-        className="uploadImg"
-      >
+      <form action="" onSubmit={gestionImage} className="uploadImg">
         <div className="imageSelect">
           <i className="fas fa-image" title="ajouter une image"></i>
           <input

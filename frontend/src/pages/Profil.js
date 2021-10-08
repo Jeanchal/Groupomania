@@ -11,10 +11,12 @@ const Profil = () => {
         <Logo />
         <Navigation />
       </header>
-      <Session />
       <main>
         <ProfilContainer />
       </main>
+      <br />
+      <br />
+      <Session />
     </div>
   );
 };

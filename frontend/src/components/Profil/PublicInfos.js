@@ -3,13 +3,14 @@ import axios from "axios";
 import url from "../../general/url";
 const uid = sessionStorage.getItem("uid");
 const token = sessionStorage.getItem("token");
+const pseudo = sessionStorage.getItem("pseudo");
 const config = {
   headers: {
     Authorization: `Bearer ${token}`,
   },
 };
 
-const PublicInfos = ({ activModifProfil, user }) => {
+const PublicInfos = () => {
   const [data, setData] = useState([]);
   const [fonction, setFonction] = useState("...");
   const [bio, setBio] = useState("...");
@@ -50,16 +51,15 @@ const PublicInfos = ({ activModifProfil, user }) => {
           <input
             type="text"
             name="pseudo"
-            id={activModifProfil ? "pseudo" : null}
+            id="pseudo"
             disabled="disabled"
-            value={user.pseudo}
+            defaultValue={pseudo}
           />
           <label htmlFor="fonction">Poste Actuel</label>
           <input
             type="text"
             name="fonction"
             id="fonction"
-            disabled={activModifProfil ? null : "disabled"}
             onChange={(e) => setFonction(e.target.value)}
             defaultValue={data.fonction}
           />
@@ -68,15 +68,11 @@ const PublicInfos = ({ activModifProfil, user }) => {
             type="text"
             name="bio"
             id="bio"
-            disabled={activModifProfil ? null : "disabled"}
             onChange={(e) => setBio(e.target.value)}
             defaultValue={data.bio}
           ></textarea>
         </div>
-        <div
-          id={activModifProfil ? null : "buttonModif"}
-          className="submit-infos"
-        >
+        <div className="submit-infos">
           <input type="submit" value="Modifier" />
         </div>
       </form>

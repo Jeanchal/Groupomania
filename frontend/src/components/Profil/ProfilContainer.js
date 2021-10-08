@@ -17,7 +17,6 @@ const config = {
 
 const ProfilContainer = () => {
   const [user, setUser] = useState([]);
-  const [activModifProfil, setActivModifProfil] = useState(true);
 
   useEffect(() => {
     axios
@@ -29,23 +28,10 @@ const ProfilContainer = () => {
   return (
     <div className="profil-container">
       <h1>{pseudo}</h1>
-      <UploadImg activModifProfil={activModifProfil} />
-      <PublicInfos activModifProfil={activModifProfil} user={user} />
-      <div
-        id={activModifProfil ? null : "perso-infos-user"}
-        className="infos-container"
-      >
-        <h3>Informations Personelles</h3>
-        <PersoInfos user={user} setUser={setUser} />
-      </div>
-      <div
-        id={activModifProfil ? null : "supp-user-container"}
-        className="infos-container"
-      >
-        <h3>Supprimer le compte</h3>
-        <SupprProfil />
-        <div id="inscriptError"></div>
-      </div>
+      <UploadImg />
+      <PublicInfos />
+      <PersoInfos user={user} setUser={setUser} />
+      <SupprProfil />
     </div>
   );
 };

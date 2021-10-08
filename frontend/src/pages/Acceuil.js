@@ -10,10 +10,11 @@ const Acceuil = () => {
         <Logo />
         <Navigation />
       </header>
-      <Session />
       <main>
         <PostContainer />
       </main>
+      <br />
+      <Session />
     </div>
   );
 };

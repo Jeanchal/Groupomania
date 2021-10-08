@@ -31,7 +31,7 @@ $color-1: rgb(72, 72, 83);
 $color-2: rgb(228, 92, 74);
 $color-3: rgb(229, 230, 232);
 $color-4: rgb(245, 204, 204);
-$color-5: rgb(237, 240, 245);
+$color-5: rgb(197, 211, 235);
 $color-6: rgb(82, 204, 44);
 $minWidth: 250px;
 $minWidth2: 350px;
@@ -40,7 +40,7 @@ $minwidth3: 450px;
 body {
   min-width: 300px;
   margin: 0;
-  background-color: $color-5;
+  background: linear-gradient(0.25turn, #cbdeee, #f8f6e1, #cbdeee);
   font-family: "Ubuntu", sans-serif;
   a,
   a:visited,
@@ -58,12 +58,6 @@ body {
   .opacImage {
     opacity: 0.3;
   }
-  #supp-user-container,
-  #perso-infos-user,
-  #buttonModif,
-  #formImg {
-    display: none !important;
-  }
   .imageSelect {
     position: relative;
     bottom: 15px;
@@ -80,5 +74,12 @@ body {
       height: 30px;
       transform: translate(-50%, 0);
     }
+  }
+  #inscriptError,
+  #connectError,
+  .mdp-Error {
+    color: red;
+    font-style: oblique;
+    font-size: 75%;
   }
 }

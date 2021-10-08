@@ -2,6 +2,9 @@
 
 .page {
   header {
+    z-index: 3;
+    position: fixed;
+    width: 100%;
     border-bottom: 3px ridge rgb(209, 208, 208);
     padding-top: 5px;
     background-color: white;
@@ -51,21 +54,25 @@
     }
   }
   .session {
-    margin-bottom: 50px;
-    padding: 5px 30px 5px 20px;
+    background-color: white;
+    z-index: 4;
+    position: fixed;
+    padding: 10px 30px 10px 30px;
+    bottom: 1px;
+    width: 100%;
     color: $color-2;
     font-weight: bold;
     font-style: italic;
-    text-align: end;
   }
   main {
+    z-index: 2;
     margin-bottom: 30px;
     @include flexCenter;
     .login-container {
+      margin-top: 100px;
       @include flexCenter;
       @include box;
       padding: 10px 20px 40px 20px;
-      margin-top: 50px;
       .form {
         display: grid;
         width: $minWidth;
@@ -93,11 +100,6 @@
           @include btn;
           @include boxShadow;
         }
-        #inscriptError,
-        #connectError {
-          color: red;
-          font-style: oblique;
-        }
       }
       .selectLog {
         width: 100%;
@@ -118,14 +120,9 @@
       }
     }
     .profil-container {
-      @include box;
       @include flexCenter;
+      @include box;
       padding: 0 0 40px 15px;
-      width: 90%;
-      @media (min-width: 850px) {
-        width: 50%;
-        @include transition;
-      }
       #img-container {
         @include flexCenter;
         figure {
@@ -173,11 +170,51 @@
           padding-left: 20px;
           margin-bottom: 10px;
         }
+        .profilGrid {
+          grid-template-columns: 2.5fr 5fr;
+          label {
+            font-size: 90%;
+          }
+          #pseudo {
+            background-color: rgb(218, 218, 218);
+            font-weight: bold;
+            font-size: 100%;
+          }
+        }
+        .supp-container {
+          grid-template-columns: 5fr 2fr;
+          #mdp-supprProfil {
+            height: 30px;
+          }
+          div {
+            margin-left: 10px;
+          }
+          #inscriptError {
+            padding-left: 10px;
+          }
+        }
+        .submit-infos {
+          display: flex;
+          justify-content: flex-end;
+          input {
+            @include btn;
+            margin: 10px 20px 20px 0;
+            padding: 10px 20px 10px 20px;
+            cursor: pointer !important;
+            background-color: $color-2 !important;
+          }
+        }
+        .mdp-Error {
+          text-align: end;
+          padding-right: 30px;
+          position: relative;
+          bottom: 10px;
+        }
         .profilGrid,
         .supp-container {
           padding: 15px;
           display: grid;
-          @media (max-width: 925px) {
+          @media (max-width: 975px) {
             display: flex;
             flex-direction: column;
             label,
@@ -208,46 +245,9 @@
             height: 60px;
           }
         }
-        .profilGrid {
-          grid-template-columns: 2.5fr 5fr;
-          label {
-            font-size: 90%;
-          }
-          #pseudo {
-            background-color: rgb(218, 218, 218);
-            font-weight: bold;
-            font-size: 100%;
-          }
-        }
-        .supp-container {
-          grid-template-columns: 5fr 2fr;
-          #mdp-supprProfil {
-            height: 30px;
-          }
-          div {
-            position: relative;
-            top: 5px;
-            margin: 0 0 0 10px;
-          }
-        }
-        .submit-infos {
-          display: flex;
-          justify-content: end;
-          input {
-            @include btn;
-            margin: 10px 20px 20px 0;
-            padding: 10px 20px 10px 20px;
-            cursor: pointer;
-            background-color: $color-2;
-          }
-        }
       }
     }
     .acceuil-container {
-      width: 85%;
-      @media (min-width: 850px) {
-        width: 60%;
-      }
       i {
         cursor: pointer;
         opacity: 0.9;
@@ -411,6 +411,20 @@
             }
           }
         }
+      }
+    }
+    .profil-container,
+    .acceuil-container {
+      margin-top: 150px;
+      width: 90%;
+      @media (min-width: 785px) {
+        margin-top: 100px;
+        width: 70%;
+        @include transition;
+      }
+      @media (min-width: 1200px) {
+        width: 50%;
+        @include transition;
       }
     }
   }

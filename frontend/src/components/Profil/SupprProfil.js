@@ -26,26 +26,31 @@ const SupprProfil = () => {
         })
         .catch(() => {
           const msgError = document.getElementById("inscriptError");
-          msgError.innerText = "Erreur, mot de passe incorrect !";
+          msgError.innerText = "Erreur, mot de passe incorrect...";
         });
     }
   }
 
   return (
-    <form action="" onSubmit={deleteUser}>
-      <div className="supp-container">
-        <input
-          type="password"
-          name="mdp-supprProfil"
-          id="mdp-supprProfil"
-          placeholder="Entrer votre mot de passe... "
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <div className="submit-infos">
-          <input type="submit" value="Supprimer le compte" />
+    <div className="infos-container">
+      <h3>Supprimer le compte</h3>
+      <form action="" onSubmit={deleteUser}>
+        <div className="supp-container">
+          <input
+            type="password"
+            name="mdp-supprProfil"
+            id="mdp-supprProfil"
+            placeholder="Entrer votre mot de passe... "
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <div className="submit-infos">
+            <br />
+            <input type="submit" value="Supprimer le compte" />
+          </div>
+          <div id="inscriptError"></div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 
