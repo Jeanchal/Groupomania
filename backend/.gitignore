@@ -1,7 +1,6 @@
 /node_modules
 /tests
 /config/.env
-/config/config.json
 /images/posts/*
 /images/profil/*
 !/images/posts/default.jpg

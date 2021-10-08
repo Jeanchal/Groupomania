@@ -3,7 +3,6 @@ README
 */Pour faire fonctionner l'application
 ---------------------------------------
 - Créer une base de données Mysql, nommée "groupomania", ajouter un utilisateur nommé "test" et un mot de passe nommé "test" également.
-- Dans le dossier backend/config, renommer le fichier "test-config.json" en "config.json".
 - Dans le dossier backend/config, rennomer le fichier ".env-dist" en ".env.
 
 */Dans le fichier .env
