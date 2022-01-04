@@ -2,7 +2,7 @@
 
 ### Prérequis
 
-Vous devez créer une base de donnés MySQL nommée "databasetest", en local. Pour cette démonstration, la connexion à la base de données se fera sans mot de passe, avec l'utilsateur "root".
+Vous devez créer une base de donnés MySQL nommée "databasetest", en local. Pour cette démonstration, la connexion à la base de données se fera sans mot de passe, avec l'utilisateur "root".
 
 Vous aurez besoin d'avoir "node.js" et "npm" installés localement sur votre machine.
 
