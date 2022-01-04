@@ -1,5 +1,4 @@
 const express = require("express");
-require("./config/db");
 const path = require("path");
 const userRoutes = require("./routes/userRoutes");
 const profilRoutes = require("./routes/profilRoutes");
