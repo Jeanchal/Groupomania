@@ -310,10 +310,19 @@ html {
           }
         }
         .post-head-container {
-          .post-pseudo {
-            font-size: 130%;
-            font-weight: bold;
-            margin: 10px 0 10px 0;
+          .pseudo-container {
+            display: flex;
+            .post-pseudo {
+              font-size: 130%;
+              font-weight: bold;
+              margin: 10px 0 10px 0;
+            }
+            a div {
+              color: grey;
+              color: grey;
+              font-size: 80%;
+              margin: 17px;
+            }
           }
           p {
             font-style: italic;

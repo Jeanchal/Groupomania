@@ -76,20 +76,13 @@ const PostGet = ({ post, file, setFile, setData }) => {
       <div id="getPost-container">
         <div className="post-container">
           <div className="post-head-container">
-            <div className="post-pseudo-cotainer">
+            <div className="pseudo-container">
               <h3 className="post-pseudo">{post.pseudo}</h3>
-              <Link to="profil">voir profil</Link>
+              <Link to="profil">
+                <div>(voir profil)</div>
+              </Link>
             </div>
             <p>posté le {dateParser(post.date)}</p>
-          </div>
-          <div className={activModifPost ? "opacImage" : null}>
-            {post.image === "" ? null : (
-              <img
-                src={url.imagePost + post.image}
-                alt="publication"
-                id="post-image"
-              />
-            )}
           </div>
           <div>
             {activModifPost ? (
@@ -123,6 +116,15 @@ const PostGet = ({ post, file, setFile, setData }) => {
               </form>
             ) : (
               <div className="publication">{textModif}</div>
+            )}
+          </div>
+          <div className={activModifPost ? "opacImage" : null}>
+            {post.image === "" ? null : (
+              <img
+                src={url.imagePost + post.image}
+                alt="publication"
+                id="post-image"
+              />
             )}
           </div>
           <PostFooter
