@@ -1,5 +1,8 @@
 @import "./settings";
 
+html {
+  scroll-behavior: smooth;
+}
 .page {
   header {
     z-index: 3;
@@ -443,4 +446,14 @@
       }
     }
   }
+}
+#btnRemonter {
+  z-index: 5;
+  cursor: pointer;
+  position: fixed;
+  bottom: 50px;
+  right: 40px;
+  font-size: 320%;
+  @include flexCenter;
+  color: rgba(105, 105, 105, 0.8);
 }

@@ -1,4 +1,5 @@
 import Authentification from "../components/Authentification";
+import BtnRemonter from "../components/BtnRemonter";
 import Logo from "../components/Logo";
 import Navigation from "../components/Navigation";
 import PostContainer from "../components/Posts/PostContainer";
@@ -15,6 +16,7 @@ const Acceuil = () => {
         <PostContainer />
       </main>
       <br />
+      <BtnRemonter />
       <Authentification />
       <Session />
     </div>
