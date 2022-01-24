@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import url from "../../general/url";
 import dateParser from "../../general/dateParser";
@@ -75,7 +76,10 @@ const PostGet = ({ post, file, setFile, setData }) => {
       <div id="getPost-container">
         <div className="post-container">
           <div className="post-head-container">
-            <h3 className="post-pseudo">{post.pseudo}</h3>
+            <div className="post-pseudo-cotainer">
+              <h3 className="post-pseudo">{post.pseudo}</h3>
+              <Link to="profil">voir profil</Link>
+            </div>
             <p>posté le {dateParser(post.date)}</p>
           </div>
           <div className={activModifPost ? "opacImage" : null}>
