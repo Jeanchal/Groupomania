@@ -77,10 +77,13 @@ const PostGet = ({ post, file, setFile, setData }) => {
         <div className="post-container">
           <div className="post-head-container">
             <div className="pseudo-container">
+              <figure id="post-photo-profil">
+                <img
+                  src={url.imageProfil + post.pseudo + ".jpg"}
+                  alt="profil"
+                />
+              </figure>
               <h3 className="post-pseudo">{post.pseudo}</h3>
-              <Link to="profil">
-                <div>(voir profil)</div>
-              </Link>
             </div>
             <p>posté le {dateParser(post.date)}</p>
           </div>

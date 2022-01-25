@@ -38,35 +38,3 @@ exports.getOneProfil = (req, res) => {
     .then((profil) => res.status(201).json({ profil }))
     .catch((error) => res.status(400).json({ error }));
 };
-
-// //
-
-// exports.postProfil = (req, res) => {
-//   Profil.create({
-//     uid: req.body.uid,
-//     bio: req.body.bio,
-//     fonction: req.body.fonction,
-//     photo_profil: req.body.photo_profil,
-//   })
-//     .then(() => res.status(201).json({ message: "Profil créé !" }))
-//     .catch((error) => res.status(400).json({ error }));
-// };
-
-// exports.deleteProfil = async (req, res) => {
-//   const where = { where: { uid: req.params.uid } };
-//   try {
-//     if (req.body.photo_profil === "profil.jpg") {
-//       await Profil.destroy(where);
-//       res.status(201).json({ message: "Profil supprimé !" });
-//     } else {
-//       const profil = await Profil.findOne(where);
-//       fs.unlink(`images/profil/${profil.photo_profil}`, () =>
-//         console.log(profil.photo_profil + "supprimé !")
-//       );
-//       await Profil.destroy(where);
-//       res.status(201).json({ message: "Profil et image supprimés !" });
-//     }
-//   } catch (error) {
-//     res.status(400).json({ error });
-//   }
-// };
