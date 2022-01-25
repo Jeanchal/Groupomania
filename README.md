@@ -14,8 +14,8 @@ Vous aurez besoin d'avoir "node.js" et "npm" installés localement sur votre mac
 
 ### lancement du serveur backend
 
-À partir du dossier backend, exécutez la commande "npm install" puis "npm start". Si la connexion à la base de données a réussie, le message suivant appaitra dans la console du terminal : "Connexion database réussie...".
+depuis le dossier racine, exécutez les commandes "npm run install-backend" puis "npm start". Si la connexion à la base de données a réussie, le message suivant appaitra dans la console du terminal : "Connexion database réussie...".
 
 ### lancement de l'application frontend
 
-À partir du dossier frontend, exécutez la commande "npm install" puis "npm start
+depuis le dossier racine, exécutez la commande "npm install-client" puis "npm run client"

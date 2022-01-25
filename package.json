@@ -1,0 +1,23 @@
+{
+  "name": "groupomania",
+  "version": "1.0.0",
+  "description": "Groupomonia est un réseau social codé en \"react.js\" pour la partie frontend et en \"node\".js pour la partie backend.",
+  "main": "index.js",
+  "scripts": {
+    "install-backend": "cd backend && npm install",
+    "start": "cd backend && npm start",
+    "install-client": "cd frontend && npm install",
+    "client": "cd frontend && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jeanchal/Groupomania.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jeanchal/Groupomania/issues"
+  },
+  "homepage": "https://github.com/Jeanchal/Groupomania#readme"
+}
