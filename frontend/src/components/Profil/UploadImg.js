@@ -2,19 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
 
-const uid = sessionStorage.getItem("uid");
-const pseudo = sessionStorage.getItem("pseudo");
-const token = sessionStorage.getItem("token");
-const nomImage = pseudo + ".jpg";
-const config = {
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-};
-
-const UploadImg = () => {
+const UploadImg = ({ uid, auth }) => {
   const [file, setFile] = useState(null);
   const [data, setData] = useState([]);
+  const nomImage = auth.pseudo + ".jpg";
+  const config = {
+    headers: {
+      Authorization: `Bearer ${auth.token}`,
+    },
+  };
 
   useEffect(() => {
     axios
@@ -26,9 +22,8 @@ const UploadImg = () => {
   const gestionImage = (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("name", pseudo);
+    data.append("name", auth.pseudo);
     data.append("file", file);
-    console.log(data);
 
     axios
       .post(url.profilUpload, data, config)

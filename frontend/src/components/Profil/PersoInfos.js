@@ -2,18 +2,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
 
-const uid = sessionStorage.getItem("uid");
-const token = sessionStorage.getItem("token");
-const config = {
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-};
-
-const PersoInfos = ({ user, setUser }) => {
+const PersoInfos = ({ user, setUser, auth, uid }) => {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [email, setEmail] = useState(user.email);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${auth.token}`,
+    },
+  };
 
   function savePersoInfos(e) {
     e.preventDefault();

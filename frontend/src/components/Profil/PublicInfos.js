@@ -1,26 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
-const uid = sessionStorage.getItem("uid");
-const token = sessionStorage.getItem("token");
-const pseudo = sessionStorage.getItem("pseudo");
-const config = {
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-};
 
-const PublicInfos = () => {
-  const [data, setData] = useState([]);
+const PublicInfos = ({ uid, profil, setProfil, user, auth }) => {
   const [fonction, setFonction] = useState("...");
   const [bio, setBio] = useState("...");
-
-  useEffect(() => {
-    axios
-      .get(url.profil + "/" + uid, config)
-      .then((res) => setData(res.data.profil))
-      .catch((error) => console.log(error));
-  }, []);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${auth.token}`,
+    },
+  };
 
   function savePublicInfos(e) {
     e.preventDefault();
@@ -35,7 +24,7 @@ const PublicInfos = () => {
       axios
         .put(url.profil + "/" + uid, objet, config)
         .then((res) => {
-          setData(res.data.profil[0]);
+          setProfil(res.data.profil[0]);
           console.log(res.data.profil);
         })
         .catch((error) => console.log(error));
@@ -53,7 +42,7 @@ const PublicInfos = () => {
             name="pseudo"
             id="pseudo"
             disabled="disabled"
-            defaultValue={pseudo}
+            defaultValue={user.pseudo}
           />
           <label htmlFor="fonction">Poste Actuel</label>
           <input
@@ -61,7 +50,7 @@ const PublicInfos = () => {
             name="fonction"
             id="fonction"
             onChange={(e) => setFonction(e.target.value)}
-            defaultValue={data.fonction}
+            defaultValue={profil.fonction}
           />
           <label htmlFor="bio">Bio</label>
           <textarea
@@ -69,7 +58,7 @@ const PublicInfos = () => {
             name="bio"
             id="bio"
             onChange={(e) => setBio(e.target.value)}
-            defaultValue={data.bio}
+            defaultValue={profil.bio}
           ></textarea>
         </div>
         <div className="submit-infos">
