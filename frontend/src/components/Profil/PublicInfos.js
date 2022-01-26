@@ -38,6 +38,7 @@ const PublicInfos = ({ uid, profil, setProfil, user, auth }) => {
         <div className="profilGrid">
           <label htmlFor="pseudo">Pseudo</label>
           <input
+            disabled={auth.uid === uid ? null : "disabled"}
             type="text"
             name="pseudo"
             id="pseudo"
@@ -46,6 +47,7 @@ const PublicInfos = ({ uid, profil, setProfil, user, auth }) => {
           />
           <label htmlFor="fonction">Poste Actuel</label>
           <input
+            disabled={auth.uid === uid ? null : "disabled"}
             type="text"
             name="fonction"
             id="fonction"
@@ -54,6 +56,7 @@ const PublicInfos = ({ uid, profil, setProfil, user, auth }) => {
           />
           <label htmlFor="bio">Bio</label>
           <textarea
+            disabled={auth.uid === uid ? null : "disabled"}
             type="text"
             name="bio"
             id="bio"
@@ -61,9 +64,11 @@ const PublicInfos = ({ uid, profil, setProfil, user, auth }) => {
             defaultValue={profil.bio}
           ></textarea>
         </div>
-        <div className="submit-infos">
-          <input type="submit" value="Modifier" />
-        </div>
+        {auth.uid === uid ? (
+          <div className="submit-infos">
+            <input type="submit" value="Modifier" />
+          </div>
+        ) : null}
       </form>
     </div>
   );

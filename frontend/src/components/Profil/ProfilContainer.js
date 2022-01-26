@@ -12,7 +12,7 @@ const ProfilContainer = () => {
     pseudo: window.sessionStorage.pseudo,
     token: window.sessionStorage.token,
   });
-  const [uid] = useState("50e033e0-6d73-11ec-a302-e36e260155a8");
+  const [uid] = useState("69ff7650-79f9-11ec-be24-8d965e725f7c");
   const [user, setUser] = useState([]);
   const [profil, setProfil] = useState([]);
 
@@ -37,7 +37,7 @@ const ProfilContainer = () => {
   return (
     <div className="profil-container">
       <h1>{user.pseudo}</h1>
-      <UploadImg uid={uid} auth={auth} />
+      <UploadImg uid={uid} auth={auth} profil={profil} />
       <PublicInfos
         uid={uid}
         profil={profil}
@@ -45,8 +45,10 @@ const ProfilContainer = () => {
         user={user}
         auth={auth}
       />
-      <PersoInfos uid={uid} user={user} setUser={setUser} auth={auth} />
-      <SupprProfil />
+      {auth.uid === uid ? (
+        <PersoInfos uid={uid} user={user} setUser={setUser} auth={auth} />
+      ) : null}
+      {auth.uid === uid ? <SupprProfil /> : null}
     </div>
   );
 };
