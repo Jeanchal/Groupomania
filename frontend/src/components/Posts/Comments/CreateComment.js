@@ -3,18 +3,14 @@ import axios from "axios";
 import url from "../../../general/url";
 import GetComments from "./GetComments";
 
-const uid = sessionStorage.getItem("uid");
-const pseudo = sessionStorage.getItem("pseudo");
-const token = sessionStorage.getItem("token");
-const config = {
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-};
-
-const CreateComment = ({ post, setNbComment }) => {
+const CreateComment = ({ post, setNbComment, auth }) => {
   const [data, setData] = useState([]);
   const [comment, setComment] = useState("");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${auth.token}`,
+    },
+  };
 
   function getData() {
     axios
@@ -31,8 +27,8 @@ const CreateComment = ({ post, setNbComment }) => {
     e.preventDefault();
 
     let objet = {
-      uid: uid,
-      pseudo: pseudo,
+      uid: auth.uid,
+      pseudo: auth.pseudo,
       commentaire: comment,
       date: Date.now(),
     };
@@ -57,6 +53,7 @@ const CreateComment = ({ post, setNbComment }) => {
           .sort((a, b) => b.date - a.date)
           .map((comment) => (
             <GetComments
+              auth={auth}
               comment={comment}
               post={post}
               setNbComment={setNbComment}

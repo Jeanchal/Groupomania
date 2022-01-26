@@ -10,7 +10,7 @@ function App() {
       <Switch>
         <Route path="/" exact component={Login} />
         <Route path="/acceuil" exact component={Acceuil} />
-        <Route path="/profil" exact component={Profil} />
+        <Route path="/profil=:id" exact component={Profil} />
         <Redirect to="/acceuil" />
       </Switch>
     </Router>

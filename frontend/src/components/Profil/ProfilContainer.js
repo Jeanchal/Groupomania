@@ -12,7 +12,8 @@ const ProfilContainer = () => {
     pseudo: window.sessionStorage.pseudo,
     token: window.sessionStorage.token,
   });
-  const [uid] = useState("69ff7650-79f9-11ec-be24-8d965e725f7c");
+  const pathName = window.location.pathname.replace("/profil=", "");
+  const [uid] = useState(pathName);
   const [user, setUser] = useState([]);
   const [profil, setProfil] = useState([]);
 

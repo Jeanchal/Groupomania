@@ -2,23 +2,21 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import url from "../../../general/url";
 import dateParser from "../../../general/dateParser";
-const uid = sessionStorage.getItem("uid");
-const token = sessionStorage.getItem("token");
-const config = {
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-};
 
-const GetComments = ({ comment, post, setNbComment }) => {
+const GetComments = ({ comment, post, setNbComment, auth }) => {
   const urlComment = url.comment + "/" + comment.comment_id;
   const [commentModif, setCommentModif] = useState(false);
   const [commentSuppr, setCommentSuppr] = useState(false);
   const [textModif, setTextModif] = useState(comment.commentaire);
   const [activModif, setActivModif] = useState(true);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${auth.token}`,
+    },
+  };
 
   useEffect(() => {
-    if (comment.uid === uid) {
+    if (comment.uid === auth.uid) {
       setActivModif(false);
     }
   }, [comment.uid]);

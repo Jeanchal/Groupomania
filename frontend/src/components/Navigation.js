@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const logOut = () => {
@@ -10,12 +10,17 @@ const logOut = () => {
 };
 
 const Navigation = () => {
+  const [auth] = useState({
+    uid: window.sessionStorage.uid,
+    pseudo: window.sessionStorage.pseudo,
+    token: window.sessionStorage.token,
+  });
   return (
     <div className="navigation">
       <NavLink exact to="acceuil" activeClassName="nav-active">
         <i title="acceuil" className="fas fa-home"></i>
       </NavLink>
-      <NavLink exact to="profil" activeClassName="nav-active">
+      <NavLink exact to={"profil=" + auth.uid} activeClassName="nav-active">
         <i title="mon profil" className="fas fa-user"></i>
       </NavLink>
       <NavLink exact to="#" onClick={logOut}>

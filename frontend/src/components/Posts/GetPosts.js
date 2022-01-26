@@ -1,34 +1,31 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import url from "../../general/url";
 import dateParser from "../../general/dateParser";
 import PostFooter from "./PostFooter";
 import CreateComment from "./Comments/CreateComment";
 
-const uid = sessionStorage.getItem("uid");
-const pseudo = sessionStorage.getItem("pseudo");
-const token = sessionStorage.getItem("token");
-const date = Date.now();
-const name = pseudo + date;
-let nameImg;
-
-const PostGet = ({ post, file, setFile, setData }) => {
+const PostGet = ({ post, file, setFile, setData, auth }) => {
   const [like, setLike] = useState(false);
   const [activComment, setActivComment] = useState(true);
   const [displayPost, setDisplayPost] = useState(true);
   const [nbComment, setNbComment] = useState(post.nb_commentaires);
   const [activModifPost, setActivModifPost] = useState(false);
   const [textModif, setTextModif] = useState(post.publication);
+  const date = Date.now();
+  const name = auth.pseudo + date;
+  let nameImg;
 
   useEffect(() => {
     const tabUsersLiked = JSON.parse(post.users_liked);
-    if (tabUsersLiked.includes(uid)) setLike(true);
+    if (tabUsersLiked.includes(auth.uid)) setLike(true);
   }, [post.users_liked]);
 
   function getData() {
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     };
 
@@ -44,7 +41,7 @@ const PostGet = ({ post, file, setFile, setData }) => {
     const config = {
       headers: {
         "content-type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     };
 
@@ -77,14 +74,20 @@ const PostGet = ({ post, file, setFile, setData }) => {
           <div className="post-head-container">
             <div className="pseudo-container">
               <figure id="post-photo-profil">
-                <img
-                  src={url.imageProfil + post.pseudo + ".jpg"}
-                  alt="profil"
-                />
+                <Link to={"profil=" + post.uid}>
+                  <img
+                    src={url.imageProfil + post.pseudo + ".jpg"}
+                    alt="profil"
+                  />
+                </Link>
               </figure>
-              <h3 className="post-pseudo">{post.pseudo}</h3>
+              <div className="post-pseudo">
+                <Link to={"profil=" + post.uid}>
+                  <h3>{post.pseudo}</h3>
+                </Link>
+                <p>{dateParser(post.date)}</p>
+              </div>
             </div>
-            <p>posté le {dateParser(post.date)}</p>
           </div>
           <div>
             {activModifPost ? (
@@ -130,6 +133,7 @@ const PostGet = ({ post, file, setFile, setData }) => {
             )}
           </div>
           <PostFooter
+            auth={auth}
             post={post}
             setActivComment={setActivComment}
             activComment={activComment}
@@ -142,7 +146,11 @@ const PostGet = ({ post, file, setFile, setData }) => {
             setTextModif={setTextModif}
           />
           <div className={activComment ? "activ-img" : null}>
-            <CreateComment post={post} setNbComment={setNbComment} />
+            <CreateComment
+              auth={auth}
+              post={post}
+              setNbComment={setNbComment}
+            />
           </div>
         </div>
       </div>

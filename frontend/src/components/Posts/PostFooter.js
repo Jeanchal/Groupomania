@@ -1,15 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import url from "../../general/url";
-const uid = sessionStorage.getItem("uid");
-const token = sessionStorage.getItem("token");
-const config = {
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-};
 
 const PostFooter = ({
+  auth,
   post,
   setActivComment,
   activComment,
@@ -22,6 +16,11 @@ const PostFooter = ({
   setTextModif,
 }) => {
   const [nbLikes, setNbLikes] = useState(post.nb_likes);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${auth.token}`,
+    },
+  };
   const commentaires = () => {
     if (activComment === true) {
       setActivComment(false);
@@ -45,7 +44,7 @@ const PostFooter = ({
   const liker = () => {
     function updateLike(nb, boolean) {
       let objet = {
-        uid: uid,
+        uid: auth.uid,
         likes: nb,
       };
       axios
@@ -92,7 +91,7 @@ const PostFooter = ({
       </div>
       <div>
         <div id="post-modif">
-          {post.uid === uid ? (
+          {post.uid === auth.uid ? (
             <div>
               <i
                 className="fas fa-edit"

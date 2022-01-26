@@ -3,19 +3,20 @@ import axios from "axios";
 import url from "../../general/url";
 import GetPosts from "./GetPosts";
 
-const uid = sessionStorage.getItem("uid");
-const pseudo = sessionStorage.getItem("pseudo");
-const token = sessionStorage.getItem("token");
-
 const PostContainer = () => {
   const [data, setData] = useState([]);
   const [file, setFile] = useState(null);
   const [publication, setPublication] = useState("");
+  const [auth] = useState({
+    uid: window.sessionStorage.uid,
+    pseudo: window.sessionStorage.pseudo,
+    token: window.sessionStorage.token,
+  });
 
   function getData() {
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     };
 
@@ -36,19 +37,19 @@ const PostContainer = () => {
       alert("impossible de poster une publication vide !");
     } else {
       let nameImg;
-      let name = pseudo + Date.now();
+      let name = auth.pseudo + Date.now();
       file === null ? (nameImg = "") : (nameImg = name + ".jpg");
 
       const config = {
         headers: {
           "content-type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${auth.token}`,
         },
       };
 
       const data = new FormData();
-      data.append("uid", uid);
-      data.append("pseudo", pseudo);
+      data.append("uid", auth.uid);
+      data.append("pseudo", auth.pseudo);
       data.append("publication", publication);
       data.append("image", nameImg);
       data.append("date", Date.now());
@@ -97,6 +98,7 @@ const PostContainer = () => {
         .sort((a, b) => b.date - a.date)
         .map((post) => (
           <GetPosts
+            auth={auth}
             post={post}
             key={post.post_id}
             setFile={setFile}
